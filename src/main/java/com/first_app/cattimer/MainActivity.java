@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
 
+    private int fdd;
+
 
 
 
