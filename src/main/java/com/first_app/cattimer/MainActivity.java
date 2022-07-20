@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+    ProgressBar mProgressBar;
 
     private static final long START_TIME_IN_MILLIS = 10000; // 1500000
 
@@ -24,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
 
-    private int fddasdasdasdasdas;
+
+
 
 
 
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_restart);
+
+        mProgressBar = findViewById(R.id.progressBar);
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
+                mProgressBar.setProgress((int)millisUntilFinished);
                 updateCountDownText();
             }
 
