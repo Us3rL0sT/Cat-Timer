@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import java.util.Locale;
 
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         mButtonReset = findViewById(R.id.button_restart);
 
         progressBar = findViewById(R.id.progressBar);
+
+
+
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,18 +110,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetTimer() {
+        CurrentProgress = 100;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
-        CurrentProgress = 100;
+
     }
 
     private void updateCountDownText() {
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
         int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
 
-        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d : %02d", minutes, seconds);
 
         mTextViewCountDown.setText(timeLeftFormatted);
     }
