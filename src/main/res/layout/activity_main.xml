@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
 
@@ -26,7 +28,7 @@
         android:fontFamily="@font/graduate"
         android:gravity="center"
         android:text="00:00"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,21 +60,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.201" />
+        app:layout_constraintVertical_bias="0.156" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
-        android:layout_width="325dp"
-        android:layout_height="340dp"
-        android:indeterminate="false"
-        android:max="60"
+        android:layout_width="430dp"
+        android:layout_height="464dp"
+        android:indeterminateDuration="100"
+        android:indeterminateOnly="false"
+        android:max="100"
         android:progress="0"
-        android:progressDrawable="@drawable/circle1"
+        android:progressDrawable="@drawable/custom_progress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

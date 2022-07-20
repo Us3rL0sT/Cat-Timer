@@ -8,6 +8,7 @@
         <attr name="cpb_titleColor" format="string"/>
         <attr name="cpb_subtitle" format="string"/>
         <attr name="cpb_subtitleColor" format="string"/>
-        <attr name="cpb_strokeWidth" format="integer"/>
+        <attr name="cpb_strokeWidth" format="integer"/>\
+        xmlns:circular="http://schemas.android.com/apk/res/com.first_app.cattimer"
     </declare-styleable>
 </resources>

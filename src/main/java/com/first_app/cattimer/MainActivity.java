@@ -13,9 +13,10 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    ProgressBar mProgressBar;
+    private float CurrentProgress = 100;
+    private ProgressBar progressBar;
 
-    private static final long START_TIME_IN_MILLIS = 10000; // 1500000
+    private static final long START_TIME_IN_MILLIS = 100000; // 1500000
 
     private TextView mTextViewCountDown;
     private Button mButtonStartPause;
@@ -42,14 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
 
-        mButtonStartPause = findViewById(R.id.button_start_pause);
+        mButtonStartPause = findViewById(R.id.button_start_pause); // кнопка начала отсчета
         mButtonReset = findViewById(R.id.button_restart);
 
-        mProgressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (mTimerRunning) {
                     pauseTimer();
                 } else {
@@ -73,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
-                mProgressBar.setProgress((int)millisUntilFinished);
+                progressBar.setProgress((int)CurrentProgress); // установка значения
+                CurrentProgress -= 1; // значение прогресс бара
+                progressBar.setMax(100);
                 updateCountDownText();
             }
 
@@ -85,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 mButtonReset.setVisibility(View.VISIBLE);
             }
         }.start();
+
+
 
         mTimerRunning = true;
 //        mButtonStartPause.setText("pause");
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         updateCountDownText();
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
+        CurrentProgress = 100;
     }
 
     private void updateCountDownText() {
@@ -113,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
 
         mTextViewCountDown.setText(timeLeftFormatted);
     }
+
+
+
 }
 
 
