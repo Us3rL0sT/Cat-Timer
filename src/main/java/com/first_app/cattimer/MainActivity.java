@@ -2,15 +2,21 @@ package com.first_app.cattimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.util.Locale;
+
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageButton;
+import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private boolean mTimerRunning;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
+
+    private GifImageView cat_move;
+    private GifImageView cat_fall;
+
 
 
 
@@ -49,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
 
+        cat_move = (GifImageView) findViewById(R.id.cat_move);
+        cat_fall = (GifImageView) findViewById(R.id.cat_fall);
+        ((GifDrawable)cat_move.getDrawable()).stop();
+
+
+
+
 
 
 
@@ -57,9 +74,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
+
                 if (mTimerRunning) {
+                    ((GifDrawable)cat_move.getDrawable()).stop();
                     pauseTimer();
                 } else {
+                    cat_move.setVisibility(View.VISIBLE);
+                    ((GifDrawable)cat_move.getDrawable()).start();
                     startTimer();
                 }
             }
@@ -110,11 +131,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetTimer() {
+//        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+//        for (seconds = 1; seconds <= 5; seconds++) {
+//
+//        }
+
         CurrentProgress = 100;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
+        cat_move.setVisibility(View.INVISIBLE);
+        cat_fall.setVisibility(View.VISIBLE);
+
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
+
+
+
+
+
 
     }
 
