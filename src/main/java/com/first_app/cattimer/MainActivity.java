@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     cat_move.setVisibility(View.VISIBLE);
                     ((GifDrawable)cat_move.getDrawable()).start();
+                    CurrentProgress += 1;
                     startTimer();
                 }
             }
@@ -104,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 mTimeLeftInMillis = millisUntilFinished;
                 progressBar.setProgress((int)CurrentProgress); // установка значения
                 CurrentProgress -= 1; // значение прогресс бара
-                progressBar.setMax(100);
                 updateCountDownText();
             }
 
