@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         cat_move = (GifImageView) findViewById(R.id.cat_move);
         cat_fall = (GifImageView) findViewById(R.id.cat_fall);
-        ((GifDrawable)cat_move.getDrawable()).stop();
+        ((GifDrawable)cat_move.getDrawable()).stop(); // кот не бежит с самого начала, без нажатия на кнопку старт
 
 
 
@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                cat_move.setVisibility(View.VISIBLE);
+                cat_fall.setVisibility(View.INVISIBLE);
 
                 if (mTimerRunning) {
                     ((GifDrawable)cat_move.getDrawable()).stop();
@@ -131,10 +132,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetTimer() {
-//        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
-//        for (seconds = 1; seconds <= 5; seconds++) {
-//
-//        }
 
         CurrentProgress = 100;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
@@ -144,12 +141,23 @@ public class MainActivity extends AppCompatActivity {
 
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
+        ((GifDrawable)cat_fall.getDrawable()).reset();
+        gifTimer();
 
+    }
 
+    private void gifTimer() {
+        new CountDownTimer(1190, 1190) {
 
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
 
+            public void onFinish() {
+                ((GifDrawable)cat_fall.getDrawable()).stop();
+            }
 
-
+        }.start();
     }
 
     private void updateCountDownText() {
