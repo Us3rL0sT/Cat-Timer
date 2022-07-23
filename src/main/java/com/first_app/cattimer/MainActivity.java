@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -263,15 +264,10 @@ public class MainActivity extends AppCompatActivity {
         mCountDownTimer.cancel();
         mTimerRunning = false;
         mButtonReset.setVisibility(View.VISIBLE);
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                cat_sleep.setVisibility(View.VISIBLE);
-                cat_move.setVisibility(View.INVISIBLE);
-                current_action.setText("Пауза");
-            }
-        }, 5000);
+        cat_sleep.setVisibility(View.VISIBLE);
+        cat_move.setVisibility(View.INVISIBLE);
+        current_action.setText("Пауза");
+
     }
 
     private void pauseTimerRest() {
@@ -298,7 +294,6 @@ public class MainActivity extends AppCompatActivity {
         updateCountDownText();
         cat_move.setVisibility(View.INVISIBLE);
         cat_fall.setVisibility(View.VISIBLE);
-        cat_sleep.setVisibility(View.INVISIBLE);
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
         ((GifDrawable)cat_fall.getDrawable()).reset();
@@ -379,6 +374,23 @@ public class MainActivity extends AppCompatActivity {
         mTextViewCountDown.setText(timeRestLeftFormatted);
     }
 
+
+//    private void showRestGif() {
+//
+//        if (isRest == true) {
+//            final Handler handler = new Handler(Looper.getMainLooper());
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    cat_sleep.setVisibility(View.VISIBLE);
+//                    cat_move.setVisibility(View.INVISIBLE);
+//                    current_action.setText("Пауза");
+//                }
+//            }, 5000);
+//        } else
+//            return;
+//
+//    }
 
 
 
