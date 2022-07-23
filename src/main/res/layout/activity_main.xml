@@ -52,6 +52,22 @@
         tools:visibility="visible" />
 
     <Button
+        android:id="@+id/button_long_rest_restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/graduate"
+        android:text="Restart"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857"
+        tools:visibility="visible" />
+
+    <Button
         android:id="@+id/button_rest_restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,6 +88,19 @@
         android:layout_width="325dp"
         android:layout_height="340dp"
         android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.156" />
+
+    <Button
+        android:id="@+id/button_start_pause_longrest"
+        android:layout_width="325dp"
+        android:layout_height="340dp"
+        android:background="@android:color/transparent"
+        android:visibility="invisible"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +146,20 @@
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/cat_sleep"
+        android:layout_width="272dp"
+        android:layout_height="241dp"
+        android:layout_marginTop="84dp"
+        android:src="@drawable/cat_sleep"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:visibility="visible" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
@@ -137,8 +180,8 @@
 
     <TextView
         android:id="@+id/current_action"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
+        android:layout_width="164dp"
+        android:layout_height="36dp"
         android:fontFamily="@font/graduate"
         android:text="Работа"
         android:textAlignment="center"
