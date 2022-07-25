@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private static final long START_TIME_IN_MILLIS = 3 * 1000; // 1500 сек
-    private static final long REST_TIME_IN_MILLIS = 5 * 1000; // 300 сек
-    private static final long LONG_REST_TIME_IN_MILLIS = 10 * 1000; // 900 сек
+    private static final long REST_TIME_IN_MILLIS = 3 * 1000; // 300 сек
+    private static final long LONG_REST_TIME_IN_MILLIS = 3 * 1000; // 900 сек
 
     private TextView mTextViewCountDown;
     private TextView current_action;
@@ -512,103 +512,98 @@ public class MainActivity extends AppCompatActivity {
     private void updateCountDownText() {
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
         int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
-//        done = 7;
-//        if (minutes == 0 && seconds == 0)
-//            done += 1;
-//
-//        if (done == 1) {
-//            stick.setVisibility(View.INVISIBLE);
-//            stick_do.setVisibility(View.VISIBLE);
-//
-//        }
-//        if (done == 2){
-//            stick1.setVisibility(View.INVISIBLE);
-//            stick_do1.setVisibility(View.VISIBLE);
-//        }
-//
-//
-//        if (done == 3) {
-//            stick2.setVisibility(View.INVISIBLE);
-//            stick_do2.setVisibility(View.VISIBLE);
-//        }
-//
-//
-//        if (done == 4) {
-//            stick3.setVisibility(View.INVISIBLE);
-//            stick_do3.setVisibility(View.VISIBLE);
-//        }
-//
-//
-//        if (done == 5) {
-//            stick4.setVisibility(View.INVISIBLE);
-//            stick_do4.setVisibility(View.VISIBLE);
-//        }
-//
-//
-//       if (done == 6) {
-//           stick5.setVisibility(View.INVISIBLE);
-//           stick_do5.setVisibility(View.VISIBLE);
-//       }
-//
-//
-//        if (done == 7) {
-//            stick6.setVisibility(View.INVISIBLE);
-//            stick_do6.setVisibility(View.VISIBLE);
-//        }
-//
-//
-//        if (done == 8) {
-//            stick7.setVisibility(View.INVISIBLE);
-//            stick_do7.setVisibility(View.VISIBLE);
-//            pauseTimer();
-//            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//            seconds = 3;
-//            done = 0;
-//
-//            builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
-//            builder.setTitle("Конец");
-//            builder.setCancelable(false);
-//            builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    done = 0;
-//                    stick.setVisibility(View.VISIBLE);
-//                    stick_do.setVisibility(View.INVISIBLE);
-//                    stick1.setVisibility(View.VISIBLE);
-//                    stick_do1.setVisibility(View.INVISIBLE);
-//                    stick2.setVisibility(View.VISIBLE);
-//                    stick_do2.setVisibility(View.INVISIBLE);
-//                    stick3.setVisibility(View.VISIBLE);
-//                    stick_do3.setVisibility(View.INVISIBLE);
-//                    stick4.setVisibility(View.VISIBLE);
-//                    stick_do4.setVisibility(View.INVISIBLE);
-//                    stick5.setVisibility(View.VISIBLE);
-//                    stick_do5.setVisibility(View.INVISIBLE);
-//                    stick6.setVisibility(View.VISIBLE);
-//                    stick_do6.setVisibility(View.INVISIBLE);
-//                    stick7.setVisibility(View.VISIBLE);
-//                    stick_do7.setVisibility(View.INVISIBLE);
-//
-//
-//                    dialogInterface.cancel();
-//                    startTimer();
-//
-//                }
-//
-//            });
-//            builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    dialogInterface.cancel();
-//                }
-//            });
-//
-//
-////                builder.show();
-//
-//        }
-//
-//
+        if (minutes == 0 && seconds == 0) {
+            done += 1;
+        }
+
+        if (done == 1) {
+            stick.setVisibility(View.INVISIBLE);
+            stick_do.setVisibility(View.VISIBLE);
+
+        }
+        else if (done == 2){
+            stick1.setVisibility(View.INVISIBLE);
+            stick_do1.setVisibility(View.VISIBLE);
+        }
+
+        else if (done == 3) {
+            stick2.setVisibility(View.INVISIBLE);
+            stick_do2.setVisibility(View.VISIBLE);
+        }
+
+        else if (done == 4) {
+            stick3.setVisibility(View.INVISIBLE);
+            stick_do3.setVisibility(View.VISIBLE);
+        }
+
+        else if (done == 5) {
+            stick4.setVisibility(View.INVISIBLE);
+            stick_do4.setVisibility(View.VISIBLE);
+        }
+
+        else if (done == 6) {
+           stick5.setVisibility(View.INVISIBLE);
+           stick_do5.setVisibility(View.VISIBLE);
+       }
+
+        else if (done == 7) {
+            stick6.setVisibility(View.INVISIBLE);
+            stick_do6.setVisibility(View.VISIBLE);
+        }
+
+
+        else if (done == 8) {
+            stick7.setVisibility(View.INVISIBLE);
+            stick_do7.setVisibility(View.VISIBLE);
+            pauseTimer();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            seconds = 3;
+
+
+            builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
+            builder.setTitle("Конец");
+            builder.setCancelable(true);
+            builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    stick.setVisibility(View.VISIBLE);
+                    stick_do.setVisibility(View.INVISIBLE);
+                    stick1.setVisibility(View.VISIBLE);
+                    stick_do1.setVisibility(View.INVISIBLE);
+                    stick2.setVisibility(View.VISIBLE);
+                    stick_do2.setVisibility(View.INVISIBLE);
+                    stick3.setVisibility(View.VISIBLE);
+                    stick_do3.setVisibility(View.INVISIBLE);
+                    stick4.setVisibility(View.VISIBLE);
+                    stick_do4.setVisibility(View.INVISIBLE);
+                    stick5.setVisibility(View.VISIBLE);
+                    stick_do5.setVisibility(View.INVISIBLE);
+                    stick6.setVisibility(View.VISIBLE);
+                    stick_do6.setVisibility(View.INVISIBLE);
+                    stick7.setVisibility(View.VISIBLE);
+                    stick_do7.setVisibility(View.INVISIBLE);
+                    done = 0;
+
+                    dialogInterface.cancel();
+                    resetTimer();
+
+                }
+            });
+            builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            builder.show();
+        }
+
+
+
+
+
+
 
 
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d : %02d", minutes, seconds);
