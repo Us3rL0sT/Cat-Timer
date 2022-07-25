@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -71,8 +72,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView stick_do5;
     private ImageView stick_do6;
     private ImageView stick_do7;
+    private ImageView menu;
 
-    private byte done = 0;
+    private byte done = 7;
 
 
 
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         stick_do5 = findViewById(R.id.stick_do5);
         stick_do6 = findViewById(R.id.stick_do6);
         stick_do7 = findViewById(R.id.stick_do7);
+        menu = findViewById(R.id.menu_icon);
 
         ((GifDrawable)cat_move.getDrawable()).stop(); // кот не бежит с самого начала, без нажатия на кнопку старт
 
@@ -286,6 +289,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        View.OnClickListener goMenu = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Menu.class);
+                startActivity(intent);
+            }
+        };
+        menu.setOnClickListener(goMenu);
 
 
         mButtonReset.setOnClickListener(new View.OnClickListener() {
@@ -562,7 +574,7 @@ public class MainActivity extends AppCompatActivity {
 
             builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
             builder.setTitle("Конец");
-            builder.setCancelable(true);
+            builder.setCancelable(false);
             builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -593,6 +605,9 @@ public class MainActivity extends AppCompatActivity {
             builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    stick7.setVisibility(View.VISIBLE);
+                    stick_do7.setVisibility(View.INVISIBLE);
+                    done = 6;
                     dialogInterface.cancel();
                 }
             });
