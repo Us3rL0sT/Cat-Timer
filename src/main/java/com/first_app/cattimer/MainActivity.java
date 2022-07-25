@@ -2,6 +2,7 @@ package com.first_app.cattimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -27,12 +28,15 @@ public class MainActivity extends AppCompatActivity {
     private static final long LONG_REST_TIME_IN_MILLIS = 15 * 1000; // 900 сек
 
     private TextView mTextViewCountDown;
+    private TextView current_action;
+
     private Button mButtonStartPause;
     private Button mButtonStartPauseRest;
     private Button mButtonStartPauseLongRest;
     private Button mButtonReset;
     private Button mRestButtonReset;
     private Button mLongRestButtonReset;
+    private Button edit_current_action;
 
     private CountDownTimer mCountDownTimer;
 
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private GifImageView cat_sleep;
     private GifImageView cat_question;
 
-    private TextView current_action;
+
 
     private ImageView arrows;
     private float defaultArrows;
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonReset = findViewById(R.id.button_restart); // кнопка рестарта
         mRestButtonReset = findViewById(R.id.button_rest_restart);
         mLongRestButtonReset = findViewById(R.id.button_long_rest_restart);
+        edit_current_action = findViewById(R.id.edit_current_action);
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -159,6 +164,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Смена текущего действия
+        edit_current_action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (current_action.getText().toString().matches("Работа")) {
+                    mButtonStartPause.setVisibility(View.INVISIBLE);
+                    mButtonStartPauseRest.setVisibility(View.VISIBLE);
+                    current_action.setText("Отдых");
+                    arrows.setX(404);
+                    restUpdateCountDownText();
+                } else
+                if (current_action.getText().toString().matches("Отдых")) {
+                    mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                    mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+                    current_action.setText("Долгий отдых");
+                    arrows.setX(404 - 90);
+                    longRestUpdateCountDownText();
+                } else if (current_action.getText().toString().matches("Долгий отдых")){
+                    mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    mButtonStartPause.setVisibility(View.VISIBLE);
+                    current_action.setText("Работа");
+                    arrows.setX(404);
+                    updateCountDownText();
+                }
+            }
+        });
+
+
         mButtonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,9 +265,7 @@ public class MainActivity extends AppCompatActivity {
                 mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                 mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                 longRestTimer();
-                defaultArrows = arrows.getX();
-                float x = defaultArrows - 90; // перемещение стрелок длинного отдыха
-                arrows.setX(x);
+
 
             }
         }.start();
@@ -260,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
                 cat_move.setVisibility(View.INVISIBLE);
 
 
-                arrows.setX(defaultArrows - 90);
+                arrows.setX(404 - 90);
             }
 
             @Override
@@ -284,8 +315,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonReset.setVisibility(View.VISIBLE);
         cat_sleep.setVisibility(View.VISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
-        current_action.setText("Пауза");
-        arrows.setX(404+10); // 404 - default значение
+
     }
 
     private void pauseTimerRest() {
@@ -295,8 +325,7 @@ public class MainActivity extends AppCompatActivity {
         cat_move.setVisibility(View.INVISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         cat_question.setVisibility(View.VISIBLE);
-        current_action.setText("Пауза");
-        arrows.setX(404 + 10);
+
     }
 
     private void pauseTimerLongRest() {
@@ -306,8 +335,7 @@ public class MainActivity extends AppCompatActivity {
         cat_sleep.setVisibility(View.INVISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
         cat_question.setVisibility(View.VISIBLE);
-        current_action.setText("Пауза");
-        arrows.setX(404 + 10);
+        arrows.setX(404 - 90);
     }
 
     private void resetTimer() {
@@ -415,6 +443,10 @@ public class MainActivity extends AppCompatActivity {
 //            return;
 //
 //    }
+
+
+
+
 
 
 

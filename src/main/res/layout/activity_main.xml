@@ -9,18 +9,6 @@
     tools:context=".MainActivity">
 
 
-    <ImageView
-        android:id="@+id/menu_icon"
-        android:layout_width="37dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022"
-        app:srcCompat="@drawable/menu" />
-
     <TextView
         android:id="@+id/text_view_countdown"
         android:layout_width="141dp"
@@ -193,6 +181,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.003" />
 
+    <Button
+        android:id="@+id/edit_current_action"
+        android:layout_width="164dp"
+        android:layout_height="38dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/current_action"
+        app:layout_constraintEnd_toEndOf="@+id/current_action"
+        app:layout_constraintStart_toStartOf="@+id/current_action"
+        app:layout_constraintTop_toTopOf="@+id/current_action" />
+
     <TextView
         android:id="@+id/current_action"
         android:layout_width="164dp"
@@ -224,5 +222,17 @@
         app:layout_constraintTop_toTopOf="@+id/current_action"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/arrows" />
+
+    <ImageView
+        android:id="@+id/menu_icon"
+        android:layout_width="37dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022"
+        app:srcCompat="@drawable/menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
