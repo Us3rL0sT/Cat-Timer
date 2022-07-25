@@ -160,6 +160,21 @@
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/cat_question"
+        android:layout_width="353dp"
+        android:layout_height="385dp"
+        android:src="@drawable/cat_question"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.741"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.002"
+        tools:ignore="MissingConstraints"
+        tools:visibility="visible" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
@@ -194,5 +209,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/progressBar"
         app:layout_constraintVertical_bias="0.682" />
+
+    <ImageView
+        android:id="@+id/arrows"
+        android:layout_width="16dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/current_action"
+        app:layout_constraintEnd_toEndOf="@+id/current_action"
+        app:layout_constraintHorizontal_bias="0.209"
+        app:layout_constraintStart_toStartOf="@+id/current_action"
+        app:layout_constraintTop_toTopOf="@+id/current_action"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/arrows" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
