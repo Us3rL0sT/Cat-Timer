@@ -1,8 +1,9 @@
 package com.first_app.cattimer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -23,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private float CurrentProgressLongRest = 30; // начинать с (-1)
     private ProgressBar progressBar;
 
-    private static final long START_TIME_IN_MILLIS = 10 * 1000; // 1500 сек
+    private static final long START_TIME_IN_MILLIS = 3 * 1000; // 1500 сек
     private static final long REST_TIME_IN_MILLIS = 5 * 1000; // 300 сек
-    private static final long LONG_REST_TIME_IN_MILLIS = 15 * 1000; // 900 сек
+    private static final long LONG_REST_TIME_IN_MILLIS = 10 * 1000; // 900 сек
 
     private TextView mTextViewCountDown;
     private TextView current_action;
@@ -54,7 +55,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ImageView arrows;
-    private float defaultArrows;
+    private ImageView stick;
+    private ImageView stick1;
+    private ImageView stick2;
+    private ImageView stick3;
+    private ImageView stick4;
+    private ImageView stick5;
+    private ImageView stick6;
+    private ImageView stick7;
+    private ImageView stick_do;
+    private ImageView stick_do1;
+    private ImageView stick_do2;
+    private ImageView stick_do3;
+    private ImageView stick_do4;
+    private ImageView stick_do5;
+    private ImageView stick_do6;
+    private ImageView stick_do7;
+
+    private byte done = 0;
 
 
 
@@ -90,6 +108,22 @@ public class MainActivity extends AppCompatActivity {
         cat_question = (GifImageView) findViewById(R.id.cat_question);
 
         arrows = findViewById(R.id.arrows);
+        stick = findViewById(R.id.stick);
+        stick1 = findViewById(R.id.stick1);
+        stick2 = findViewById(R.id.stick2);
+        stick3 = findViewById(R.id.stick3);
+        stick4 = findViewById(R.id.stick4);
+        stick5 = findViewById(R.id.stick5);
+        stick6 = findViewById(R.id.stick6);
+        stick7 = findViewById(R.id.stick7);
+        stick_do = findViewById(R.id.stick_do);
+        stick_do1 = findViewById(R.id.stick_do1);
+        stick_do2 = findViewById(R.id.stick_do2);
+        stick_do3 = findViewById(R.id.stick_do3);
+        stick_do4 = findViewById(R.id.stick_do4);
+        stick_do5 = findViewById(R.id.stick_do5);
+        stick_do6 = findViewById(R.id.stick_do6);
+        stick_do7 = findViewById(R.id.stick_do7);
 
         ((GifDrawable)cat_move.getDrawable()).stop(); // кот не бежит с самого начала, без нажатия на кнопку старт
 
@@ -105,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 cat_sleep.setVisibility(View.INVISIBLE);
                 cat_move.setVisibility(View.VISIBLE);
                 cat_fall.setVisibility(View.INVISIBLE);
+                arrows.setVisibility(View.INVISIBLE);
+                edit_current_action.setVisibility(View.INVISIBLE);
 
                 if (mTimerRunning) {
                     ((GifDrawable)cat_move.getDrawable()).stop();
@@ -126,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
 
                 cat_sleep.setVisibility(View.VISIBLE);
                 cat_fall.setVisibility(View.INVISIBLE);
+                arrows.setVisibility(View.INVISIBLE);
+                edit_current_action.setVisibility(View.INVISIBLE);
 
                 if (mTimerRunning) {
                     ((GifDrawable)cat_sleep.getDrawable()).stop();
@@ -148,6 +186,8 @@ public class MainActivity extends AppCompatActivity {
 
                 cat_sleep.setVisibility(View.VISIBLE);
                 cat_fall.setVisibility(View.INVISIBLE);
+                arrows.setVisibility(View.INVISIBLE);
+                edit_current_action.setVisibility(View.INVISIBLE);
 
                 if (mTimerRunning) {
                     ((GifDrawable)cat_sleep.getDrawable()).stop();
@@ -169,24 +209,80 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (current_action.getText().toString().matches("Работа")) {
-                    mButtonStartPause.setVisibility(View.INVISIBLE);
-                    mButtonStartPauseRest.setVisibility(View.VISIBLE);
-                    current_action.setText("Отдых");
-                    arrows.setX(404);
-                    restUpdateCountDownText();
+                    if (mButtonReset.getVisibility() == View.INVISIBLE) {
+                        mButtonStartPause.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.VISIBLE);
+                        mButtonReset.setVisibility(View.INVISIBLE);
+                        mRestButtonReset.setVisibility(View.VISIBLE);
+                        cat_move.setVisibility(View.INVISIBLE);
+                        cat_sleep.setVisibility(View.VISIBLE);
+                        current_action.setText("Отдых");
+                        arrows.setX(404);
+                        mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                        restUpdateCountDownText();
+                    } else
+                    if (mButtonReset.getVisibility() == View.VISIBLE) {
+                        mButtonStartPause.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.VISIBLE);
+                        mButtonReset.setVisibility(View.INVISIBLE);
+                        mRestButtonReset.setVisibility(View.VISIBLE);
+                        cat_sleep.setVisibility(View.INVISIBLE);
+                        cat_question.setVisibility(View.VISIBLE);
+                        current_action.setText("Отдых");
+                        arrows.setX(404);
+                        mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                        restUpdateCountDownText();
+                    }
+
                 } else
                 if (current_action.getText().toString().matches("Отдых")) {
-                    mButtonStartPauseRest.setVisibility(View.INVISIBLE);
-                    mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
-                    current_action.setText("Долгий отдых");
-                    arrows.setX(404 - 90);
-                    longRestUpdateCountDownText();
+                    if (mRestButtonReset.getVisibility() == View.INVISIBLE) {
+                        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+                        mRestButtonReset.setVisibility(View.INVISIBLE);
+                        mLongRestButtonReset.setVisibility(View.VISIBLE);
+                        current_action.setText("Долгий отдых");
+                        arrows.setX(404 - 90);
+                        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+                        longRestUpdateCountDownText();
+                    } else
+                    if (mRestButtonReset.getVisibility() == View.VISIBLE) {
+                        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+                        mRestButtonReset.setVisibility(View.INVISIBLE);
+                        mLongRestButtonReset.setVisibility(View.VISIBLE);
+                        current_action.setText("Долгий отдых");
+                        arrows.setX(404 - 90);
+                        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+                        longRestUpdateCountDownText();
+                    }
+
                 } else if (current_action.getText().toString().matches("Долгий отдых")){
-                    mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
-                    mButtonStartPause.setVisibility(View.VISIBLE);
-                    current_action.setText("Работа");
-                    arrows.setX(404);
-                    updateCountDownText();
+                    if (mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
+                        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPause.setVisibility(View.VISIBLE);
+                        mLongRestButtonReset.setVisibility(View.INVISIBLE);
+                        mButtonReset.setVisibility(View.VISIBLE);
+                        cat_move.setVisibility(View.VISIBLE);
+                        cat_sleep.setVisibility(View.INVISIBLE);
+                        current_action.setText("Работа");
+                        arrows.setX(404);
+                        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+                        updateCountDownText();
+                    } else
+                    if (mLongRestButtonReset.getVisibility() == View.VISIBLE) {
+                        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPause.setVisibility(View.VISIBLE);
+                        mLongRestButtonReset.setVisibility(View.INVISIBLE);
+                        mButtonReset.setVisibility(View.VISIBLE);
+                        cat_sleep.setVisibility(View.VISIBLE);
+                        cat_question.setVisibility(View.INVISIBLE);
+                        current_action.setText("Работа");
+                        arrows.setX(404);
+                        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+                        updateCountDownText();
+                    }
+
                 }
             }
         });
@@ -235,6 +331,8 @@ public class MainActivity extends AppCompatActivity {
                 mButtonReset.setVisibility(View.INVISIBLE);
                 mButtonStartPauseRest.setVisibility(View.VISIBLE);
                 mButtonStartPause.setVisibility(View.INVISIBLE);
+                mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                restUpdateCountDownText();
                 restTimer();
             }
         }.start();
@@ -264,9 +362,9 @@ public class MainActivity extends AppCompatActivity {
                 mRestButtonReset.setVisibility(View.INVISIBLE);
                 mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                 mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+                longRestUpdateCountDownText();
                 longRestTimer();
-
-
             }
         }.start();
 
@@ -296,8 +394,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                mTimerRunning = false;
-                ((GifDrawable)cat_sleep.getDrawable()).stop();
+                mLongRestButtonReset.setVisibility(View.INVISIBLE);
+                mButtonStartPause.setVisibility(View.VISIBLE);
+                mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                cat_sleep.setVisibility(View.INVISIBLE);
+                cat_move.setVisibility(View.VISIBLE);
+                mTimeLeftInMillis = START_TIME_IN_MILLIS;
+                ((GifDrawable)cat_move.getDrawable()).start();
+                updateCountDownText();
+                startTimer();
             }
         }.start();
 
@@ -315,6 +420,8 @@ public class MainActivity extends AppCompatActivity {
         mButtonReset.setVisibility(View.VISIBLE);
         cat_sleep.setVisibility(View.VISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
+        arrows.setVisibility(View.VISIBLE);
+        edit_current_action.setVisibility(View.VISIBLE);
 
     }
 
@@ -325,7 +432,8 @@ public class MainActivity extends AppCompatActivity {
         cat_move.setVisibility(View.INVISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         cat_question.setVisibility(View.VISIBLE);
-
+        arrows.setVisibility(View.VISIBLE);
+        edit_current_action.setVisibility(View.VISIBLE);
     }
 
     private void pauseTimerLongRest() {
@@ -336,6 +444,8 @@ public class MainActivity extends AppCompatActivity {
         cat_move.setVisibility(View.INVISIBLE);
         cat_question.setVisibility(View.VISIBLE);
         arrows.setX(404 - 90);
+        arrows.setVisibility(View.VISIBLE);
+        edit_current_action.setVisibility(View.VISIBLE);
     }
 
     private void resetTimer() {
@@ -402,6 +512,104 @@ public class MainActivity extends AppCompatActivity {
     private void updateCountDownText() {
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
         int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+//        done = 7;
+//        if (minutes == 0 && seconds == 0)
+//            done += 1;
+//
+//        if (done == 1) {
+//            stick.setVisibility(View.INVISIBLE);
+//            stick_do.setVisibility(View.VISIBLE);
+//
+//        }
+//        if (done == 2){
+//            stick1.setVisibility(View.INVISIBLE);
+//            stick_do1.setVisibility(View.VISIBLE);
+//        }
+//
+//
+//        if (done == 3) {
+//            stick2.setVisibility(View.INVISIBLE);
+//            stick_do2.setVisibility(View.VISIBLE);
+//        }
+//
+//
+//        if (done == 4) {
+//            stick3.setVisibility(View.INVISIBLE);
+//            stick_do3.setVisibility(View.VISIBLE);
+//        }
+//
+//
+//        if (done == 5) {
+//            stick4.setVisibility(View.INVISIBLE);
+//            stick_do4.setVisibility(View.VISIBLE);
+//        }
+//
+//
+//       if (done == 6) {
+//           stick5.setVisibility(View.INVISIBLE);
+//           stick_do5.setVisibility(View.VISIBLE);
+//       }
+//
+//
+//        if (done == 7) {
+//            stick6.setVisibility(View.INVISIBLE);
+//            stick_do6.setVisibility(View.VISIBLE);
+//        }
+//
+//
+//        if (done == 8) {
+//            stick7.setVisibility(View.INVISIBLE);
+//            stick_do7.setVisibility(View.VISIBLE);
+//            pauseTimer();
+//            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//            seconds = 3;
+//            done = 0;
+//
+//            builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
+//            builder.setTitle("Конец");
+//            builder.setCancelable(false);
+//            builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    done = 0;
+//                    stick.setVisibility(View.VISIBLE);
+//                    stick_do.setVisibility(View.INVISIBLE);
+//                    stick1.setVisibility(View.VISIBLE);
+//                    stick_do1.setVisibility(View.INVISIBLE);
+//                    stick2.setVisibility(View.VISIBLE);
+//                    stick_do2.setVisibility(View.INVISIBLE);
+//                    stick3.setVisibility(View.VISIBLE);
+//                    stick_do3.setVisibility(View.INVISIBLE);
+//                    stick4.setVisibility(View.VISIBLE);
+//                    stick_do4.setVisibility(View.INVISIBLE);
+//                    stick5.setVisibility(View.VISIBLE);
+//                    stick_do5.setVisibility(View.INVISIBLE);
+//                    stick6.setVisibility(View.VISIBLE);
+//                    stick_do6.setVisibility(View.INVISIBLE);
+//                    stick7.setVisibility(View.VISIBLE);
+//                    stick_do7.setVisibility(View.INVISIBLE);
+//
+//
+//                    dialogInterface.cancel();
+//                    startTimer();
+//
+//                }
+//
+//            });
+//            builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    dialogInterface.cancel();
+//                }
+//            });
+//
+//
+////                builder.show();
+//
+//        }
+//
+//
+
 
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d : %02d", minutes, seconds);
 
@@ -420,6 +628,7 @@ public class MainActivity extends AppCompatActivity {
     private void longRestUpdateCountDownText() {
         int minutes = (int) (mLongRestLeftInMillis / 1000) / 60;
         int seconds = (int) (mLongRestLeftInMillis / 1000) % 60;
+
 
         String timeRestLeftFormatted = String.format(Locale.getDefault(), "%02d : %02d", minutes, seconds);
 
