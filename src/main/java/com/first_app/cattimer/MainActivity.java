@@ -20,6 +20,9 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int seconds;
+    private int minutes;
+
     private float CurrentProgress = 30; // начинать с (-1)
     private float CurrentProgressRest = 30; // начинать с (-1)
     private float CurrentProgressLongRest = 30; // начинать с (-1)
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView stick_do7;
     private ImageView menu;
 
-    private byte done = 7;
+    private byte done = 0;
 
 
 
@@ -335,6 +338,8 @@ public class MainActivity extends AppCompatActivity {
                 updateCountDownText();
                 current_action.setText("Работа");
                 arrows.setX(404);
+
+
             }
 
             @Override
@@ -346,8 +351,11 @@ public class MainActivity extends AppCompatActivity {
                 mRestLeftInMillis = REST_TIME_IN_MILLIS;
                 restUpdateCountDownText();
                 restTimer();
+
+
             }
         }.start();
+
 
 
 
@@ -415,6 +423,7 @@ public class MainActivity extends AppCompatActivity {
                 ((GifDrawable)cat_move.getDrawable()).start();
                 updateCountDownText();
                 startTimer();
+
             }
         }.start();
 
@@ -434,7 +443,9 @@ public class MainActivity extends AppCompatActivity {
         cat_move.setVisibility(View.INVISIBLE);
         arrows.setVisibility(View.VISIBLE);
         edit_current_action.setVisibility(View.VISIBLE);
-
+        if (seconds == 0 && minutes == 0) {
+            done -= 1;
+        }
     }
 
     private void pauseTimerRest() {
@@ -522,11 +533,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateCountDownText() {
-        int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
-        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
-        if (minutes == 0 && seconds == 0) {
+         minutes = (int) (mTimeLeftInMillis / 1000) / 60;
+         seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+
+        if (seconds == 0 && minutes == 0) {
             done += 1;
         }
+
+
+
 
         if (done == 1) {
             stick.setVisibility(View.INVISIBLE);
@@ -569,9 +584,6 @@ public class MainActivity extends AppCompatActivity {
             stick_do7.setVisibility(View.VISIBLE);
             pauseTimer();
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            seconds = 3;
-
-
             builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
             builder.setTitle("Конец");
             builder.setCancelable(false);
@@ -624,11 +636,13 @@ public class MainActivity extends AppCompatActivity {
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d : %02d", minutes, seconds);
 
         mTextViewCountDown.setText(timeLeftFormatted);
+
+
     }
 
     private void restUpdateCountDownText() {
-        int minutes = (int) (mRestLeftInMillis / 1000) / 60;
-        int seconds = (int) (mRestLeftInMillis / 1000) % 60;
+         minutes = (int) (mRestLeftInMillis / 1000) / 60;
+         seconds = (int) (mRestLeftInMillis / 1000) % 60;
 
         String timeRestLeftFormatted = String.format(Locale.getDefault(), "%02d : %02d", minutes, seconds);
 
@@ -636,8 +650,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void longRestUpdateCountDownText() {
-        int minutes = (int) (mLongRestLeftInMillis / 1000) / 60;
-        int seconds = (int) (mLongRestLeftInMillis / 1000) % 60;
+         minutes = (int) (mLongRestLeftInMillis / 1000) / 60;
+         seconds = (int) (mLongRestLeftInMillis / 1000) % 60;
 
 
         String timeRestLeftFormatted = String.format(Locale.getDefault(), "%02d : %02d", minutes, seconds);
