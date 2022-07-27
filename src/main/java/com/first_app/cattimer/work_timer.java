@@ -2,8 +2,10 @@ package com.first_app.cattimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class work_timer extends Menu {
@@ -22,12 +24,15 @@ public class work_timer extends Menu {
         rest_time_invisible = findViewById(R.id.rest_time_invisible);
         long_rest_time_invisible = findViewById(R.id.long_rest_time_invisible);
 
-        work_time_invisible.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+        work_time_invisible.setText(String.valueOf((12354)));
         rest_time_invisible.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         long_rest_time_invisible.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
 
         work_time_invisible.setVisibility(View.VISIBLE);
 
-        System.out.println("ВЦЫФВФЫВфцццц");
+
+
+
+
     }
 }

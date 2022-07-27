@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private float CurrentProgressLongRest = 30; // начинать с (-1)
     private ProgressBar progressBar;
 
-    protected static long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
-    protected static long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
-    protected static long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
+    protected long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
+    protected long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
+    protected long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
 
     private TextView mTextViewCountDown;
     private TextView current_action;
