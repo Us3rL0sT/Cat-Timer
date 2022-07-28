@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     private int seconds;
     private int minutes;
-    private long START_TIME_IN_MILLIS = 1500 * 1000;
+    private long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
     private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
-    private long LONG_REST_TIME_IN_MILLIS = 900 * 1000;
+    private long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
 
 
     private float CurrentProgress = 30; // начинать с (-1)
@@ -145,12 +145,38 @@ public class MainActivity extends AppCompatActivity {
 
         Intent iCheck = getIntent();
         if (iCheck != null) {
-            Bundle i = getIntent().getExtras();
+
             Long returnLong = getIntent().getLongExtra("WORK_PERIOD", START_TIME_IN_MILLIS);
-            Toast.makeText(MainActivity.this, " " + returnLong, Toast.LENGTH_SHORT).show();
 
             START_TIME_IN_MILLIS = returnLong;
             mTimeLeftInMillis = START_TIME_IN_MILLIS;
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
+
+        Intent iCheckRest = getIntent();
+        if (iCheckRest != null) {
+
+            Long returnLong = getIntent().getLongExtra("REST_PERIOD", REST_TIME_IN_MILLIS);
+
+
+            REST_TIME_IN_MILLIS = returnLong;
+            mRestLeftInMillis = REST_TIME_IN_MILLIS;
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
+        Intent iCheckLongRest = getIntent();
+        if (iCheckLongRest != null) {
+
+            Long returnLong = getIntent().getLongExtra("LONG_REST_PERIOD", LONG_REST_TIME_IN_MILLIS);
+
+
+            LONG_REST_TIME_IN_MILLIS = returnLong;
+            mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
@@ -313,8 +339,8 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener goMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Menu.class);
-                startActivity(intent);
+               sendValue();
+
 
 
             }
@@ -518,7 +544,7 @@ public class MainActivity extends AppCompatActivity {
         mRestLeftInMillis = REST_TIME_IN_MILLIS;
         restUpdateCountDownText();
         cat_move.setVisibility(View.INVISIBLE);
-        cat_fall.setVisibility(View.VISIBLE);
+        cat_question.setVisibility(View.VISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         mRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseRest.setVisibility(View.VISIBLE);
@@ -533,7 +559,7 @@ public class MainActivity extends AppCompatActivity {
         mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
         longRestUpdateCountDownText();
         cat_move.setVisibility(View.INVISIBLE);
-        cat_fall.setVisibility(View.VISIBLE);
+        cat_question.setVisibility(View.VISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         mLongRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
@@ -683,6 +709,12 @@ public class MainActivity extends AppCompatActivity {
         String timeRestLeftFormatted = String.format(Locale.getDefault(), "%02d : %02d", minutes, seconds);
 
         mTextViewCountDown.setText(timeRestLeftFormatted);
+    }
+
+    private void sendValue(){
+        Intent intent = new Intent(MainActivity.this, Menu.class);
+        startActivity(intent);
+        this.finish();
     }
 
 //    private void checkValue() {

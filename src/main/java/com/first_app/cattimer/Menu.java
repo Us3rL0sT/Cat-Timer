@@ -172,8 +172,9 @@ public class Menu extends MainActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Menu.this, MainActivity.class);
-                i.putExtra("WORK_PERIOD", START_TIME_IN_MILLIS * 60 * 1000);
+                startActivity(i);
                 finish();
+                sendValue();
             }
         };
         title.setOnClickListener(goBack);
@@ -189,17 +190,30 @@ public class Menu extends MainActivity {
 
     }
 
+    private void sendValue() {
+        Intent a = new Intent(Menu.this, MainActivity.class);
+        a.putExtra("WORK_PERIOD", START_TIME_IN_MILLIS);
+        a.putExtra("REST_PERIOD", REST_TIME_IN_MILLIS);
+        a.putExtra("LONG_REST_PERIOD", LONG_REST_TIME_IN_MILLIS);
+        startActivity(a);
+        this.finish();
+    }
+
+
     private void saveValue() {
         pref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = pref.edit();
         ed.putString("save_key", String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+
         ed.apply();
-        Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Menu.this, "sdfsdf" + START_TIME_IN_MILLIS, Toast.LENGTH_SHORT).show();
     }
 
     private void loadValue() {
         pref = getPreferences(MODE_PRIVATE);
         String savedText = pref.getString("save_key", "");
+        START_TIME_IN_MILLIS = Long.valueOf(savedText);
+        START_TIME_IN_MILLIS = START_TIME_IN_MILLIS * 60 * 1000;
         work_time.setText(String.valueOf(savedText));
         work_time_invisible.setText(String.valueOf(savedText));
         Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
@@ -216,6 +230,8 @@ public class Menu extends MainActivity {
     private void loadValueRest() {
         prefrest = getPreferences(MODE_PRIVATE);
         String savedTextRest = prefrest.getString("save_keyrest", "");
+        REST_TIME_IN_MILLIS = Long.valueOf(savedTextRest);
+        REST_TIME_IN_MILLIS = REST_TIME_IN_MILLIS * 60 * 1000;
         rest_time.setText(String.valueOf(savedTextRest));
         rest_time_invisible.setText(String.valueOf(savedTextRest));
         Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
@@ -232,6 +248,8 @@ public class Menu extends MainActivity {
     private void loadValueLongRest() {
         preflongrest = getPreferences(MODE_PRIVATE);
         String savedTextLongRest = preflongrest.getString("save_keylongrest", "");
+        LONG_REST_TIME_IN_MILLIS = Long.valueOf(savedTextLongRest);
+        LONG_REST_TIME_IN_MILLIS = LONG_REST_TIME_IN_MILLIS * 60 * 1000;
         long_rest_time.setText(String.valueOf(savedTextLongRest));
         long_rest_time_invisible.setText(String.valueOf(savedTextLongRest));
         Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
