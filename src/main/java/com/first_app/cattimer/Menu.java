@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentContainer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -15,10 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Menu extends MainActivity {
 
-        private boolean isShade;
+        private long START_TIME_IN_MILLIS = 1500 * 1000;
+        private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
+        private long LONG_REST_TIME_IN_MILLIS = 900 * 1000;
+
+        private SharedPreferences pref;
+        private SharedPreferences prefrest;
+        private SharedPreferences preflongrest;
 
         private TextView work_time;
         private TextView rest_time;
@@ -34,9 +42,9 @@ public class Menu extends MainActivity {
         private ImageView title;
 
         private View shade;
-        private View check_shade;
 
         private ConstraintLayout maximizedContainer;
+
 
 
 
@@ -48,7 +56,6 @@ public class Menu extends MainActivity {
         title = findViewById(R.id.goBack);
 
         shade = findViewById(R.id.shade);
-//        check_shade = findViewById(R.id.check_shade);
         maximizedContainer = findViewById(R.id.maximized_container);
 
         work_time = (findViewById(R.id.work_time));
@@ -68,9 +75,7 @@ public class Menu extends MainActivity {
         work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
         rest_time.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
-        work_time_invisible.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
-        rest_time_invisible.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
-        long_rest_time_invisible.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+
         work_time_invisible = (EditText)findViewById(R.id.work_time_invisible);
         rest_time_invisible = (EditText)findViewById(R.id.rest_time_invisible);
         long_rest_time_invisible = (EditText)findViewById(R.id.long_rest_time_invisible);
@@ -78,6 +83,15 @@ public class Menu extends MainActivity {
         rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         long_rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
 
+
+        loadValue();
+        loadValueRest();
+        loadValueLongRest();
+
+
+        work_time_invisible.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+        rest_time_invisible.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
+        long_rest_time_invisible.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
 
         button_work_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +105,11 @@ public class Menu extends MainActivity {
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
 
+
             }
         });
+
+
 
         button_rest_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,20 +149,94 @@ public class Menu extends MainActivity {
                 button_work_time.setClickable(true);
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
+                if (Long.valueOf(work_time_invisible.getText().toString()) < 100) {
+                    START_TIME_IN_MILLIS = Long.valueOf(work_time_invisible.getText().toString()) * 60 * 1000;
+                    work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+                    saveValue();
+                }
+                if (Long.valueOf(rest_time_invisible.getText().toString()) < 100) {
+                    REST_TIME_IN_MILLIS = Long.valueOf(rest_time_invisible.getText().toString()) * 60 * 1000;
+                    rest_time.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
+                    saveValueRest();
+                }
+                if (Long.valueOf(long_rest_time_invisible.getText().toString()) < 100) {
+                    LONG_REST_TIME_IN_MILLIS = Long.valueOf(long_rest_time_invisible.getText().toString()) * 60 * 1000;
+                    long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+                    saveValueLongRest();
+                }
+
             }
         });
 
         View.OnClickListener goBack = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Menu.this, MainActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(Menu.this, MainActivity.class);
+                i.putExtra("WORK_PERIOD", START_TIME_IN_MILLIS * 60 * 1000);
+                finish();
             }
         };
         title.setOnClickListener(goBack);
 
 
+
+
+
+
+
+
+
+
     }
+
+    private void saveValue() {
+        pref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = pref.edit();
+        ed.putString("save_key", String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+        ed.apply();
+        Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadValue() {
+        pref = getPreferences(MODE_PRIVATE);
+        String savedText = pref.getString("save_key", "");
+        work_time.setText(String.valueOf(savedText));
+        work_time_invisible.setText(String.valueOf(savedText));
+        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveValueRest() {
+        prefrest = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edrest = prefrest.edit();
+        edrest.putString("save_keyrest", String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
+        edrest.apply();
+        Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadValueRest() {
+        prefrest = getPreferences(MODE_PRIVATE);
+        String savedTextRest = prefrest.getString("save_keyrest", "");
+        rest_time.setText(String.valueOf(savedTextRest));
+        rest_time_invisible.setText(String.valueOf(savedTextRest));
+        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveValueLongRest() {
+        preflongrest = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = preflongrest.edit();
+        edlongrest.putString("save_keylongrest", String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+        edlongrest.apply();
+        Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadValueLongRest() {
+        preflongrest = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = preflongrest.getString("save_keylongrest", "");
+        long_rest_time.setText(String.valueOf(savedTextLongRest));
+        long_rest_time_invisible.setText(String.valueOf(savedTextLongRest));
+        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
+    }
+
 
 
 }

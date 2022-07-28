@@ -1,5 +1,6 @@
 package com.first_app.cattimer;
 
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -22,15 +24,18 @@ public class MainActivity extends AppCompatActivity {
 
     private int seconds;
     private int minutes;
+    private long START_TIME_IN_MILLIS = 1500 * 1000;
+    private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
+    private long LONG_REST_TIME_IN_MILLIS = 900 * 1000;
+
 
     private float CurrentProgress = 30; // начинать с (-1)
     private float CurrentProgressRest = 30; // начинать с (-1)
     private float CurrentProgressLongRest = 30; // начинать с (-1)
     private ProgressBar progressBar;
 
-    protected long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
-    protected long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
-    protected long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
+
+
 
     private TextView mTextViewCountDown;
     private TextView current_action;
@@ -138,6 +143,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        Intent iCheck = getIntent();
+        if (iCheck != null) {
+            Bundle i = getIntent().getExtras();
+            Long returnLong = getIntent().getLongExtra("WORK_PERIOD", START_TIME_IN_MILLIS);
+            Toast.makeText(MainActivity.this, " " + returnLong, Toast.LENGTH_SHORT).show();
+
+            START_TIME_IN_MILLIS = returnLong;
+            mTimeLeftInMillis = START_TIME_IN_MILLIS;
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -298,6 +315,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Menu.class);
                 startActivity(intent);
+
+
             }
         };
         menu.setOnClickListener(goMenu);
@@ -325,7 +344,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         updateCountDownText();
-    }
+
+
+    } // ONCREATE
+
+
+
+
+
 
 
     private void startTimer() { // 25 минутный таймер
@@ -659,6 +685,15 @@ public class MainActivity extends AppCompatActivity {
         mTextViewCountDown.setText(timeRestLeftFormatted);
     }
 
+//    private void checkValue() {
+//        Bundle extras = getIntent().getExtras();
+//        if (extras != null) {
+//            long start_time_in_millis = getIntent().getIntExtra("START_TIME_IN_MILLIS", 0);
+//            long rest_time_in_millis = getIntent().getIntExtra("REST_TIME_IN_MILLIS", 0);
+//            long long_rest_time_in_millis = getIntent().getIntExtra("LONG_REST_TIME_IN_MILLIS", 0);
+//        }
+//    }
+
 
 //    private void showRestGif() {
 //
@@ -676,6 +711,8 @@ public class MainActivity extends AppCompatActivity {
 //            return;
 //
 //    }
+
+
 
 
 
