@@ -206,7 +206,6 @@ public class Menu extends MainActivity {
         ed.putString("save_key", String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
 
         ed.apply();
-        Toast.makeText(Menu.this, "sdfsdf" + START_TIME_IN_MILLIS, Toast.LENGTH_SHORT).show();
     }
 
     private void loadValue() {
@@ -216,7 +215,6 @@ public class Menu extends MainActivity {
         START_TIME_IN_MILLIS = START_TIME_IN_MILLIS * 60 * 1000;
         work_time.setText(String.valueOf(savedText));
         work_time_invisible.setText(String.valueOf(savedText));
-        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
     }
 
     private void saveValueRest() {
@@ -224,7 +222,6 @@ public class Menu extends MainActivity {
         SharedPreferences.Editor edrest = prefrest.edit();
         edrest.putString("save_keyrest", String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         edrest.apply();
-        Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
     }
 
     private void loadValueRest() {
@@ -234,7 +231,7 @@ public class Menu extends MainActivity {
         REST_TIME_IN_MILLIS = REST_TIME_IN_MILLIS * 60 * 1000;
         rest_time.setText(String.valueOf(savedTextRest));
         rest_time_invisible.setText(String.valueOf(savedTextRest));
-        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
+
     }
 
     private void saveValueLongRest() {
@@ -242,7 +239,7 @@ public class Menu extends MainActivity {
         SharedPreferences.Editor edlongrest = preflongrest.edit();
         edlongrest.putString("save_keylongrest", String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
         edlongrest.apply();
-        Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
+
     }
 
     private void loadValueLongRest() {
@@ -252,7 +249,7 @@ public class Menu extends MainActivity {
         LONG_REST_TIME_IN_MILLIS = LONG_REST_TIME_IN_MILLIS * 60 * 1000;
         long_rest_time.setText(String.valueOf(savedTextLongRest));
         long_rest_time_invisible.setText(String.valueOf(savedTextLongRest));
-        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
+
     }
 
 
