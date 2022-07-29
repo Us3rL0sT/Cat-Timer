@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
                         cat_sleep.setVisibility(View.VISIBLE);
                         current_action.setText("Отдых");
                         arrows.setX(404);
-                        mRestLeftInMillis = nowTime;
+                        mRestLeftInMillis = nowTimeRest;
                         restUpdateCountDownText();
                     } else
                     if (mButtonReset.getVisibility() == View.VISIBLE) {
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                         cat_question.setVisibility(View.VISIBLE);
                         current_action.setText("Отдых");
                         arrows.setX(404);
-                        mRestLeftInMillis = nowTime;
+                        mRestLeftInMillis = nowTimeRest;
                         CurrentProgress = 97;
                         restUpdateCountDownText();
                     }
@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
                         mLongRestButtonReset.setVisibility(View.VISIBLE);
                         current_action.setText("Долгий отдых");
                         arrows.setX(404 - 90);
-                        mLongRestLeftInMillis = nowTime;
+                        mLongRestLeftInMillis = nowTimeLongRest;
                         longRestUpdateCountDownText();
                     } else
                     if (mRestButtonReset.getVisibility() == View.VISIBLE) {
@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
                         mLongRestButtonReset.setVisibility(View.VISIBLE);
                         current_action.setText("Долгий отдых");
                         arrows.setX(404 - 90);
-                        mLongRestLeftInMillis = nowTime;
+                        mLongRestLeftInMillis = nowTimeLongRest;
                         CurrentProgress = 97;
                         longRestUpdateCountDownText();
                     }
