@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                         mButtonStartPause.setVisibility(View.INVISIBLE);
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonReset.setVisibility(View.INVISIBLE);
-                        mRestButtonReset.setVisibility(View.VISIBLE);
+//                        mRestButtonReset.setVisibility(View.VISIBLE);
                         cat_move.setVisibility(View.INVISIBLE);
                         cat_sleep.setVisibility(View.VISIBLE);
                         current_action.setText("Отдых");
@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
                         mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mRestButtonReset.setVisibility(View.INVISIBLE);
-                        mLongRestButtonReset.setVisibility(View.VISIBLE);
+//                        mLongRestButtonReset.setVisibility(View.VISIBLE);
                         current_action.setText("Долгий отдых");
                         arrows.setX(404 - 90);
                         mLongRestLeftInMillis = nowTimeLongRest;
@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
                         mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
                         mButtonStartPause.setVisibility(View.VISIBLE);
                         mLongRestButtonReset.setVisibility(View.INVISIBLE);
-                        mButtonReset.setVisibility(View.VISIBLE);
+//                        mButtonReset.setVisibility(View.VISIBLE);
                         cat_move.setVisibility(View.VISIBLE);
                         cat_sleep.setVisibility(View.INVISIBLE);
                         current_action.setText("Работа");
