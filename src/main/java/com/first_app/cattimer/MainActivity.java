@@ -391,21 +391,22 @@ public class MainActivity extends AppCompatActivity {
 
     } // ONCREATE
 
-//    @Override
-//    protected void onStop() {
-//        // call the superclass method first
-//        super.onStop();
-//        saveValue();
-//
-//    }
-//
-//
-//
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        loadValue();
-//    }
+    @Override
+    protected void onStop() {
+        // call the superclass method first
+        super.onStop();
+        saveValue();
+
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateCountDownText();
+        loadValue();
+    }
 
 
 
@@ -776,18 +777,21 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
-//    private void saveValue() {
-//        pref = PreferenceManager.getDefaultSharedPreferences(this);
-//        SharedPreferences.Editor ed = pref.edit();
-//        ed.putLong("save_time", nowTime);
-//        ed.apply();
-//    }
-//
-//    private void loadValue() {
-//        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-//        START_TIME_IN_MILLIS = pref.getLong("savedText", nowTime);
-//        Toast.makeText(MainActivity.this, "mTimeLeftInMillis = " + START_TIME_IN_MILLIS, Toast.LENGTH_SHORT).show();
-//    }
+    private void saveValue() {
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor ed = pref.edit();
+        ed.putLong("save_time", nowTime);
+        ed.apply();
+    }
+
+    private void loadValue() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        START_TIME_IN_MILLIS = pref.getLong("save_time", 0);
+        nowTime = START_TIME_IN_MILLIS;
+        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+        updateCountDownText();
+        Toast.makeText(MainActivity.this, "START_TIME_IN_MILLIS = " + START_TIME_IN_MILLIS, Toast.LENGTH_SHORT).show();
+    }
 
     private void saveValueRest() {
         prefrest = getPreferences(MODE_PRIVATE);
