@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         onStart();
 
 
+
         Intent iCheck = getIntent();
         if (iCheck != null) {
 
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
             REST_TIME_IN_MILLIS = returnLong;
             mRestLeftInMillis = REST_TIME_IN_MILLIS;
             nowTimeRest = REST_TIME_IN_MILLIS;
+            saveValueRest();
 
 
         } else {
@@ -193,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
             LONG_REST_TIME_IN_MILLIS = returnLong;
             mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
             nowTimeLongRest = LONG_REST_TIME_IN_MILLIS;
+            saveValueLongRest();
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
@@ -397,7 +400,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         loadValue();
+
+        loadValueRest();
+        loadValueLongRest();
+        updateCountDownText();
     }
 
     @Override
@@ -785,41 +793,38 @@ public class MainActivity extends AppCompatActivity {
         nowTime = START_TIME_IN_MILLIS;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
-        Toast.makeText(MainActivity.this, "START_TIME_IN_MILLIS = " + START_TIME_IN_MILLIS, Toast.LENGTH_SHORT).show();
     }
 
     private void saveValueRest() {
-        prefrest = getPreferences(MODE_PRIVATE);
+        prefrest = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edrest = prefrest.edit();
-        edrest.putString("save_keyrest", String.valueOf(REST_TIME_IN_MILLIS));
+        edrest.putLong("save_keyrest", nowTimeRest);
         edrest.apply();
-
     }
 
     private void loadValueRest() {
-        prefrest = getPreferences(MODE_PRIVATE);
-        String savedTextRest = prefrest.getString("save_keyrest", "");
-        REST_TIME_IN_MILLIS = Long.valueOf(savedTextRest);
-        REST_TIME_IN_MILLIS = REST_TIME_IN_MILLIS * 60 * 1000;
-        mTextViewCountDown.setText(String.valueOf(savedTextRest));
+        SharedPreferences prefrest = PreferenceManager.getDefaultSharedPreferences(this);
+        REST_TIME_IN_MILLIS = prefrest.getLong("save_keyrest", 0);
+        nowTimeRest = REST_TIME_IN_MILLIS;
+        mRestLeftInMillis = REST_TIME_IN_MILLIS;
+        restUpdateCountDownText();
 
     }
 
     private void saveValueLongRest() {
-        preflongrest = getPreferences(MODE_PRIVATE);
+        preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edlongrest = preflongrest.edit();
-        edlongrest.putString("save_keylongrest", String.valueOf(LONG_REST_TIME_IN_MILLIS));
+        edlongrest.putLong("save_keylongrest", nowTimeLongRest);
         edlongrest.apply();
 
     }
 
     private void loadValueLongRest() {
-        preflongrest = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = preflongrest.getString("save_keylongrest", "");
-        LONG_REST_TIME_IN_MILLIS = Long.valueOf(savedTextLongRest);
-        LONG_REST_TIME_IN_MILLIS = LONG_REST_TIME_IN_MILLIS * 60 * 1000;
-        mTextViewCountDown.setText(String.valueOf(savedTextLongRest));
-
+        SharedPreferences preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
+        LONG_REST_TIME_IN_MILLIS = preflongrest.getLong("save_keylongrest", 0);
+        nowTimeLongRest = LONG_REST_TIME_IN_MILLIS;
+        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+        longRestUpdateCountDownText();
     }
 
 
