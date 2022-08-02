@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
         ((GifDrawable)cat_move.getDrawable()).stop(); // кот не бежит с самого начала, без нажатия на кнопку старт
 
-
+        onStart();
 
 
         Intent iCheck = getIntent();
@@ -160,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
             START_TIME_IN_MILLIS = returnLong;
             mTimeLeftInMillis = START_TIME_IN_MILLIS;
             nowTime = START_TIME_IN_MILLIS;
+            saveValue();
+
 
 
         } else {
@@ -357,6 +359,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                sendValue();
+               onPause();
 
 
 
@@ -392,24 +395,16 @@ public class MainActivity extends AppCompatActivity {
     } // ONCREATE
 
     @Override
-    protected void onStop() {
-        // call the superclass method first
-        super.onStop();
-        saveValue();
-
-    }
-
-
-
-    @Override
     protected void onStart() {
         super.onStart();
-        updateCountDownText();
         loadValue();
     }
 
-
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onStart();
+    }
 
 
 
