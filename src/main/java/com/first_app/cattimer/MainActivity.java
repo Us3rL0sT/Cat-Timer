@@ -25,6 +25,8 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private int checkAction;
     private int seconds;
     private int minutes;
     private long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences pref;
     private SharedPreferences prefrest;
     private SharedPreferences preflongrest;
+    private SharedPreferences check;
 
     private float CurrentProgress = 97; // начинать с (-1)
     private float CurrentProgressRest = 99; // начинать с (-1)
@@ -150,6 +153,91 @@ public class MainActivity extends AppCompatActivity {
         ((GifDrawable)cat_move.getDrawable()).stop(); // кот не бежит с самого начала, без нажатия на кнопку старт
 
         onStart();
+
+    if (checkAction == 1) {
+            mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+            mButtonStartPause.setVisibility(View.VISIBLE);
+            mLongRestButtonReset.setVisibility(View.INVISIBLE);
+            mButtonReset.setVisibility(View.VISIBLE);
+            cat_sleep.setVisibility(View.VISIBLE);
+            cat_question.setVisibility(View.INVISIBLE);
+            current_action.setText("Работа");
+
+            mTimeLeftInMillis = nowTime;
+            CurrentProgress = 97;
+            updateCountDownText();
+
+        } else if (checkAction == 2) {
+            mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+            mButtonStartPause.setVisibility(View.VISIBLE);
+            mLongRestButtonReset.setVisibility(View.INVISIBLE);
+            mButtonReset.setVisibility(View.VISIBLE);
+            cat_sleep.setVisibility(View.VISIBLE);
+            cat_question.setVisibility(View.INVISIBLE);
+            current_action.setText("Работа");
+
+            mTimeLeftInMillis = nowTime;
+            CurrentProgress = 97;
+            updateCountDownText();
+        }
+        else if (checkAction == 3) {
+            mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+            mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+            mRestButtonReset.setVisibility(View.INVISIBLE);
+//                        mLongRestButtonReset.setVisibility(View.VISIBLE);
+            current_action.setText("Долгий отдых");
+            arrows.setVisibility(View.INVISIBLE);
+            mLongRestLeftInMillis = nowTimeLongRest;
+            arrows.setX(-100);
+            longRestUpdateCountDownText();
+        } else if (checkAction == 4) {
+            mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+            mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+            mRestButtonReset.setVisibility(View.INVISIBLE);
+            mLongRestButtonReset.setVisibility(View.VISIBLE);
+            current_action.setText("Долгий отдых");
+            arrows.setVisibility(View.INVISIBLE);
+            mLongRestLeftInMillis = nowTimeLongRest;
+            CurrentProgress = 97;
+            arrows.setX(-95);
+            longRestUpdateCountDownText();
+        }
+        else if (checkAction == 5) {
+        mButtonStartPause.setVisibility(View.INVISIBLE);
+        mButtonStartPauseRest.setVisibility(View.VISIBLE);
+        mButtonReset.setVisibility(View.INVISIBLE);
+//                        mRestButtonReset.setVisibility(View.VISIBLE);
+        cat_move.setVisibility(View.INVISIBLE);
+        cat_sleep.setVisibility(View.VISIBLE);
+        current_action.setText("Отдых");
+
+        mRestLeftInMillis = nowTimeRest;
+        restUpdateCountDownText();
+    } else if (checkAction == 6) {
+            mButtonStartPause.setVisibility(View.INVISIBLE);
+            mButtonStartPauseRest.setVisibility(View.VISIBLE);
+            mButtonReset.setVisibility(View.INVISIBLE);
+            mRestButtonReset.setVisibility(View.VISIBLE);
+            cat_sleep.setVisibility(View.INVISIBLE);
+            cat_question.setVisibility(View.VISIBLE);
+            current_action.setText("Отдых");
+
+            mRestLeftInMillis = nowTimeRest;
+            CurrentProgress = 97;
+            restUpdateCountDownText();
+            cat_fall.setVisibility(View.INVISIBLE);
+            cat_move.setVisibility(View.INVISIBLE);
+            cat_sleep.setVisibility(View.VISIBLE);
+            cat_question.setVisibility(View.INVISIBLE);
+            arrows.setVisibility(View.VISIBLE);
+        }
+
+        cat_sleep.setVisibility(View.VISIBLE);
+        cat_fall.setVisibility(View.INVISIBLE);
+        cat_move.setVisibility(View.INVISIBLE);
+        
+
+
 
 
 
@@ -400,7 +488,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        loadCheckAction();
         loadValue();
 
         loadValueRest();
@@ -775,10 +863,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendValue(){
+        if (current_action.getText().toString().matches("Работа") && mButtonReset.getVisibility() == View.INVISIBLE) {
+            checkAction = 1;
+        } else if (current_action.getText().toString().matches("Работа") && mButtonReset.getVisibility() == View.VISIBLE) {
+            checkAction = 2;
+        }
+        else if (current_action.getText().toString().matches("Отдых") && mRestButtonReset.getVisibility() == View.INVISIBLE) {
+            checkAction = 3;
+        }
+        else if (current_action.getText().toString().matches("Отдых") && mRestButtonReset.getVisibility() == View.VISIBLE) {
+            checkAction = 4;
+        }
+        else if (current_action.getText().toString().matches("Долгий отдых") && mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
+            checkAction = 5;
+        }
+        else if (current_action.getText().toString().matches("Долгий отдых") && mLongRestButtonReset.getVisibility() == View.VISIBLE) {
+            checkAction = 6;
+        }
+
+        saveCheckAction();
         Intent intent = new Intent(MainActivity.this, Menu.class);
         startActivity(intent);
         this.finish();
     }
+
+
+
+
+
 
     private void saveValue() {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -827,8 +939,18 @@ public class MainActivity extends AppCompatActivity {
         longRestUpdateCountDownText();
     }
 
+    private void saveCheckAction(){
+        check = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor sp = check.edit();
+        sp.putInt("check_action", checkAction);
+        sp.apply();
+    }
 
-
+    private void loadCheckAction() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        checkAction = sp.getInt("check_action", 0);
+        longRestUpdateCountDownText();
+    }
 
 
 
