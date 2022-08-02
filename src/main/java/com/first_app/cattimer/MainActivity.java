@@ -4,14 +4,17 @@ package com.first_app.cattimer;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -44,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private float CurrentProgressLongRest = 99; // начинать с (-1)
     private ProgressBar progressBar;
 
-
-
+    private Animation inAnimation;
+    private Animation outAnimation;
+    private Animation nullAnimation;
 
     private TextView mTextViewCountDown;
     private TextView current_action;
@@ -123,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
         mRestButtonReset = findViewById(R.id.button_rest_restart);
         mLongRestButtonReset = findViewById(R.id.button_long_rest_restart);
         edit_current_action = findViewById(R.id.edit_current_action);
+
+        inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
+        outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
+        nullAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_null);
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -235,7 +243,8 @@ public class MainActivity extends AppCompatActivity {
         cat_sleep.setVisibility(View.VISIBLE);
         cat_fall.setVisibility(View.INVISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
-        
+        mButtonReset.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -297,12 +306,17 @@ public class MainActivity extends AppCompatActivity {
                 cat_fall.setVisibility(View.INVISIBLE);
                 arrows.setVisibility(View.INVISIBLE);
                 edit_current_action.setVisibility(View.INVISIBLE);
-
+                menu.startAnimation(outAnimation);
                 if (mTimerRunning) {
+                    menu.setVisibility(View.INVISIBLE);
+                    menu.startAnimation(nullAnimation);
                     ((GifDrawable)cat_move.getDrawable()).stop();
+                    visibilityNo();
                     pauseTimer();
                 } else {
                     cat_move.setVisibility(View.VISIBLE);
+                    menu.setVisibility(View.INVISIBLE);
+                    menu.startAnimation(nullAnimation);
                     ((GifDrawable)cat_move.getDrawable()).start();
                     CurrentProgress = (float) (CurrentProgress + (1.666666 / (nowTime / 1000 / 60)));
                     startTimer();
@@ -320,7 +334,8 @@ public class MainActivity extends AppCompatActivity {
                 cat_fall.setVisibility(View.INVISIBLE);
                 arrows.setVisibility(View.INVISIBLE);
                 edit_current_action.setVisibility(View.INVISIBLE);
-
+                menu.startAnimation(outAnimation);
+                visibilityNo();
                 if (mTimerRunning) {
                     ((GifDrawable)cat_sleep.getDrawable()).stop();
                     pauseTimerRest();
@@ -344,6 +359,8 @@ public class MainActivity extends AppCompatActivity {
                 cat_fall.setVisibility(View.INVISIBLE);
                 arrows.setVisibility(View.INVISIBLE);
                 edit_current_action.setVisibility(View.INVISIBLE);
+                menu.startAnimation(outAnimation);
+                visibilityNo();
 
                 if (mTimerRunning) {
                     ((GifDrawable)cat_sleep.getDrawable()).stop();
@@ -494,6 +511,7 @@ public class MainActivity extends AppCompatActivity {
         loadValueRest();
         loadValueLongRest();
         updateCountDownText();
+        menu.startAnimation(inAnimation);
     }
 
     @Override
@@ -520,6 +538,7 @@ public class MainActivity extends AppCompatActivity {
                 updateCountDownText();
                 current_action.setText("Работа");
                 arrows.setX(404);
+
 
 
             }
@@ -640,12 +659,13 @@ public class MainActivity extends AppCompatActivity {
         mButtonReset.setVisibility(View.VISIBLE);
         cat_sleep.setVisibility(View.VISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
-        arrows.setVisibility(View.VISIBLE);
-        edit_current_action.setVisibility(View.VISIBLE);
+        arrows.setVisibility(View.INVISIBLE);
+        edit_current_action.setVisibility(View.INVISIBLE);
         if (seconds == 0 && minutes == 0) {
             done -= 1;
         }
         START_TIME_IN_MILLIS += 1000;
+
     }
 
     private void pauseTimerRest() {
@@ -655,9 +675,10 @@ public class MainActivity extends AppCompatActivity {
         cat_move.setVisibility(View.INVISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         cat_question.setVisibility(View.VISIBLE);
-        arrows.setVisibility(View.VISIBLE);
-        edit_current_action.setVisibility(View.VISIBLE);
+        arrows.setVisibility(View.INVISIBLE);
+        edit_current_action.setVisibility(View.INVISIBLE);
         REST_TIME_IN_MILLIS += 1000;
+        menu.startAnimation(nullAnimation);
     }
 
     private void pauseTimerLongRest() {
@@ -668,9 +689,10 @@ public class MainActivity extends AppCompatActivity {
         cat_move.setVisibility(View.INVISIBLE);
         cat_question.setVisibility(View.VISIBLE);
         arrows.setX(404 - 90);
-        arrows.setVisibility(View.VISIBLE);
-        edit_current_action.setVisibility(View.VISIBLE);
+        arrows.setVisibility(View.INVISIBLE);
+        edit_current_action.setVisibility(View.INVISIBLE);
         LONG_REST_TIME_IN_MILLIS += 1000;
+        menu.startAnimation(nullAnimation);
     }
 
     private void resetTimer() {
@@ -684,6 +706,10 @@ public class MainActivity extends AppCompatActivity {
         cat_fall.setVisibility(View.VISIBLE);
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
+        arrows.setVisibility(View.VISIBLE);
+        edit_current_action.setVisibility(View.VISIBLE);
+        menu.startAnimation(inAnimation);
+        visibilityYes();
         ((GifDrawable)cat_fall.getDrawable()).reset();
         gifTimer();
 
@@ -700,6 +726,10 @@ public class MainActivity extends AppCompatActivity {
         cat_sleep.setVisibility(View.INVISIBLE);
         mRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseRest.setVisibility(View.VISIBLE);
+        menu.startAnimation(inAnimation);
+        visibilityYes();
+        arrows.setVisibility(View.VISIBLE);
+        edit_current_action.setVisibility(View.VISIBLE);
         ((GifDrawable)cat_fall.getDrawable()).reset();
 
     }
@@ -715,6 +745,10 @@ public class MainActivity extends AppCompatActivity {
         cat_sleep.setVisibility(View.INVISIBLE);
         mLongRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+        menu.startAnimation(inAnimation);
+        visibilityYes();
+        arrows.setVisibility(View.VISIBLE);
+        edit_current_action.setVisibility(View.VISIBLE);
         ((GifDrawable)cat_fall.getDrawable()).reset();
 
     }
@@ -728,6 +762,34 @@ public class MainActivity extends AppCompatActivity {
 
             public void onFinish() {
                 ((GifDrawable)cat_fall.getDrawable()).stop();
+            }
+
+        }.start();
+    }
+
+    private void visibilityNo(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                menu.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
+    private void visibilityYes(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                menu.setVisibility(View.VISIBLE);
             }
 
         }.start();
