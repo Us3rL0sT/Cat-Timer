@@ -342,6 +342,7 @@ public class MainActivity extends AppCompatActivity {
                 arrows.setVisibility(View.INVISIBLE);
                 edit_current_action.setVisibility(View.INVISIBLE);
                 menu.startAnimation(outAnimation);
+                cat_question.setVisibility(View.INVISIBLE);
 
                 visibilityNo();
                 if (mTimerRunning) {
@@ -600,6 +601,8 @@ public class MainActivity extends AppCompatActivity {
                 current_action.setText("Отдых");
                 cat_sleep.setVisibility(View.VISIBLE);
                 cat_move.setVisibility(View.INVISIBLE);
+                cat_question.setVisibility(View.INVISIBLE);
+                mRestButtonReset.setVisibility(View.INVISIBLE);
                 arrows.setX(404);
             }
 
@@ -638,6 +641,8 @@ public class MainActivity extends AppCompatActivity {
                 current_action.setText("Долгий отдых");
                 cat_sleep.setVisibility(View.VISIBLE);
                 cat_move.setVisibility(View.INVISIBLE);
+                cat_question.setVisibility(View.INVISIBLE);
+                mLongRestButtonReset.setVisibility(View.INVISIBLE);
 
 
                 arrows.setX(404 - 90);
@@ -688,16 +693,14 @@ public class MainActivity extends AppCompatActivity {
         mCountDownTimer.cancel();
 
         mTimerRunning = false;
-        cat_question.setVisibility(View.INVISIBLE);
-        mRestButtonReset.setVisibility(View.INVISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         arrows.setVisibility(View.INVISIBLE);
         edit_current_action.setVisibility(View.INVISIBLE);
         REST_TIME_IN_MILLIS += 1000;
         menu.startAnimation(nullAnimation);
-        cat_question.setAnimation(fastAnimation);
-        mRestButtonReset.setAnimation(fastAnimation);
+        cat_question.startAnimation(fastAnimation);
+        mRestButtonReset.startAnimation(fastAnimation);
         visibilityPause();
     }
 
@@ -707,12 +710,14 @@ public class MainActivity extends AppCompatActivity {
         mLongRestButtonReset.setVisibility(View.VISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
-        cat_question.setVisibility(View.VISIBLE);
         arrows.setX(404 - 90);
         arrows.setVisibility(View.INVISIBLE);
         edit_current_action.setVisibility(View.INVISIBLE);
         LONG_REST_TIME_IN_MILLIS += 1000;
         menu.startAnimation(nullAnimation);
+        cat_question.startAnimation(fastAnimation);
+        mLongRestButtonReset.startAnimation(fastAnimation);
+        visibilityLongPause();
     }
 
     private void resetTimer() {
@@ -822,7 +827,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void visibilityPause(){
-        new CountDownTimer(400, 1000) {
+        new CountDownTimer(400, 100) {
 
             public void onTick(long millisUntilFinished) {
                 // You don't need to use this.
@@ -831,6 +836,22 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 cat_question.setVisibility(View.VISIBLE);
                 mRestButtonReset.setVisibility(View.VISIBLE);
+                cat_sleep.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
+    private void visibilityLongPause(){
+        new CountDownTimer(400, 100) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                cat_question.setVisibility(View.VISIBLE);
+                mLongRestButtonReset.setVisibility(View.VISIBLE);
             }
 
         }.start();
