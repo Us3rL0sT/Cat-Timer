@@ -105,18 +105,18 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/cat_pause"
-        android:layout_width="286dp"
-        android:layout_height="308dp"
+        android:layout_width="313dp"
+        android:layout_height="320dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/cat_pause"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.087"
+        app:layout_constraintVertical_bias="0.059"
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />
 
