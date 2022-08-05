@@ -314,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
                     visibilityNo();
                     pauseTimer();
                 } else {
+                    clickableAnimation();
                     cat_move.startAnimation(fastAnimation);
                     cat_sleep.setVisibility(View.INVISIBLE);
                     menu.setVisibility(View.INVISIBLE);
@@ -348,6 +349,7 @@ public class MainActivity extends AppCompatActivity {
                     ((GifDrawable)cat_sleep.getDrawable()).stop();
                     pauseTimerRest();
                 } else {
+                    clickableAnimationRest();
                     cat_sleep.startAnimation(fastAnimation);
                     cat_question.setVisibility(View.INVISIBLE);
                     menu.setVisibility(View.INVISIBLE);
@@ -381,6 +383,7 @@ public class MainActivity extends AppCompatActivity {
                     ((GifDrawable)cat_sleep.getDrawable()).stop();
                     pauseTimerLongRest();
                 } else {
+                    clickableAnimationLongRest();
                     menu.setVisibility(View.INVISIBLE);
                     menu.startAnimation(nullAnimation);
                     cat_sleep.startAnimation(fastAnimation);
@@ -685,10 +688,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pauseTimer() {
+        clickableAnimation();
         mCountDownTimer.cancel();
         mTimerRunning = false;
         mButtonReset.setVisibility(View.VISIBLE);
-        cat_sleep.setVisibility(View.VISIBLE);
+        cat_sleep.startAnimation(fastAnimation);
         cat_move.setVisibility(View.INVISIBLE);
         arrows.setVisibility(View.INVISIBLE);
         edit_current_action.setVisibility(View.INVISIBLE);
@@ -698,12 +702,13 @@ public class MainActivity extends AppCompatActivity {
         START_TIME_IN_MILLIS += 1000;
         menu.startAnimation(nullAnimation);
         arrows.startAnimation(nullAnimation);
+        cat_sleep.setVisibility(View.VISIBLE);
 
     }
 
     private void pauseTimerRest() {
+        clickableAnimationRest();
         mCountDownTimer.cancel();
-
         mTimerRunning = false;
         cat_move.setVisibility(View.INVISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
@@ -718,6 +723,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pauseTimerLongRest() {
+        clickableAnimationLongRest();
         mCountDownTimer.cancel();
         mTimerRunning = false;
         mLongRestButtonReset.setVisibility(View.VISIBLE);
@@ -881,6 +887,57 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 menu.setVisibility(View.INVISIBLE);
                 arrows.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
+    private void clickableAnimation(){
+        mButtonStartPause.setClickable(false);
+        cat_sleep.setClickable(false);
+        new CountDownTimer(800, 1) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                mButtonStartPause.setClickable(true);
+                cat_sleep.setClickable(true);
+            }
+
+        }.start();
+    }
+
+    private void clickableAnimationRest(){
+        mButtonStartPauseRest.setClickable(false);
+        cat_question.setClickable(false);
+        new CountDownTimer(800, 1) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                mButtonStartPauseRest.setClickable(true);
+                cat_question.setClickable(true);
+            }
+
+        }.start();
+    }
+
+    private void clickableAnimationLongRest(){
+        mButtonStartPauseLongRest.setClickable(false);
+        cat_question.setClickable(false);
+        new CountDownTimer(800, 1) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                mButtonStartPauseLongRest.setClickable(true);
+                cat_question.setClickable(true);
             }
 
         }.start();
