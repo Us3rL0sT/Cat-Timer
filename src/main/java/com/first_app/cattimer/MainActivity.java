@@ -314,8 +314,12 @@ public class MainActivity extends AppCompatActivity {
                     visibilityNo();
                     pauseTimer();
                 } else {
-                    cat_move.setVisibility(View.VISIBLE);
-
+                    cat_move.startAnimation(fastAnimation);
+                    cat_sleep.setVisibility(View.INVISIBLE);
+                    menu.setVisibility(View.INVISIBLE);
+                    menu.startAnimation(nullAnimation);
+                    arrows.setVisibility(View.INVISIBLE);
+                    arrows.startAnimation(nullAnimation);
                     ((GifDrawable)cat_move.getDrawable()).start();
                     CurrentProgress = (float) (CurrentProgress + (1.666666 / (nowTime / 1000 / 60)));
                     startTimer();
@@ -348,6 +352,8 @@ public class MainActivity extends AppCompatActivity {
                     cat_question.setVisibility(View.INVISIBLE);
                     menu.setVisibility(View.INVISIBLE);
                     menu.startAnimation(nullAnimation);
+                    arrows.setVisibility(View.INVISIBLE);
+                    arrows.startAnimation(nullAnimation);
                     ((GifDrawable)cat_sleep.getDrawable()).start();
                     CurrentProgressRest = (float) (CurrentProgressRest + (1.666666 / (nowTimeRest / 1000 / 60)));
                     restTimer();
@@ -379,6 +385,8 @@ public class MainActivity extends AppCompatActivity {
                     menu.startAnimation(nullAnimation);
                     cat_sleep.startAnimation(fastAnimation);
                     cat_question.setVisibility(View.INVISIBLE);
+                    arrows.setVisibility(View.INVISIBLE);
+                    arrows.startAnimation(nullAnimation);
                     ((GifDrawable)cat_sleep.getDrawable()).start();
                     CurrentProgressLongRest = (float) (CurrentProgressLongRest + (1.666666 / (nowTimeLongRest / 1000 / 60)));
                     longRestTimer();
@@ -560,6 +568,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 updateCountDownText();
                 current_action.setText("Работа");
+                cat_sleep.setVisibility(View.INVISIBLE);
+                cat_move.setVisibility(View.VISIBLE);
                 arrows.setX(398);
                 visibilityStart();
 
@@ -701,6 +711,7 @@ public class MainActivity extends AppCompatActivity {
         edit_current_action.setVisibility(View.INVISIBLE);
         REST_TIME_IN_MILLIS += 1000;
         menu.startAnimation(nullAnimation);
+        arrows.startAnimation(nullAnimation);
         cat_question.startAnimation(fastAnimation);
         mRestButtonReset.startAnimation(fastAnimation);
         visibilityPause();
@@ -719,6 +730,7 @@ public class MainActivity extends AppCompatActivity {
         menu.startAnimation(nullAnimation);
         cat_question.startAnimation(fastAnimation);
         mLongRestButtonReset.startAnimation(fastAnimation);
+        arrows.startAnimation(nullAnimation);
         visibilityLongPause();
     }
 
