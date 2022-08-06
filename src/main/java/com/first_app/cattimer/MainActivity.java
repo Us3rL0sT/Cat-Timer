@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private Animation outAnimation;
     private Animation nullAnimation;
     private Animation fastAnimation;
-    private Animation fastexitAnimation;
 
     private TextView mTextViewCountDown;
     private TextView current_action;
@@ -133,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
         nullAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_null);
         fastAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fast);
-        fastexitAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fastexit);
 
         progressBar = findViewById(R.id.progressBar);
 

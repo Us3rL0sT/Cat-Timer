@@ -1,237 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Menu">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button_work_time"
-        android:layout_width="76dp"
-        android:layout_height="102dp"
-        android:background="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
 
-    <Button
-        android:id="@+id/button_rest_time"
-        android:layout_width="76dp"
-        android:layout_height="102dp"
-        android:background="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
-
-    <Button
-        android:id="@+id/button_long_rest_time"
-        android:layout_width="76dp"
-        android:layout_height="102dp"
-        android:background="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
-
-    <TextView
-        android:id="@+id/action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/graduate"
-        android:text="Работа"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/button_work_time"
-        app:layout_constraintEnd_toEndOf="@+id/button_work_time"
-        app:layout_constraintStart_toStartOf="@+id/button_work_time"
-        app:layout_constraintTop_toTopOf="@+id/button_work_time"
-        app:layout_constraintVertical_bias="0.855" />
-
-    <TextView
-        android:id="@+id/action2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/graduate"
-        android:text="Отдых"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/button_rest_time"
-        app:layout_constraintEnd_toEndOf="@+id/button_rest_time"
-        app:layout_constraintStart_toStartOf="@+id/button_rest_time"
-        app:layout_constraintTop_toTopOf="@+id/button_rest_time"
-        app:layout_constraintVertical_bias="0.855" />
-
-    <TextView
-        android:id="@+id/action3"
-        android:layout_width="59dp"
-        android:layout_height="38dp"
-        android:fontFamily="@font/graduate"
-        android:text="Долгий отдых"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/button_long_rest_time"
-        app:layout_constraintEnd_toEndOf="@+id/button_long_rest_time"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toStartOf="@+id/button_long_rest_time"
-        app:layout_constraintTop_toTopOf="@+id/button_long_rest_time"
-        app:layout_constraintVertical_bias="0.984" />
-
-    <TextView
-        android:id="@+id/work_time"
-        android:layout_width="59dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="55dp"
-        android:fontFamily="@font/graduate"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_work_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
-
-    <TextView
-        android:id="@+id/rest_time"
-        android:layout_width="59dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="7dp"
-        android:fontFamily="@font/graduate"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_rest_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button_rest_time"
-        app:layout_constraintVertical_bias="0.113" />
-
-    <TextView
-        android:id="@+id/long_rest_time"
-        android:layout_width="59dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="2dp"
-        android:fontFamily="@font/graduate"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_long_rest_time"
-        app:layout_constraintEnd_toEndOf="@+id/button_long_rest_time"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toStartOf="@+id/button_long_rest_time"
-        app:layout_constraintTop_toTopOf="@+id/button_long_rest_time"
-        app:layout_constraintVertical_bias="0.204" />
-
-    <ImageView
-        android:id="@+id/goBack"
-        android:layout_width="39dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/maximized_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:paddingBottom="900px"
+        tools:context=".Menu">
 
-        <View
-            android:id="@+id/shade"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.8"
-            android:background="#808080"
-            android:elevation="3dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/maximized_container"
+            android:layout_width="412dp"
+            android:layout_height="754dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/shade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.8"
+                android:background="#808080"
+                android:elevation="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/button_work_time"
+            android:layout_width="76dp"
+            android:layout_height="102dp"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.17"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.119" />
+
+        <Button
+            android:id="@+id/button_rest_time"
+            android:layout_width="76dp"
+            android:layout_height="102dp"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.525"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <Button
+            android:id="@+id/button_long_rest_time"
+            android:layout_width="76dp"
+            android:layout_height="102dp"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.865"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <TextView
+            android:id="@+id/action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graduate"
+            android:text="Работа"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/button_work_time"
+            app:layout_constraintEnd_toEndOf="@+id/button_work_time"
+            app:layout_constraintStart_toStartOf="@+id/button_work_time"
+            app:layout_constraintTop_toTopOf="@+id/button_work_time"
+            app:layout_constraintVertical_bias="0.855" />
+
+        <TextView
+            android:id="@+id/action2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graduate"
+            android:text="Отдых"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/button_rest_time"
+            app:layout_constraintEnd_toEndOf="@+id/button_rest_time"
+            app:layout_constraintStart_toStartOf="@+id/button_rest_time"
+            app:layout_constraintTop_toTopOf="@+id/button_rest_time"
+            app:layout_constraintVertical_bias="0.855" />
+
+        <TextView
+            android:id="@+id/action3"
+            android:layout_width="59dp"
+            android:layout_height="38dp"
+            android:fontFamily="@font/graduate"
+            android:text="Долгий отдых"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/button_long_rest_time"
+            app:layout_constraintEnd_toEndOf="@+id/button_long_rest_time"
+            app:layout_constraintHorizontal_bias="0.588"
+            app:layout_constraintStart_toStartOf="@+id/button_long_rest_time"
+            app:layout_constraintTop_toTopOf="@+id/button_long_rest_time"
+            app:layout_constraintVertical_bias="0.984" />
+
+        <TextView
+            android:id="@+id/work_time"
+            android:layout_width="59dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="55dp"
+            android:fontFamily="@font/graduate"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_work_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.218"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.61" />
+
+        <TextView
+            android:id="@+id/rest_time"
+            android:layout_width="59dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/graduate"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_rest_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.522"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/button_rest_time"
+            app:layout_constraintVertical_bias="0.113" />
+
+        <TextView
+            android:id="@+id/long_rest_time"
+            android:layout_width="59dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/graduate"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_long_rest_time"
+            app:layout_constraintEnd_toEndOf="@+id/button_long_rest_time"
+            app:layout_constraintHorizontal_bias="0.588"
+            app:layout_constraintStart_toStartOf="@+id/button_long_rest_time"
+            app:layout_constraintTop_toTopOf="@+id/button_long_rest_time"
+            app:layout_constraintVertical_bias="0.204" />
+
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.015"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.019"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+
+
+
+
+        <EditText
+            android:id="@+id/long_rest_time_invisible"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:fontFamily="@font/graduate"
+            android:background="@null"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/maximized_container"
+            app:layout_constraintStart_toStartOf="@+id/maximized_container"
+            app:layout_constraintTop_toTopOf="@+id/maximized_container"
+            tools:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/work_time_invisible"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:background="@null"
+            android:fontFamily="@font/graduate"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/maximized_container"
+            app:layout_constraintStart_toStartOf="@+id/maximized_container"
+            app:layout_constraintTop_toTopOf="@+id/maximized_container"
+            tools:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/rest_time_invisible"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:background="@null"
+            android:fontFamily="@font/graduate"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/maximized_container"
+            app:layout_constraintTop_toTopOf="@+id/maximized_container"
+            tools:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/text_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="600dp"
+            android:fontFamily="@font/graduate"
+            android:text="Длительность"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119"
+            tools:ignore="MissingConstraints" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/work_time_invisible"
-        android:layout_width="100dp"
-        android:layout_height="70dp"
-        android:background="@null"
-        android:fontFamily="@font/graduate"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/maximized_container"
-        app:layout_constraintEnd_toEndOf="@+id/maximized_container"
-        app:layout_constraintStart_toStartOf="@+id/maximized_container"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible" />
-
-    <EditText
-        android:id="@+id/rest_time_invisible"
-        android:layout_width="100dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/graduate"
-        android:background="@null"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/maximized_container"
-        app:layout_constraintTop_toTopOf="@+id/maximized_container"
-        tools:visibility="invisible" />
-
-    <EditText
-        android:id="@+id/long_rest_time_invisible"
-        android:layout_width="100dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/graduate"
-        android:background="@null"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/maximized_container"
-        app:layout_constraintStart_toStartOf="@+id/maximized_container"
-        app:layout_constraintTop_toTopOf="@+id/maximized_container"
-        tools:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/text_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="600dp"
-        android:fontFamily="@font/graduate"
-        android:text="Длительность"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+</ScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
