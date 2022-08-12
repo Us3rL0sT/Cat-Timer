@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ImageView arrows;
+    private ImageView arrows_rest;
+    private ImageView arrows_long_rest;
     private ImageView stick;
     private ImageView stick1;
     private ImageView stick2;
@@ -144,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
         cat_pause = (GifImageView) findViewById(R.id.cat_pause);
 
         arrows = findViewById(R.id.arrows);
+        arrows_rest = findViewById(R.id.arrows_rest);
+        arrows_long_rest = findViewById(R.id.arrows_long_rest);
         stick = findViewById(R.id.stick);
         stick1 = findViewById(R.id.stick1);
         stick2 = findViewById(R.id.stick2);
@@ -176,7 +180,9 @@ public class MainActivity extends AppCompatActivity {
             cat_question.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.INVISIBLE);
             current_action.setText("Работа");
-            arrows.setX(-5);
+            arrows.setVisibility(View.VISIBLE);
+            arrows_rest.setVisibility(View.INVISIBLE);
+            arrows_long_rest.setVisibility(View.INVISIBLE);
             mTimeLeftInMillis = nowTime;
             updateCountDownText();
 
@@ -189,7 +195,9 @@ public class MainActivity extends AppCompatActivity {
             cat_question.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.INVISIBLE);
             current_action.setText("Работа");
-            arrows.setX(-5);
+            arrows.setVisibility(View.VISIBLE);
+            arrows_rest.setVisibility(View.INVISIBLE);
+            arrows_long_rest.setVisibility(View.INVISIBLE);
             mTimeLeftInMillis = nowTime;
             CurrentProgress = 99;
             updateCountDownText();
@@ -203,7 +211,9 @@ public class MainActivity extends AppCompatActivity {
             cat_fall.setVisibility(View.INVISIBLE);
             cat_sleep.setVisibility(View.INVISIBLE);
             current_action.setText("Отдых");
-            arrows.setX(0);
+            arrows.setVisibility(View.INVISIBLE);
+            arrows_rest.setVisibility(View.VISIBLE);
+            arrows_long_rest.setVisibility(View.INVISIBLE);
             mRestLeftInMillis = nowTimeRest;
             restUpdateCountDownText();
         } else if (checkAction == 4) {
@@ -215,7 +225,9 @@ public class MainActivity extends AppCompatActivity {
             cat_pause.setVisibility(View.VISIBLE);
             cat_fall.setVisibility(View.INVISIBLE);
             current_action.setText("Отдых");
-            arrows.setX(0);
+            arrows.setVisibility(View.INVISIBLE);
+            arrows_rest.setVisibility(View.VISIBLE);
+            arrows_long_rest.setVisibility(View.INVISIBLE);
             mRestLeftInMillis = nowTimeRest;
             CurrentProgress = 99;
             restUpdateCountDownText();
@@ -225,17 +237,22 @@ public class MainActivity extends AppCompatActivity {
             mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
             mRestButtonReset.setVisibility(View.INVISIBLE);
             current_action.setText("Долгий отдых");
-            arrows.setX(-90);
+            arrows.setVisibility(View.INVISIBLE);
+            arrows_rest.setVisibility(View.VISIBLE);
+            arrows_long_rest.setVisibility(View.INVISIBLE);
             mLongRestLeftInMillis = nowTimeLongRest;
             longRestUpdateCountDownText();
             updateCountDownText();
-    } else if (checkAction == 6) {
+        }
+        else if (checkAction == 6) {
             mButtonStartPauseRest.setVisibility(View.INVISIBLE);
             mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
             mRestButtonReset.setVisibility(View.INVISIBLE);
             mLongRestButtonReset.setVisibility(View.VISIBLE);
             current_action.setText("Долгий отдых");
-            arrows.setX(-90);
+            arrows.setVisibility(View.INVISIBLE);
+            arrows_rest.setVisibility(View.INVISIBLE);
+            arrows_long_rest.setVisibility(View.VISIBLE);
             mLongRestLeftInMillis = nowTimeLongRest;
             CurrentProgress = 99;
             longRestUpdateCountDownText();
@@ -413,7 +430,9 @@ public class MainActivity extends AppCompatActivity {
                         cat_fall.setVisibility(View.INVISIBLE);
                         cat_sleep.setVisibility(View.INVISIBLE);
                         current_action.setText("Отдых");
-                        arrows.setX(arrowXposition + 25);
+                        arrows.setVisibility(View.INVISIBLE);
+                        arrows_rest.setVisibility(View.VISIBLE);
+                        arrows_long_rest.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = nowTimeRest;
                         restUpdateCountDownText();
                     } else
@@ -426,7 +445,9 @@ public class MainActivity extends AppCompatActivity {
                         cat_pause.setVisibility(View.VISIBLE);
                         cat_fall.setVisibility(View.INVISIBLE);
                         current_action.setText("Отдых");
-                        arrows.setX(arrowXposition + 25);
+                        arrows.setVisibility(View.INVISIBLE);
+                        arrows_rest.setVisibility(View.VISIBLE);
+                        arrows_long_rest.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = nowTimeRest;
                         CurrentProgress = 99;
                         restUpdateCountDownText();
@@ -439,7 +460,9 @@ public class MainActivity extends AppCompatActivity {
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         current_action.setText("Долгий отдых");
-                        arrows.setX(arrowXposition - 90);
+                        arrows.setVisibility(View.INVISIBLE);
+                        arrows_rest.setVisibility(View.INVISIBLE);
+                        arrows_long_rest.setVisibility(View.VISIBLE);
                         mLongRestLeftInMillis = nowTimeLongRest;
                         longRestUpdateCountDownText();
                     } else
@@ -449,7 +472,9 @@ public class MainActivity extends AppCompatActivity {
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         mLongRestButtonReset.setVisibility(View.VISIBLE);
                         current_action.setText("Долгий отдых");
-                        arrows.setX(arrowXposition - 90);
+                        arrows.setVisibility(View.INVISIBLE);
+                        arrows_rest.setVisibility(View.INVISIBLE);
+                        arrows_long_rest.setVisibility(View.VISIBLE);
                         mLongRestLeftInMillis = nowTimeLongRest;
                         CurrentProgress = 99;
                         longRestUpdateCountDownText();
@@ -465,7 +490,9 @@ public class MainActivity extends AppCompatActivity {
                         cat_question.setVisibility(View.INVISIBLE);
                         cat_pause.setVisibility(View.INVISIBLE);
                         current_action.setText("Работа");
-                        arrows.setX(arrowXposition + 20);
+                        arrows.setVisibility(View.VISIBLE);
+                        arrows_rest.setVisibility(View.INVISIBLE);
+                        arrows_long_rest.setVisibility(View.INVISIBLE);
                         mTimeLeftInMillis = nowTime;
                         updateCountDownText();
                     } else
@@ -478,7 +505,9 @@ public class MainActivity extends AppCompatActivity {
                         cat_question.setVisibility(View.INVISIBLE);
                         cat_pause.setVisibility(View.INVISIBLE);
                         current_action.setText("Работа");
-                        arrows.setX(arrowXposition + 20);
+                        arrows.setVisibility(View.VISIBLE);
+                        arrows_rest.setVisibility(View.INVISIBLE);
+                        arrows_long_rest.setVisibility(View.INVISIBLE);
                         mTimeLeftInMillis = nowTime;
                         CurrentProgress = 99;
                         updateCountDownText();
@@ -573,7 +602,9 @@ public class MainActivity extends AppCompatActivity {
                 current_action.setText("Работа");
                 cat_sleep.setVisibility(View.INVISIBLE);
                 cat_move.setVisibility(View.VISIBLE);
-                arrows.setX(398);
+                arrows.setVisibility(View.VISIBLE);
+                arrows_rest.setVisibility(View.INVISIBLE);
+                arrows_long_rest.setVisibility(View.INVISIBLE);
                 visibilityStart();
 
             }
@@ -617,7 +648,9 @@ public class MainActivity extends AppCompatActivity {
                 cat_move.setVisibility(View.INVISIBLE);
                 cat_question.setVisibility(View.INVISIBLE);
                 mRestButtonReset.setVisibility(View.INVISIBLE);
-                arrows.setX(404);
+//                arrows.setVisibility(View.INVISIBLE);
+//                arrows_rest.setVisibility(View.VISIBLE);
+//                arrows_long_rest.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -659,7 +692,9 @@ public class MainActivity extends AppCompatActivity {
                 mLongRestButtonReset.setVisibility(View.INVISIBLE);
 
 
-                arrows.setX(404 - 90);
+//                arrows.setVisibility(View.INVISIBLE);
+//                arrows_rest.setVisibility(View.INVISIBLE);
+//                arrows_long_rest.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -729,7 +764,6 @@ public class MainActivity extends AppCompatActivity {
         mLongRestButtonReset.setVisibility(View.VISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
-        arrows.setX(404 - 90);
         arrows.setVisibility(View.INVISIBLE);
         edit_current_action.setVisibility(View.INVISIBLE);
         LONG_REST_TIME_IN_MILLIS += 1000;
@@ -759,7 +793,8 @@ public class MainActivity extends AppCompatActivity {
         ((GifDrawable)cat_fall.getDrawable()).reset();
         gifTimer();
         arrows.setVisibility(View.VISIBLE);
-        arrows.setX(arrowXposition + 20);
+        arrows_rest.setVisibility(View.INVISIBLE);
+        arrows_long_rest.setVisibility(View.INVISIBLE);
     }
 
     private void resetRestTimer() {
@@ -781,8 +816,9 @@ public class MainActivity extends AppCompatActivity {
         edit_current_action.setVisibility(View.VISIBLE);
         ((GifDrawable)cat_fall.getDrawable()).reset();
         cat_pause.setVisibility(View.VISIBLE);
-        arrows.setVisibility(View.VISIBLE);
-        arrows.setX(arrowXposition + 25);
+        arrows.setVisibility(View.INVISIBLE);
+        arrows_rest.setVisibility(View.VISIBLE);
+        arrows_long_rest.setVisibility(View.INVISIBLE);
     }
 
     private void resetLongRestTimer() {
@@ -804,8 +840,9 @@ public class MainActivity extends AppCompatActivity {
         edit_current_action.setVisibility(View.VISIBLE);
         ((GifDrawable)cat_fall.getDrawable()).reset();
         cat_pause.setVisibility(View.VISIBLE);
-        arrows.setVisibility(View.VISIBLE);
-        arrows.setX(arrowXposition - 90);
+        arrows.setVisibility(View.INVISIBLE);
+        arrows_rest.setVisibility(View.INVISIBLE);
+        arrows_long_rest.setVisibility(View.VISIBLE);
     }
 
     private void gifTimer() {
@@ -1114,7 +1151,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadValue() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        START_TIME_IN_MILLIS = pref.getLong("save_time", 30);
+        START_TIME_IN_MILLIS = pref.getLong("save_time", 0);
         if (START_TIME_IN_MILLIS == 0) {
             START_TIME_IN_MILLIS = 1500 * 1000;
         }
@@ -1134,6 +1171,9 @@ public class MainActivity extends AppCompatActivity {
     private void loadValueRest() {
         SharedPreferences prefrest = PreferenceManager.getDefaultSharedPreferences(this);
         REST_TIME_IN_MILLIS = prefrest.getLong("save_keyrest", 0);
+        if (REST_TIME_IN_MILLIS == 0) {
+            REST_TIME_IN_MILLIS = 300 * 1000;
+        }
         nowTimeRest = REST_TIME_IN_MILLIS;
         mRestLeftInMillis = REST_TIME_IN_MILLIS;
         restUpdateCountDownText();
@@ -1151,6 +1191,9 @@ public class MainActivity extends AppCompatActivity {
     private void loadValueLongRest() {
         SharedPreferences preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
         LONG_REST_TIME_IN_MILLIS = preflongrest.getLong("save_keylongrest", 0);
+        if (LONG_REST_TIME_IN_MILLIS == 0) {
+            LONG_REST_TIME_IN_MILLIS = 900 * 1000;
+        }
         nowTimeLongRest = LONG_REST_TIME_IN_MILLIS;
         mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
         longRestUpdateCountDownText();

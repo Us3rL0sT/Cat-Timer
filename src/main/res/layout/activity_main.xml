@@ -91,7 +91,7 @@
         android:layout_width="216dp"
         android:layout_height="278dp"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/cat_question"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -227,6 +227,39 @@
         app:layout_constraintTop_toTopOf="@+id/current_action"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/arrows" />
+
+    <ImageView
+        android:id="@+id/arrows_rest"
+        android:layout_width="16dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="27dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/current_action"
+        app:layout_constraintEnd_toEndOf="@+id/current_action"
+        app:layout_constraintHorizontal_bias="0.243"
+        app:layout_constraintStart_toStartOf="@+id/current_action"
+        app:layout_constraintTop_toTopOf="@+id/current_action"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/arrows"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/arrows_long_rest"
+        android:layout_width="16dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="1dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/current_action"
+        app:layout_constraintEnd_toEndOf="@+id/current_action"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/current_action"
+        app:layout_constraintTop_toTopOf="@+id/current_action"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/arrows"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/button_rest_restart"
