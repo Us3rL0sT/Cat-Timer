@@ -210,7 +210,7 @@ public class Menu extends MainActivity {
 
     private void loadValue() {
         pref = getPreferences(MODE_PRIVATE);
-        String savedText = pref.getString("save_key", "");
+        String savedText = pref.getString("save_key", String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
         START_TIME_IN_MILLIS = Long.valueOf(savedText);
         START_TIME_IN_MILLIS = START_TIME_IN_MILLIS * 60 * 1000;
         work_time.setText(String.valueOf(savedText));
@@ -226,7 +226,7 @@ public class Menu extends MainActivity {
 
     private void loadValueRest() {
         prefrest = getPreferences(MODE_PRIVATE);
-        String savedTextRest = prefrest.getString("save_keyrest", "");
+        String savedTextRest = prefrest.getString("save_keyrest", String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         REST_TIME_IN_MILLIS = Long.valueOf(savedTextRest);
         REST_TIME_IN_MILLIS = REST_TIME_IN_MILLIS * 60 * 1000;
         rest_time.setText(String.valueOf(savedTextRest));
@@ -244,7 +244,7 @@ public class Menu extends MainActivity {
 
     private void loadValueLongRest() {
         preflongrest = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = preflongrest.getString("save_keylongrest", "");
+        String savedTextLongRest = preflongrest.getString("save_keylongrest", String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
         LONG_REST_TIME_IN_MILLIS = Long.valueOf(savedTextLongRest);
         LONG_REST_TIME_IN_MILLIS = LONG_REST_TIME_IN_MILLIS * 60 * 1000;
         long_rest_time.setText(String.valueOf(savedTextLongRest));
