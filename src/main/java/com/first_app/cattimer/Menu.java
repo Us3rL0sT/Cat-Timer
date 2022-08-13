@@ -1,22 +1,23 @@
 package com.first_app.cattimer;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentContainer;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Menu extends MainActivity {
 
@@ -45,6 +46,10 @@ public class Menu extends MainActivity {
 
         private ConstraintLayout maximizedContainer;
 
+        private ScrollView SW;
+
+        private boolean isBlockedScrollView;
+
 
 
 
@@ -52,6 +57,8 @@ public class Menu extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        SW = findViewById(R.id.SW);
 
         title = findViewById(R.id.goBack);
 
@@ -84,6 +91,8 @@ public class Menu extends MainActivity {
         long_rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
 
 
+
+
         loadValue();
         loadValueRest();
         loadValueLongRest();
@@ -104,7 +113,7 @@ public class Menu extends MainActivity {
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
-
+                isBlockedScrollView = true;
 
             }
         });
@@ -122,6 +131,7 @@ public class Menu extends MainActivity {
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
+                isBlockedScrollView = true;
             }
         });
 
@@ -136,12 +146,15 @@ public class Menu extends MainActivity {
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
+                isBlockedScrollView = true;
             }
         });
 
         shade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard(Menu.this);
+                isBlockedScrollView = false;
                 shade.setVisibility(View.INVISIBLE);
                 work_time_invisible.setVisibility(View.INVISIBLE);
                 rest_time_invisible.setVisibility(View.INVISIBLE);
@@ -165,6 +178,15 @@ public class Menu extends MainActivity {
                     saveValueLongRest();
                 }
 
+            }
+        });
+
+        SW.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                return isBlockedScrollView;
             }
         });
 
@@ -252,6 +274,14 @@ public class Menu extends MainActivity {
 
     }
 
+    public static void hideKeyboard( Activity activity ) {
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE );
+        View f = activity.getCurrentFocus();
+        if( null != f && null != f.getWindowToken() && EditText.class.isAssignableFrom( f.getClass() ) )
+            imm.hideSoftInputFromWindow( f.getWindowToken(), 0 );
+        else
+            activity.getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN );
+    }
 
 
 }

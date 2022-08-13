@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/SW"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +32,7 @@
                 android:elevation="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
@@ -179,14 +179,13 @@
             app:srcCompat="?attr/actionModeCloseDrawable" />
 
 
-
-
         <EditText
             android:id="@+id/long_rest_time_invisible"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:fontFamily="@font/graduate"
             android:background="@null"
+            android:fontFamily="@font/graduate"
+            android:gravity="center"
             android:text="TextView"
             android:textAlignment="center"
             android:textSize="50sp"
@@ -201,6 +200,7 @@
             android:id="@+id/work_time_invisible"
             android:layout_width="100dp"
             android:layout_height="70dp"
+            android:layout_centerInParent="true"
             android:background="@null"
             android:fontFamily="@font/graduate"
             android:text="TextView"
@@ -219,8 +219,8 @@
             android:layout_height="70dp"
             android:background="@null"
             android:fontFamily="@font/graduate"
+            android:gravity="center"
             android:text="TextView"
-            android:textAlignment="center"
             android:textSize="50sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
