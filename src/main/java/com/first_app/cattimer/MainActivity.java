@@ -238,8 +238,8 @@ public class MainActivity extends AppCompatActivity {
             mRestButtonReset.setVisibility(View.INVISIBLE);
             current_action.setText("Долгий отдых");
             arrows.setVisibility(View.INVISIBLE);
-            arrows_rest.setVisibility(View.VISIBLE);
-            arrows_long_rest.setVisibility(View.INVISIBLE);
+            arrows_rest.setVisibility(View.INVISIBLE);
+            arrows_long_rest.setVisibility(View.VISIBLE);
             mLongRestLeftInMillis = nowTimeLongRest;
             longRestUpdateCountDownText();
             updateCountDownText();
@@ -648,9 +648,9 @@ public class MainActivity extends AppCompatActivity {
                 cat_move.setVisibility(View.INVISIBLE);
                 cat_question.setVisibility(View.INVISIBLE);
                 mRestButtonReset.setVisibility(View.INVISIBLE);
-//                arrows.setVisibility(View.INVISIBLE);
-//                arrows_rest.setVisibility(View.VISIBLE);
-//                arrows_long_rest.setVisibility(View.INVISIBLE);
+                arrows.setVisibility(View.INVISIBLE);
+                arrows_rest.setVisibility(View.INVISIBLE);
+                arrows_long_rest.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -690,11 +690,9 @@ public class MainActivity extends AppCompatActivity {
                 cat_move.setVisibility(View.INVISIBLE);
                 cat_question.setVisibility(View.INVISIBLE);
                 mLongRestButtonReset.setVisibility(View.INVISIBLE);
-
-
-//                arrows.setVisibility(View.INVISIBLE);
-//                arrows_rest.setVisibility(View.INVISIBLE);
-//                arrows_long_rest.setVisibility(View.VISIBLE);
+                arrows.setVisibility(View.INVISIBLE);
+                arrows_rest.setVisibility(View.INVISIBLE);
+                arrows_long_rest.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -747,7 +745,7 @@ public class MainActivity extends AppCompatActivity {
         mTimerRunning = false;
         cat_move.setVisibility(View.INVISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
-        arrows.setVisibility(View.INVISIBLE);
+        arrows_rest.setVisibility(View.INVISIBLE);
         edit_current_action.setVisibility(View.INVISIBLE);
         REST_TIME_IN_MILLIS += 1000;
         menu.startAnimation(nullAnimation);
@@ -764,7 +762,7 @@ public class MainActivity extends AppCompatActivity {
         mLongRestButtonReset.setVisibility(View.VISIBLE);
         cat_sleep.setVisibility(View.INVISIBLE);
         cat_move.setVisibility(View.INVISIBLE);
-        arrows.setVisibility(View.INVISIBLE);
+        arrows_long_rest.setVisibility(View.INVISIBLE);
         edit_current_action.setVisibility(View.INVISIBLE);
         LONG_REST_TIME_IN_MILLIS += 1000;
         menu.startAnimation(nullAnimation);
@@ -809,7 +807,7 @@ public class MainActivity extends AppCompatActivity {
         cat_pause.setAnimation(fastAnimation);
         mRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseRest.setVisibility(View.VISIBLE);
-        arrows.startAnimation(inAnimation);
+        arrows_rest.startAnimation(inAnimation);
         menu.startAnimation(inAnimation);
         progressBar.setProgress(0);
         visibilityYes();
@@ -833,7 +831,7 @@ public class MainActivity extends AppCompatActivity {
         cat_pause.setAnimation(fastAnimation);
         mLongRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
-        arrows.startAnimation(inAnimation);
+        arrows_long_rest.startAnimation(inAnimation);
         menu.startAnimation(inAnimation);
         progressBar.setProgress(0);
         visibilityYes();
@@ -932,6 +930,7 @@ public class MainActivity extends AppCompatActivity {
 
         }.start();
     }
+
 
     private void clickableAnimation(){
         mButtonStartPause.setClickable(false);
