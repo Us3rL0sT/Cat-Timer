@@ -4,6 +4,7 @@ package com.first_app.cattimer;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -104,7 +105,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView menu;
 
     private byte done = 0;
-    private short arrowXposition = 510;
+
+    private NotificationManager notificationManager;
+    private static final int NOTIFY_ID = 1;
+    private static final String CHANNEL_ID = "CHANNEL_ID";
+
 
 
 

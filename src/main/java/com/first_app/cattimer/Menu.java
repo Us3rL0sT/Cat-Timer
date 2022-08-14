@@ -114,7 +114,7 @@ public class Menu extends MainActivity {
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 isBlockedScrollView = true;
-
+                SW.smoothScrollTo(0, 0);
             }
         });
 
@@ -132,6 +132,7 @@ public class Menu extends MainActivity {
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 isBlockedScrollView = true;
+                SW.smoothScrollTo(0, 0);
             }
         });
 
@@ -147,6 +148,7 @@ public class Menu extends MainActivity {
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 isBlockedScrollView = true;
+                SW.smoothScrollTo(0, 0);
             }
         });
 
