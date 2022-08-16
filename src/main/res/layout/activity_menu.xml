@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/SW"
-    android:fillViewport="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:foregroundGravity="center_vertical">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,6 +52,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.119" />
+
+        <Button
+            android:id="@+id/button_color"
+            android:layout_width="375dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="225dp"
+            android:layout_marginEnd="17dp"
+            android:background="@drawable/border_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119" />
+
 
         <TextView
             android:id="@+id/action"
@@ -126,6 +142,7 @@
             app:layout_constraintTop_toTopOf="@+id/button_rest_time"
             app:layout_constraintVertical_bias="0.113" />
 
+
         <TextView
             android:id="@+id/long_rest_time"
             android:layout_width="59dp"
@@ -174,13 +191,14 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/text_setting"
+            android:id="@+id/text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="-1000dp"
             android:fontFamily="@font/graduate"
-            android:text="Настройки"
+            android:foregroundGravity="center_vertical|center|center_horizontal"
+            android:text="Цвет темы"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -188,6 +206,140 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.119"
             tools:ignore="MissingConstraints" />
+
+
+        <TextView
+            android:id="@+id/text_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="-3300dp"
+            android:fontFamily="@font/graduate"
+            android:foregroundGravity="center|center_horizontal"
+            android:text="Основные настройки"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/text_autoplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="-3700dp"
+            android:fontFamily="@font/graduate"
+            android:foregroundGravity="center_vertical|center|center_horizontal"
+            android:text="Автостарт таймера"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/button_autostart_background"
+            android:layout_width="300dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="580dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/autostart_background"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center|center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119" />
+
+
+        <Button
+            android:id="@+id/button_autostart_done"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="600dp"
+            android:layout_marginEnd="220dp"
+            android:background="@drawable/make_done_border"
+            android:foregroundGravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <Button
+            android:id="@+id/button_autostart_notdone"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="600dp"
+            android:layout_marginEnd="100dp"
+            android:background="@drawable/make_done_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119" />
+
+
+        <ImageView
+            android:id="@+id/autostart_done"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="507dp"
+            android:layout_marginEnd="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/maximized_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/make_done"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/autostart_notdone"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="103dp"
+            android:layout_marginTop="517dp"
+            app:layout_constraintBottom_toBottomOf="@+id/maximized_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/notdone"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/underline1"
+            android:layout_width="139dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="105dp"
+            android:layout_marginEnd="95dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostart_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostart_background"
+            app:layout_constraintStart_toStartOf="@+id/button_autostart_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostart_background"
+            app:srcCompat="@drawable/underline" />
+
+        <ImageView
+            android:id="@+id/underline2"
+            android:layout_width="139dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="105dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostart_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostart_background"
+            app:layout_constraintStart_toStartOf="@+id/button_autostart_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostart_background"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            app:srcCompat="@drawable/underline" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/maximized_container"
@@ -215,42 +367,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
-            android:id="@+id/long_rest_time_invisible"
-            android:layout_width="100dp"
-            android:layout_height="70dp"
-            android:background="@drawable/border_invisible"
-            android:fontFamily="@font/graduate"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="@color/gray"
-            android:textSize="50sp"
-            android:visibility="invisible"
-            android:layout_gravity="center_horizontal|center"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/maximized_container"
-            app:layout_constraintStart_toStartOf="@+id/maximized_container"
-            app:layout_constraintTop_toTopOf="@+id/maximized_container"
-            tools:visibility="invisible" />
 
         <EditText
             android:id="@+id/work_time_invisible"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:background="@drawable/border_invisible"
-            android:fontFamily="@font/graduate"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="@color/gray"
-            android:textSize="50sp"
-            android:visibility="invisible"
-            android:layout_gravity="center_horizontal|center"
-            android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/border_invisible"
+            android:fontFamily="@font/graduate"
+            android:gravity="center"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/maximized_container"
             app:layout_constraintStart_toStartOf="@+id/maximized_container"
@@ -261,19 +393,40 @@
             android:id="@+id/rest_time_invisible"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:background="@drawable/border_invisible"
-            android:fontFamily="@font/graduate"
-            android:text="TextView"
-            android:textColor="@color/gray"
-            android:textAlignment="center"
-            android:textSize="50sp"
-            android:visibility="invisible"
-            android:layout_gravity="center_horizontal|center"
-            android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/border_invisible"
+            android:fontFamily="@font/graduate"
+            android:gravity="center"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/maximized_container"
+            app:layout_constraintTop_toTopOf="@+id/maximized_container"
+            tools:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/long_rest_time_invisible"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/border_invisible"
+            android:fontFamily="@font/graduate"
+            android:gravity="center"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/maximized_container"
             app:layout_constraintStart_toStartOf="@+id/maximized_container"
             app:layout_constraintTop_toTopOf="@+id/maximized_container"
             tools:visibility="invisible" />

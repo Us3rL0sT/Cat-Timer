@@ -3,11 +3,18 @@ package com.first_app.cattimer;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -124,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         current_action = findViewById(R.id.current_action);
 
@@ -564,6 +573,30 @@ public class MainActivity extends AppCompatActivity {
                 resetLongRestTimer();
             }
         });
+
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Action
+        NotificationCompat.Action action =
+                new NotificationCompat.Action.Builder(android.R.drawable.ic_menu_send, "Запуск", pendingIntent)
+                        .build();
+
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.arrows)
+                        .setContentTitle("Таймер готов к старту!")
+                        .setContentText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60) + ":00")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .addAction(action);
+
+
+
+
+
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(MainActivity.this);
+        notificationManager.notify(NOTIFY_ID, builder.build());
 
         updateCountDownText();
 
@@ -1241,6 +1274,24 @@ public class MainActivity extends AppCompatActivity {
         checkAction = sp.getInt("check_action", 0);
         longRestUpdateCountDownText();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

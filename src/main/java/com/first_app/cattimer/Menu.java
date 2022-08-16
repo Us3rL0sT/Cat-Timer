@@ -8,10 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,8 +42,15 @@ public class Menu extends MainActivity {
         private Button button_work_time;
         private Button button_rest_time;
         private Button button_long_rest_time;
+        private Button button_color;
+        private Button button_autostart_done;
+        private Button button_autostart_notdone;
 
         private ImageView title;
+        private ImageView autostart_done;
+        private ImageView autostart_notdone;
+        private ImageView underline1;
+        private ImageView underline2;
 
         private View shade;
 
@@ -49,6 +59,12 @@ public class Menu extends MainActivity {
         private ScrollView SW;
 
         private boolean isBlockedScrollView;
+        private boolean autostartIsOn = true;
+
+        private Animation inAnimation;
+        private Animation outAnimation;
+        private Animation nullAnimation;
+        private Animation fastAnimation;
 
 
 
@@ -57,6 +73,18 @@ public class Menu extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
+        outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
+        nullAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_null);
+        fastAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fast);
+
+        button_autostart_done = findViewById(R.id.button_autostart_done);
+        button_autostart_notdone = findViewById(R.id.button_autostart_notdone);
+        autostart_done = findViewById(R.id.autostart_done);
+        autostart_notdone = findViewById(R.id.autostart_notdone);
+        underline1 = findViewById(R.id.underline1);
+        underline2 = findViewById(R.id.underline2);
 
         SW = findViewById(R.id.SW);
 
@@ -71,6 +99,7 @@ public class Menu extends MainActivity {
         work_time_invisible = findViewById(R.id.work_time_invisible);
         rest_time_invisible = findViewById(R.id.rest_time_invisible);
         long_rest_time_invisible = findViewById(R.id.long_rest_time_invisible);
+        button_color = findViewById(R.id.button_color);
 
         button_work_time = findViewById(R.id.button_work_time);
         button_rest_time = findViewById(R.id.button_rest_time);
@@ -79,6 +108,7 @@ public class Menu extends MainActivity {
         button_work_time.getBackground().setAlpha(128);
         button_rest_time.getBackground().setAlpha(128);
         button_long_rest_time.getBackground().setAlpha(128);
+        button_color.getBackground().setAlpha(128);
         work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
         rest_time.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
@@ -113,6 +143,7 @@ public class Menu extends MainActivity {
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
+                button_color.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
             }
@@ -131,6 +162,7 @@ public class Menu extends MainActivity {
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
+                button_color.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
             }
@@ -147,6 +179,7 @@ public class Menu extends MainActivity {
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
+                button_color.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
             }
@@ -164,6 +197,7 @@ public class Menu extends MainActivity {
                 button_work_time.setClickable(true);
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
+                button_color.setClickable(true);
                 if (Long.valueOf(work_time_invisible.getText().toString()) < 100) {
                     START_TIME_IN_MILLIS = Long.valueOf(work_time_invisible.getText().toString()) * 60 * 1000;
                     work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
@@ -206,12 +240,72 @@ public class Menu extends MainActivity {
 
 
 
+        // AUTOSTART
+        button_autostart_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autostartIsOn = true;
+                underline1.startAnimation(inAnimation);
+                underline2.setVisibility(View.INVISIBLE);
+                button_autostart_done.setClickable(false);
+                button_autostart_notdone.setClickable(false);
+                autostartAnimationFixDone();
+            }
+        });
+
+        button_autostart_notdone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autostartIsOn = false;
+                underline1.setVisibility(View.INVISIBLE);
+                button_autostart_done.setClickable(false);
+                button_autostart_notdone.setClickable(false);
+                underline2.startAnimation(inAnimation);
+                autostartAnimationFixNotDone();
+            }
+        });
 
 
 
 
 
 
+
+
+    }
+
+    private void autostartAnimationFixDone(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+
+                button_autostart_notdone.setClickable(true);
+                underline1.setVisibility(View.VISIBLE);
+                underline2.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
+    private void autostartAnimationFixNotDone(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+
+                button_autostart_done.setClickable(true);
+                underline2.setVisibility(View.VISIBLE);
+                underline1.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
     }
 
     private void sendValue() {
