@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Menu extends MainActivity {
 
@@ -31,6 +32,7 @@ public class Menu extends MainActivity {
         private SharedPreferences pref;
         private SharedPreferences prefrest;
         private SharedPreferences preflongrest;
+        private SharedPreferences prefautostart;
 
         private TextView work_time;
         private TextView rest_time;
@@ -126,6 +128,16 @@ public class Menu extends MainActivity {
         loadValue();
         loadValueRest();
         loadValueLongRest();
+        loadValueAutostart();
+
+
+        if (autostartIsOn == true) {
+            underline1.setVisibility(View.VISIBLE);
+            underline2.setVisibility(View.INVISIBLE);
+        } else {
+            underline2.setVisibility(View.VISIBLE);
+            underline1.setVisibility(View.INVISIBLE);
+        }
 
 
         work_time_invisible.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
@@ -233,6 +245,7 @@ public class Menu extends MainActivity {
                 startActivity(i);
                 finish();
                 sendValue();
+                saveValueAutostart();
             }
         };
         title.setOnClickListener(goBack);
@@ -313,8 +326,23 @@ public class Menu extends MainActivity {
         a.putExtra("WORK_PERIOD", START_TIME_IN_MILLIS);
         a.putExtra("REST_PERIOD", REST_TIME_IN_MILLIS);
         a.putExtra("LONG_REST_PERIOD", LONG_REST_TIME_IN_MILLIS);
+        a.putExtra("AUTOSTART_CHECK", autostartIsOn);
         startActivity(a);
         this.finish();
+    }
+
+    private void saveValueAutostart() {
+        prefautostart = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edq = pref.edit();
+        edq.putBoolean("autostart_key", autostartIsOn);
+
+        edq.apply();
+    }
+
+    private void loadValueAutostart() {
+        prefautostart = getPreferences(MODE_PRIVATE);
+        boolean savedTextAutostart = pref.getBoolean("autostart_key", false);
+        autostartIsOn = savedTextAutostart;
     }
 
 

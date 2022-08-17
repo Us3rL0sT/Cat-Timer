@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private CountDownTimer mCountDownTimer;
 
     private boolean mTimerRunning;
+    private boolean autostartIsOn;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private long mRestLeftInMillis = REST_TIME_IN_MILLIS;
@@ -324,6 +325,19 @@ public class MainActivity extends AppCompatActivity {
             mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
             nowTimeLongRest = LONG_REST_TIME_IN_MILLIS;
             saveValueLongRest();
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
+        Intent iCheckAutostart = getIntent();
+        if (iCheckAutostart != null) {
+
+            Boolean returnLong = getIntent().getBooleanExtra("AUTOSTART_CHECK", autostartIsOn);
+
+
+            autostartIsOn = returnLong;
+            Toast.makeText(MainActivity.this, "autostartIsOn = " + autostartIsOn, Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
@@ -657,15 +671,29 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                CurrentProgress = 99;
-                START_TIME_IN_MILLIS = nowTime;
-                mButtonReset.setVisibility(View.INVISIBLE);
+                if (autostartIsOn == true) {
+                    CurrentProgress = 99;
+                    START_TIME_IN_MILLIS = nowTime;
+                    mButtonReset.setVisibility(View.INVISIBLE);
 
-                mButtonStartPauseRest.setVisibility(View.VISIBLE);
-                mButtonStartPause.setVisibility(View.INVISIBLE);
-                mRestLeftInMillis = REST_TIME_IN_MILLIS;
-                restUpdateCountDownText();
-                restTimer();
+                    mButtonStartPauseRest.setVisibility(View.VISIBLE);
+                    mButtonStartPause.setVisibility(View.INVISIBLE);
+                    mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                    restUpdateCountDownText();
+                    restTimer();
+                } else {
+                    CurrentProgress = 99;
+                    START_TIME_IN_MILLIS = nowTime;
+                    mButtonReset.setVisibility(View.INVISIBLE);
+
+                    mButtonStartPauseRest.setVisibility(View.VISIBLE);
+                    mButtonStartPause.setVisibility(View.INVISIBLE);
+                    mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                    restUpdateCountDownText();
+                    restTimer();
+                    pauseTimerRest();
+                }
+
 
 
             }
