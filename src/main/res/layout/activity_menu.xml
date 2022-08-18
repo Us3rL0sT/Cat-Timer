@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="900px"
+        android:paddingBottom="0px"
         tools:context=".Menu">
 
 
@@ -20,51 +20,54 @@
             android:id="@+id/button_work_time"
             android:layout_width="76dp"
             android:layout_height="102dp"
+            android:layout_marginBottom="1100dp"
             android:background="@drawable/border_radius"
             android:radius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_info"
             app:layout_constraintVertical_bias="0.119" />
 
         <Button
             android:id="@+id/button_rest_time"
             android:layout_width="76dp"
             android:layout_height="102dp"
+            android:layout_marginBottom="1100dp"
             android:background="@drawable/border_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_info"
             app:layout_constraintVertical_bias="0.119" />
 
         <Button
             android:id="@+id/button_long_rest_time"
             android:layout_width="76dp"
             android:layout_height="102dp"
+            android:layout_marginBottom="1100dp"
             android:background="@drawable/border_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_info"
             app:layout_constraintVertical_bias="0.119" />
 
         <Button
             android:id="@+id/button_color"
             android:layout_width="375dp"
             android:layout_height="200dp"
-            android:layout_marginTop="225dp"
             android:layout_marginEnd="17dp"
+            android:layout_marginBottom="800dp"
             android:background="@drawable/border_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_color"
             app:layout_constraintVertical_bias="0.119" />
 
 
@@ -112,17 +115,16 @@
             android:id="@+id/work_time"
             android:layout_width="59dp"
             android:layout_height="53dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="160dp"
+            android:layout_marginStart="7dp"
             android:fontFamily="@font/graduate"
             android:text="TextView"
             android:textAlignment="center"
             android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_work_time"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/action"
+            app:layout_constraintEnd_toEndOf="@+id/button_work_time"
             app:layout_constraintHorizontal_bias="0.218"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/button_work_time"
+            app:layout_constraintTop_toTopOf="@+id/button_work_time"
             app:layout_constraintVertical_bias="0.61" />
 
         <TextView
@@ -164,6 +166,7 @@
             android:layout_width="39dp"
             android:layout_height="39dp"
             android:layout_marginStart="10dp"
+            android:layout_marginBottom="600dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.015"
@@ -177,9 +180,7 @@
             android:id="@+id/text_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="600dp"
+            android:layout_marginBottom="1200dp"
             android:fontFamily="@font/graduate"
             android:text="Длительность"
             android:textSize="18sp"
@@ -194,8 +195,7 @@
             android:id="@+id/text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="-1000dp"
+            android:layout_marginBottom="1000dp"
             android:fontFamily="@font/graduate"
             android:foregroundGravity="center_vertical|center|center_horizontal"
             android:text="Цвет темы"
@@ -203,7 +203,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_rest_time"
             app:layout_constraintVertical_bias="0.119"
             tools:ignore="MissingConstraints" />
 
@@ -212,8 +212,7 @@
             android:id="@+id/text_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="-3300dp"
+            android:layout_marginBottom="800dp"
             android:fontFamily="@font/graduate"
             android:foregroundGravity="center|center_horizontal"
             android:text="Основные настройки"
@@ -221,7 +220,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_color"
             app:layout_constraintVertical_bias="0.119"
             tools:ignore="MissingConstraints" />
 
@@ -229,8 +228,7 @@
             android:id="@+id/text_autoplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="-3700dp"
+            android:layout_marginBottom="800dp"
             android:fontFamily="@font/graduate"
             android:foregroundGravity="center_vertical|center|center_horizontal"
             android:text="Автостарт таймера"
@@ -238,7 +236,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_setting"
             app:layout_constraintVertical_bias="0.119"
             tools:ignore="MissingConstraints" />
 
@@ -246,8 +244,8 @@
             android:id="@+id/button_autostart_background"
             android:layout_width="300dp"
             android:layout_height="110dp"
-            android:layout_marginTop="580dp"
             android:layout_marginEnd="50dp"
+            android:layout_marginBottom="600dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
             android:gravity="center|center_horizontal"
@@ -255,7 +253,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_autoplay"
             app:layout_constraintVertical_bias="0.119" />
 
 
@@ -263,29 +261,29 @@
             android:id="@+id/button_autostart_done"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="600dp"
-            android:layout_marginEnd="220dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="170dp"
             android:background="@drawable/make_done_border"
             android:foregroundGravity="center_horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostart_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostart_background"
             app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/button_autostart_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostart_background"
             app:layout_constraintVertical_bias="0.119" />
 
         <Button
             android:id="@+id/button_autostart_notdone"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="600dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="50dp"
             android:background="@drawable/make_done_border"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostart_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostart_background"
             app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/button_autostart_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostart_background"
             app:layout_constraintVertical_bias="0.119" />
 
 
@@ -293,12 +291,11 @@
             android:id="@+id/autostart_done"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginTop="507dp"
-            android:layout_marginEnd="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/maximized_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostart_done"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostart_done"
+            app:layout_constraintStart_toStartOf="@+id/button_autostart_done"
+            app:layout_constraintTop_toTopOf="@+id/button_autostart_done"
             app:srcCompat="@drawable/make_done"
             tools:visibility="visible" />
 
@@ -306,12 +303,10 @@
             android:id="@+id/autostart_notdone"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginStart="103dp"
-            android:layout_marginTop="517dp"
-            app:layout_constraintBottom_toBottomOf="@+id/maximized_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostart_notdone"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostart_notdone"
+            app:layout_constraintStart_toStartOf="@+id/button_autostart_notdone"
+            app:layout_constraintTop_toTopOf="@+id/button_autostart_notdone"
             app:srcCompat="@drawable/notdone"
             tools:visibility="visible" />
 
@@ -333,18 +328,33 @@
             android:layout_height="95dp"
             android:layout_marginStart="120dp"
             android:layout_marginTop="105dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/button_autostart_background"
             app:layout_constraintEnd_toEndOf="@+id/button_autostart_background"
             app:layout_constraintStart_toStartOf="@+id/button_autostart_background"
             app:layout_constraintTop_toTopOf="@+id/button_autostart_background"
-            android:visibility="invisible"
-            tools:visibility="visible"
-            app:srcCompat="@drawable/underline" />
+            app:srcCompat="@drawable/underline"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/text_whenstop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graduate"
+            android:foregroundGravity="center_vertical|center|center_horizontal"
+            android:text="Котов для окончания"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_autostart_background"
+            app:layout_constraintVertical_bias="0.119"
+            tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/maximized_container"
-            android:layout_width="412dp"
-            android:layout_height="754dp"
+            android:layout_width="410dp"
+            android:layout_height="1531dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -383,10 +393,10 @@
             android:textColor="@color/black"
             android:textSize="50sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/maximized_container"
-            app:layout_constraintStart_toStartOf="@+id/maximized_container"
-            app:layout_constraintTop_toTopOf="@+id/maximized_container"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
             tools:visibility="invisible" />
 
         <EditText
@@ -404,10 +414,10 @@
             android:textColor="@color/black"
             android:textSize="50sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/maximized_container"
-            app:layout_constraintTop_toTopOf="@+id/maximized_container"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
             tools:visibility="invisible" />
 
         <EditText
@@ -425,10 +435,10 @@
             android:textColor="@color/black"
             android:textSize="50sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/maximized_container"
-            app:layout_constraintStart_toStartOf="@+id/maximized_container"
-            app:layout_constraintTop_toTopOf="@+id/maximized_container"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
             tools:visibility="invisible" />
 
 

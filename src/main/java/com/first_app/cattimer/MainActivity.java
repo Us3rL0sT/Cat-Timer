@@ -337,7 +337,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             autostartIsOn = returnLong;
-            Toast.makeText(MainActivity.this, "autostartIsOn = " + autostartIsOn, Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
@@ -671,28 +670,51 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if (autostartIsOn == true) {
-                    CurrentProgress = 99;
-                    START_TIME_IN_MILLIS = nowTime;
-                    mButtonReset.setVisibility(View.INVISIBLE);
-
-                    mButtonStartPauseRest.setVisibility(View.VISIBLE);
-                    mButtonStartPause.setVisibility(View.INVISIBLE);
-                    mRestLeftInMillis = REST_TIME_IN_MILLIS;
-                    restUpdateCountDownText();
-                    restTimer();
+                if (done == 4) {
+                    if (autostartIsOn == true) {
+                        CurrentProgress = 99;
+                        REST_TIME_IN_MILLIS = nowTimeRest;
+                        mRestButtonReset.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+                        longRestUpdateCountDownText();
+                        longRestTimer();
+                    } else {
+                        CurrentProgress = 99;
+                        REST_TIME_IN_MILLIS = nowTimeRest;
+                        mRestButtonReset.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+                        longRestUpdateCountDownText();
+                        longRestTimer();
+                        pauseTimerLongRest();
+                    }
                 } else {
-                    CurrentProgress = 99;
-                    START_TIME_IN_MILLIS = nowTime;
-                    mButtonReset.setVisibility(View.INVISIBLE);
+                    if (autostartIsOn == true) {
+                        CurrentProgress = 99;
+                        START_TIME_IN_MILLIS = nowTime;
+                        mButtonReset.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.VISIBLE);
+                        mButtonStartPause.setVisibility(View.INVISIBLE);
+                        mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                        restUpdateCountDownText();
+                        restTimer();
+                    } else {
+                        CurrentProgress = 99;
+                        START_TIME_IN_MILLIS = nowTime;
+                        mButtonReset.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.VISIBLE);
+                        mButtonStartPause.setVisibility(View.INVISIBLE);
+                        mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                        restUpdateCountDownText();
+                        restTimer();
+                        pauseTimerRest();
 
-                    mButtonStartPauseRest.setVisibility(View.VISIBLE);
-                    mButtonStartPause.setVisibility(View.INVISIBLE);
-                    mRestLeftInMillis = REST_TIME_IN_MILLIS;
-                    restUpdateCountDownText();
-                    restTimer();
-                    pauseTimerRest();
+                    }
                 }
+
 
 
 
@@ -729,14 +751,33 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                CurrentProgress = 99;
-                REST_TIME_IN_MILLIS = nowTimeRest;
-                mRestButtonReset.setVisibility(View.INVISIBLE);
-                mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
-                mButtonStartPauseRest.setVisibility(View.INVISIBLE);
-                mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
-                longRestUpdateCountDownText();
-                longRestTimer();
+                if (autostartIsOn == true) {
+                    CurrentProgress = 99;
+                    LONG_REST_TIME_IN_MILLIS = nowTimeRest;
+                    mLongRestButtonReset.setVisibility(View.INVISIBLE);
+                    mButtonStartPause.setVisibility(View.VISIBLE);
+                    mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    cat_sleep.setVisibility(View.INVISIBLE);
+                    cat_move.setVisibility(View.VISIBLE);
+                    mTimeLeftInMillis = nowTime;
+                    ((GifDrawable)cat_move.getDrawable()).start();
+                    updateCountDownText();
+                    startTimer();
+                } else {
+                    CurrentProgress = 99;
+                    LONG_REST_TIME_IN_MILLIS = nowTimeRest;
+                    mLongRestButtonReset.setVisibility(View.INVISIBLE);
+                    mButtonStartPause.setVisibility(View.VISIBLE);
+                    mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    cat_sleep.setVisibility(View.INVISIBLE);
+                    cat_move.setVisibility(View.VISIBLE);
+                    mTimeLeftInMillis = nowTime;
+                    ((GifDrawable)cat_move.getDrawable()).start();
+                    updateCountDownText();
+                    startTimer();
+                    pauseTimer();
+                }
+
             }
         }.start();
 
@@ -771,18 +812,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                CurrentProgress = 99;
-                LONG_REST_TIME_IN_MILLIS = nowTimeRest;
-                mLongRestButtonReset.setVisibility(View.INVISIBLE);
-                mButtonStartPause.setVisibility(View.VISIBLE);
-                mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
-                cat_sleep.setVisibility(View.INVISIBLE);
-                cat_move.setVisibility(View.VISIBLE);
-                mTimeLeftInMillis = nowTime;
-                ((GifDrawable)cat_move.getDrawable()).start();
-                updateCountDownText();
-                startTimer();
-
+                if (autostartIsOn == true) {
+                    CurrentProgress = 99;
+                    LONG_REST_TIME_IN_MILLIS = nowTimeRest;
+                    mLongRestButtonReset.setVisibility(View.INVISIBLE);
+                    mButtonStartPause.setVisibility(View.VISIBLE);
+                    mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    cat_sleep.setVisibility(View.INVISIBLE);
+                    cat_move.setVisibility(View.VISIBLE);
+                    mTimeLeftInMillis = nowTime;
+                    ((GifDrawable)cat_move.getDrawable()).start();
+                    updateCountDownText();
+                    startTimer();
+                } else {
+                    CurrentProgress = 99;
+                    LONG_REST_TIME_IN_MILLIS = nowTimeRest;
+                    mLongRestButtonReset.setVisibility(View.INVISIBLE);
+                    mButtonStartPause.setVisibility(View.VISIBLE);
+                    mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    cat_sleep.setVisibility(View.INVISIBLE);
+                    cat_move.setVisibility(View.VISIBLE);
+                    mTimeLeftInMillis = nowTime;
+                    ((GifDrawable)cat_move.getDrawable()).start();
+                    updateCountDownText();
+                    startTimer();
+                    pauseTimer();
+                }
             }
         }.start();
 
