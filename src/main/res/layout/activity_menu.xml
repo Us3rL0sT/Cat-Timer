@@ -336,20 +336,89 @@
             app:srcCompat="@drawable/underline"
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/text_whenstop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/graduate"
-            android:foregroundGravity="center_vertical|center|center_horizontal"
-            android:text="Котов для окончания"
-            android:textSize="18sp"
+
+        <Button
+            android:id="@+id/button_whenstop_background"
+            android:layout_width="300dp"
+            android:layout_height="110dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="600dp"
+            android:background="@android:color/transparent"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center|center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_autostart_background"
-            app:layout_constraintVertical_bias="0.119"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toBottomOf="@+id/button_autostart_background" />
+
+        <Button
+            android:id="@+id/button_whenstop"
+            android:layout_width="145dp"
+            android:layout_height="102dp"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/border_radius"
+            android:radius="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_whenstop_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_whenstop_background"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="@+id/button_whenstop_background"
+            app:layout_constraintTop_toTopOf="@+id/button_whenstop_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <TextView
+            android:id="@+id/when_stop"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/graduate"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_whenstop"
+            app:layout_constraintEnd_toEndOf="@+id/button_whenstop"
+            app:layout_constraintHorizontal_bias="0.218"
+            app:layout_constraintStart_toStartOf="@+id/button_whenstop"
+            app:layout_constraintTop_toTopOf="@+id/button_whenstop"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <TextView
+            android:id="@+id/when_stop_action_name"
+            android:layout_width="152dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/graduate"
+            android:text="Ежедневная цель"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_whenstop"
+            app:layout_constraintEnd_toEndOf="@+id/button_whenstop"
+            app:layout_constraintHorizontal_bias="0.218"
+            app:layout_constraintStart_toStartOf="@+id/button_whenstop"
+            app:layout_constraintTop_toBottomOf="@+id/when_stop"
+            app:layout_constraintVertical_bias="0.855" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/maximized_container"
@@ -370,7 +439,7 @@
                 android:elevation="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
@@ -385,7 +454,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal|center"
-            android:background="@drawable/border_invisible"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/graduate"
             android:gravity="center"
             android:text="TextView"
@@ -398,6 +467,35 @@
             app:layout_constraintStart_toStartOf="@+id/button_color"
             app:layout_constraintTop_toTopOf="@+id/text_color"
             tools:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/plus"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
+            app:srcCompat="@drawable/plus"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/minus"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="-150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
+            app:srcCompat="@drawable/minus"
+            tools:visibility="visible" />
+
 
         <EditText
             android:id="@+id/rest_time_invisible"
@@ -406,7 +504,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal|center"
-            android:background="@drawable/border_invisible"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/graduate"
             android:gravity="center"
             android:text="TextView"
@@ -420,6 +518,34 @@
             app:layout_constraintTop_toTopOf="@+id/text_color"
             tools:visibility="invisible" />
 
+        <ImageView
+            android:id="@+id/plus_rest"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
+            app:srcCompat="@drawable/plus"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/minus_rest"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="-150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
+            app:srcCompat="@drawable/minus"
+            tools:visibility="visible" />
+
         <EditText
             android:id="@+id/long_rest_time_invisible"
             android:layout_width="100dp"
@@ -427,7 +553,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal|center"
-            android:background="@drawable/border_invisible"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/graduate"
             android:gravity="center"
             android:text="TextView"
@@ -440,6 +566,34 @@
             app:layout_constraintStart_toStartOf="@+id/button_color"
             app:layout_constraintTop_toTopOf="@+id/text_color"
             tools:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/plus_long_rest"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
+            app:srcCompat="@drawable/plus"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/minus_long_rest"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="-150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
+            app:srcCompat="@drawable/minus"
+            tools:visibility="visible" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

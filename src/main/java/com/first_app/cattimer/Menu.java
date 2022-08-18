@@ -29,6 +29,8 @@ public class Menu extends MainActivity {
         private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
         private long LONG_REST_TIME_IN_MILLIS = 900 * 1000;
 
+        private short whenStopCount = 8;
+
         private SharedPreferences pref;
         private SharedPreferences prefrest;
         private SharedPreferences preflongrest;
@@ -40,6 +42,7 @@ public class Menu extends MainActivity {
         private EditText work_time_invisible;
         private TextView rest_time_invisible;
         private TextView long_rest_time_invisible;
+        private TextView when_stop;
 
         private Button button_work_time;
         private Button button_rest_time;
@@ -47,12 +50,19 @@ public class Menu extends MainActivity {
         private Button button_color;
         private Button button_autostart_done;
         private Button button_autostart_notdone;
+        private Button button_whenstop;
 
         private ImageView title;
         private ImageView autostart_done;
         private ImageView autostart_notdone;
         private ImageView underline1;
         private ImageView underline2;
+        private ImageView plus;
+        private ImageView minus;
+        private ImageView plus_rest;
+        private ImageView minus_rest;
+        private ImageView plus_long_rest;
+        private ImageView minus_long_rest;
 
         private View shade;
 
@@ -87,6 +97,12 @@ public class Menu extends MainActivity {
         autostart_notdone = findViewById(R.id.autostart_notdone);
         underline1 = findViewById(R.id.underline1);
         underline2 = findViewById(R.id.underline2);
+        plus = findViewById(R.id.plus);
+        minus = findViewById(R.id.minus);
+        plus_rest = findViewById(R.id.plus_rest);
+        minus_rest = findViewById(R.id.minus_rest);
+        plus_long_rest = findViewById(R.id.plus_long_rest);
+        minus_long_rest = findViewById(R.id.minus_long_rest);
 
         SW = findViewById(R.id.SW);
 
@@ -101,12 +117,16 @@ public class Menu extends MainActivity {
         work_time_invisible = findViewById(R.id.work_time_invisible);
         rest_time_invisible = findViewById(R.id.rest_time_invisible);
         long_rest_time_invisible = findViewById(R.id.long_rest_time_invisible);
-        button_color = findViewById(R.id.button_color);
+        when_stop = findViewById(R.id.when_stop);
+
 
         button_work_time = findViewById(R.id.button_work_time);
         button_rest_time = findViewById(R.id.button_rest_time);
         button_long_rest_time = findViewById(R.id.button_long_rest_time);
+        button_color = findViewById(R.id.button_color);
+        button_whenstop = findViewById(R.id.button_whenstop);
 
+        button_whenstop.getBackground().setAlpha(128);
         button_work_time.getBackground().setAlpha(128);
         button_rest_time.getBackground().setAlpha(128);
         button_long_rest_time.getBackground().setAlpha(128);
@@ -114,6 +134,8 @@ public class Menu extends MainActivity {
         work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
         rest_time.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+        when_stop.setText(String.valueOf(whenStopCount));
+
 
         work_time_invisible = (EditText)findViewById(R.id.work_time_invisible);
         rest_time_invisible = (EditText)findViewById(R.id.rest_time_invisible);
@@ -152,12 +174,40 @@ public class Menu extends MainActivity {
                 shade.setVisibility(View.VISIBLE);
                 rest_time_invisible.setVisibility(View.INVISIBLE);
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
+                plus.setVisibility(View.VISIBLE);
+                minus.setVisibility(View.VISIBLE);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 button_color.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
+            }
+        });
+
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                START_TIME_IN_MILLIS = Long.valueOf(work_time_invisible.getText().toString()) * 60 * 1000;
+                if (START_TIME_IN_MILLIS < 5940000) {
+                    START_TIME_IN_MILLIS += 60000;
+                }
+                work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+                work_time_invisible.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+                saveValue();
+            }
+        });
+
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                START_TIME_IN_MILLIS = Long.valueOf(work_time_invisible.getText().toString()) * 60 * 1000;
+                if (START_TIME_IN_MILLIS > 60000) {
+                    START_TIME_IN_MILLIS -= 60000;
+                }
+                work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+                work_time_invisible.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
+                saveValue();
             }
         });
 
@@ -171,6 +221,8 @@ public class Menu extends MainActivity {
                 shade.setVisibility(View.VISIBLE);
                 work_time_invisible.setVisibility(View.INVISIBLE);
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
+                plus_rest.setVisibility(View.VISIBLE);
+                minus_rest.setVisibility(View.VISIBLE);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
@@ -180,6 +232,34 @@ public class Menu extends MainActivity {
             }
         });
 
+        plus_rest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                REST_TIME_IN_MILLIS = Long.valueOf(rest_time_invisible.getText().toString()) * 60 * 1000;
+                if (REST_TIME_IN_MILLIS < 5940000) {
+                    REST_TIME_IN_MILLIS += 60000;
+                }
+                rest_time.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
+                rest_time_invisible.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
+                saveValueRest();
+            }
+        });
+
+        minus_rest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                REST_TIME_IN_MILLIS = Long.valueOf(rest_time_invisible.getText().toString()) * 60 * 1000;
+                if (REST_TIME_IN_MILLIS > 60000) {
+                    REST_TIME_IN_MILLIS -= 60000;
+                }
+                rest_time.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
+                rest_time_invisible.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
+                saveValueRest();
+            }
+        });
+
+
+
         button_long_rest_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,12 +268,40 @@ public class Menu extends MainActivity {
                 work_time_invisible.setVisibility(View.INVISIBLE);
                 rest_time_invisible.setVisibility(View.INVISIBLE);
                 shade.setVisibility(View.VISIBLE);
+                plus_long_rest.setVisibility(View.VISIBLE);
+                minus_long_rest.setVisibility(View.VISIBLE);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 button_color.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
+            }
+        });
+
+        plus_long_rest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LONG_REST_TIME_IN_MILLIS = Long.valueOf(long_rest_time_invisible.getText().toString()) * 60 * 1000;
+                if (LONG_REST_TIME_IN_MILLIS < 5940000) {
+                    LONG_REST_TIME_IN_MILLIS += 60000;
+                }
+                long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+                long_rest_time_invisible.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+                saveValueLongRest();
+            }
+        });
+
+        minus_long_rest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LONG_REST_TIME_IN_MILLIS = Long.valueOf(long_rest_time_invisible.getText().toString()) * 60 * 1000;
+                if (LONG_REST_TIME_IN_MILLIS > 60000) {
+                    LONG_REST_TIME_IN_MILLIS -= 60000;
+                }
+                long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+                long_rest_time_invisible.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+                saveValueLongRest();
             }
         });
 
@@ -206,6 +314,12 @@ public class Menu extends MainActivity {
                 work_time_invisible.setVisibility(View.INVISIBLE);
                 rest_time_invisible.setVisibility(View.INVISIBLE);
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
+                plus.setVisibility(View.INVISIBLE);
+                minus.setVisibility(View.INVISIBLE);
+                plus_rest.setVisibility(View.INVISIBLE);
+                minus_rest.setVisibility(View.INVISIBLE);
+                plus_long_rest.setVisibility(View.INVISIBLE);
+                minus_long_rest.setVisibility(View.INVISIBLE);
                 button_work_time.setClickable(true);
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
