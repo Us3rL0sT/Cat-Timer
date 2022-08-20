@@ -36,7 +36,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private short whenStopCount = 0;
     private int checkAction = 0;
     private int seconds;
     private int minutes;
@@ -49,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences prefrest;
     private SharedPreferences preflongrest;
     private SharedPreferences check;
+    private SharedPreferences autostart;
+    private SharedPreferences whenstop;
+    private SharedPreferences savedone;
 
-    private float CurrentProgress = 99; // начинать с (-1)
+    private float CurrentProgress = 100; // начинать с (-1)
     private float CurrentProgressRest = 100; // начинать с (-1)
     private float CurrentProgressLongRest = 100; // начинать с (-1)
     private ProgressBar progressBar;
@@ -339,10 +342,23 @@ public class MainActivity extends AppCompatActivity {
 
 
             autostartIsOn = returnLong;
+            saveValueAutostart();
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
+        Intent iCheckWhenStop = getIntent();
+        if (iCheckWhenStop != null) {
+
+            short returnLong = getIntent().getShortExtra("WHEN_STOP", whenStopCount);
+            whenStopCount = returnLong;
+            Toast.makeText(MainActivity.this, "" + whenStopCount, Toast.LENGTH_SHORT).show();
+            saveValueWhenStop();
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
         }
+
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -558,6 +574,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener goMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               saveDone();
                sendValue();
                onPause();
 
@@ -621,9 +638,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        loadCheckAction();
-        loadValue();
 
+        loadCheckAction();
+        loadValueAutostart();
+        loadValueWhenStop();
+        loadDone();
+
+        loadValue();
         loadValueRest();
         loadValueLongRest();
         if (current_action.getText().toString().matches("Работа")) {
@@ -646,7 +667,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        done = 0;
+        saveDone();
         onStart();
+
     }
 
     private void startTimer() { // 25 минутный таймер
@@ -1359,6 +1383,50 @@ public class MainActivity extends AppCompatActivity {
         checkAction = sp.getInt("check_action", 0);
         longRestUpdateCountDownText();
     }
+
+    private void saveValueAutostart() {
+        autostart = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edq = autostart.edit();
+        edq.putBoolean("autostart_key", autostartIsOn);
+
+        edq.apply();
+    }
+
+    private void loadValueAutostart() {
+        autostart = getPreferences(MODE_PRIVATE);
+        boolean savedTextAutostart = autostart.getBoolean("autostart_key", false);
+        autostartIsOn = savedTextAutostart;
+    }
+
+    private void saveValueWhenStop() {
+        whenstop = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = whenstop.edit();
+        edlongrest.putString("save_whenstop", String.valueOf(whenStopCount));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueWhenStop() {
+        whenstop = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = whenstop.getString("save_whenstop", String.valueOf(whenStopCount));
+        whenStopCount = Short.valueOf(savedTextLongRest);
+    }
+
+    private void saveDone() {
+        savedone = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = savedone.edit();
+        edlongrest.putString("save_done", String.valueOf(done));
+        edlongrest.apply();
+
+    }
+
+    private void loadDone() {
+        savedone = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = savedone.getString("save_done", String.valueOf(done));
+        done = Byte.valueOf(savedTextLongRest);
+
+    }
+
 
 
 

@@ -35,6 +35,7 @@ public class Menu extends MainActivity {
         private SharedPreferences prefrest;
         private SharedPreferences preflongrest;
         private SharedPreferences prefautostart;
+        private SharedPreferences whenstop;
 
         private TextView work_time;
         private TextView rest_time;
@@ -42,6 +43,7 @@ public class Menu extends MainActivity {
         private EditText work_time_invisible;
         private TextView rest_time_invisible;
         private TextView long_rest_time_invisible;
+        private TextView when_stop_invisible;
         private TextView when_stop;
 
         private Button button_work_time;
@@ -116,6 +118,7 @@ public class Menu extends MainActivity {
         long_rest_time = (findViewById(R.id.long_rest_time));
         work_time_invisible = findViewById(R.id.work_time_invisible);
         rest_time_invisible = findViewById(R.id.rest_time_invisible);
+        when_stop_invisible = findViewById(R.id.when_stop_invisible);
         long_rest_time_invisible = findViewById(R.id.long_rest_time_invisible);
         when_stop = findViewById(R.id.when_stop);
 
@@ -137,12 +140,10 @@ public class Menu extends MainActivity {
         when_stop.setText(String.valueOf(whenStopCount));
 
 
-        work_time_invisible = (EditText)findViewById(R.id.work_time_invisible);
-        rest_time_invisible = (EditText)findViewById(R.id.rest_time_invisible);
-        long_rest_time_invisible = (EditText)findViewById(R.id.long_rest_time_invisible);
         work_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         long_rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
+        when_stop_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
 
 
 
@@ -151,6 +152,7 @@ public class Menu extends MainActivity {
         loadValueRest();
         loadValueLongRest();
         loadValueAutostart();
+        loadValueWhenStop();
 
 
         if (autostartIsOn == true) {
@@ -165,6 +167,21 @@ public class Menu extends MainActivity {
         work_time_invisible.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
         rest_time_invisible.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         long_rest_time_invisible.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
+        when_stop_invisible.setText(String.valueOf(whenStopCount));
+
+
+        button_whenstop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                maximizedContainer.setVisibility(View.VISIBLE);
+                shade.setVisibility(View.VISIBLE);
+                when_stop_invisible.setVisibility(View.VISIBLE);
+                button_whenstop.setClickable(false);
+                button_color.setClickable(false);
+                isBlockedScrollView = true;
+                SW.smoothScrollTo(0, 1400);
+            }
+        });
 
         button_work_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -320,6 +337,8 @@ public class Menu extends MainActivity {
                 minus_rest.setVisibility(View.INVISIBLE);
                 plus_long_rest.setVisibility(View.INVISIBLE);
                 minus_long_rest.setVisibility(View.INVISIBLE);
+                when_stop_invisible.setVisibility(View.INVISIBLE);
+                button_whenstop.setClickable(true);
                 button_work_time.setClickable(true);
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
@@ -338,6 +357,11 @@ public class Menu extends MainActivity {
                     LONG_REST_TIME_IN_MILLIS = Long.valueOf(long_rest_time_invisible.getText().toString()) * 60 * 1000;
                     long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
                     saveValueLongRest();
+                }
+                if (Long.valueOf(when_stop_invisible.getText().toString()) < 100) {
+                    whenStopCount = Short.valueOf(when_stop_invisible.getText().toString());
+                    when_stop.setText(String.valueOf(whenStopCount));
+                    saveValueWhenStop();
                 }
 
             }
@@ -441,6 +465,7 @@ public class Menu extends MainActivity {
         a.putExtra("REST_PERIOD", REST_TIME_IN_MILLIS);
         a.putExtra("LONG_REST_PERIOD", LONG_REST_TIME_IN_MILLIS);
         a.putExtra("AUTOSTART_CHECK", autostartIsOn);
+        a.putExtra("WHEN_STOP", whenStopCount);
         startActivity(a);
         this.finish();
     }
@@ -509,7 +534,22 @@ public class Menu extends MainActivity {
         LONG_REST_TIME_IN_MILLIS = LONG_REST_TIME_IN_MILLIS * 60 * 1000;
         long_rest_time.setText(String.valueOf(savedTextLongRest));
         long_rest_time_invisible.setText(String.valueOf(savedTextLongRest));
+    }
 
+    private void saveValueWhenStop() {
+        whenstop = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = whenstop.edit();
+        edlongrest.putString("save_whenstop", String.valueOf(whenStopCount));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueWhenStop() {
+        whenstop = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = whenstop.getString("save_whenstop", String.valueOf(whenStopCount));
+        whenStopCount = Short.valueOf(savedTextLongRest);
+        when_stop.setText(String.valueOf(savedTextLongRest));
+        when_stop_invisible.setText(String.valueOf(savedTextLongRest));
     }
 
     public static void hideKeyboard( Activity activity ) {
