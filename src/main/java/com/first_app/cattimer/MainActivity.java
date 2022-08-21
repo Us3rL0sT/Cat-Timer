@@ -20,11 +20,13 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,14 +37,16 @@ import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private short whenStopCount = 0;
+    private short whenStopCount = 8;
     private int checkAction = 0;
     private int seconds;
     private int minutes;
     private long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
     private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
     private long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
+
+    LinearLayout circles;
+    LinearLayout circles_replace;
 
 
     private SharedPreferences pref;
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mRestButtonReset;
     private Button mLongRestButtonReset;
     private Button edit_current_action;
+    private Button addImage;
 
     private CountDownTimer mCountDownTimer;
 
@@ -144,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
 
+        circles = findViewById(R.id.circles);
+        circles_replace = findViewById(R.id.circles_replace);
+
         mButtonStartPause = findViewById(R.id.button_start_pause); // кнопка начала отсчета
         mButtonStartPauseRest = findViewById(R.id.button_start_pause_rest); // кнопка начала отсчета отдыха
         mButtonStartPauseLongRest = findViewById(R.id.button_start_pause_longrest); // кнопка начала отсчета длинного отдыха
@@ -151,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         mRestButtonReset = findViewById(R.id.button_rest_restart);
         mLongRestButtonReset = findViewById(R.id.button_long_rest_restart);
         edit_current_action = findViewById(R.id.edit_current_action);
+        addImage = findViewById(R.id.addImage);
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
@@ -168,28 +177,20 @@ public class MainActivity extends AppCompatActivity {
         arrows = findViewById(R.id.arrows);
         arrows_rest = findViewById(R.id.arrows_rest);
         arrows_long_rest = findViewById(R.id.arrows_long_rest);
-        stick = findViewById(R.id.stick);
-        stick1 = findViewById(R.id.stick1);
-        stick2 = findViewById(R.id.stick2);
-        stick3 = findViewById(R.id.stick3);
-        stick4 = findViewById(R.id.stick4);
-        stick5 = findViewById(R.id.stick5);
-        stick6 = findViewById(R.id.stick6);
-        stick7 = findViewById(R.id.stick7);
-        stick_do = findViewById(R.id.stick_do);
-        stick_do1 = findViewById(R.id.stick_do1);
-        stick_do2 = findViewById(R.id.stick_do2);
-        stick_do3 = findViewById(R.id.stick_do3);
-        stick_do4 = findViewById(R.id.stick_do4);
-        stick_do5 = findViewById(R.id.stick_do5);
-        stick_do6 = findViewById(R.id.stick_do6);
-        stick_do7 = findViewById(R.id.stick_do7);
+
         menu = findViewById(R.id.menu_icon);
 
         ((GifDrawable)cat_move.getDrawable()).stop(); // кот не бежит с самого начала, без нажатия на кнопку старт
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        onStart();
+
+
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceCircles();
+            }
+        });
 
     if (checkAction == 1) {
             mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -352,7 +353,6 @@ public class MainActivity extends AppCompatActivity {
 
             short returnLong = getIntent().getShortExtra("WHEN_STOP", whenStopCount);
             whenStopCount = returnLong;
-            Toast.makeText(MainActivity.this, "" + whenStopCount, Toast.LENGTH_SHORT).show();
             saveValueWhenStop();
 
         } else {
@@ -633,16 +633,41 @@ public class MainActivity extends AppCompatActivity {
         updateCountDownText();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     } // ONCREATE
 
     @Override
     protected void onStart() {
         super.onStart();
+        for (int i = 0; i < whenStopCount - 1; i++) {
+            addStartCircles();
+            if (i == 3) {
+                addStartCirclesSpace();
 
+            }
+        }
         loadCheckAction();
         loadValueAutostart();
         loadValueWhenStop();
         loadDone();
+
 
         loadValue();
         loadValueRest();
@@ -662,6 +687,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         menu.startAnimation(inAnimation);
+
     }
 
     @Override
@@ -672,6 +698,7 @@ public class MainActivity extends AppCompatActivity {
         onStart();
 
     }
+
 
     private void startTimer() { // 25 минутный таймер
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
@@ -1162,94 +1189,61 @@ public class MainActivity extends AppCompatActivity {
          seconds = (int) (mTimeLeftInMillis / 1000) % 60;
 
         if (seconds == 0 && minutes == 0) {
+            replaceCircles();
             done += 1;
+            Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
         }
 
+        if (done != whenStopCount) {
 
 
+            if (done == 8) {
 
-        if (done == 1) {
-            stick.setVisibility(View.INVISIBLE);
-            stick_do.setVisibility(View.VISIBLE);
+                pauseTimer();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
+                builder.setTitle("Конец");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
+//                    stick.setVisibility(View.VISIBLE);
+//                    stick_do.setVisibility(View.INVISIBLE);
+//                    stick1.setVisibility(View.VISIBLE);
+//                    stick_do1.setVisibility(View.INVISIBLE);
+//                    stick2.setVisibility(View.VISIBLE);
+//                    stick_do2.setVisibility(View.INVISIBLE);
+//                    stick3.setVisibility(View.VISIBLE);
+//                    stick_do3.setVisibility(View.INVISIBLE);
+//                    stick4.setVisibility(View.VISIBLE);
+//                    stick_do4.setVisibility(View.INVISIBLE);
+//                    stick5.setVisibility(View.VISIBLE);
+//                    stick_do5.setVisibility(View.INVISIBLE);
+//                    stick6.setVisibility(View.VISIBLE);
+//                    stick_do6.setVisibility(View.INVISIBLE);
+//                    stick7.setVisibility(View.VISIBLE);
+//                    stick_do7.setVisibility(View.INVISIBLE);
+//                    done = 0;
+
+                        dialogInterface.cancel();
+                        resetTimer();
+
+                    }
+                });
+                builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+//                    stick7.setVisibility(View.VISIBLE);
+//                    stick_do7.setVisibility(View.INVISIBLE);
+                        done = 6;
+                        dialogInterface.cancel();
+                    }
+                });
+                builder.show();
+            }
         }
-        else if (done == 2){
-            stick1.setVisibility(View.INVISIBLE);
-            stick_do1.setVisibility(View.VISIBLE);
-        }
 
-        else if (done == 3) {
-            stick2.setVisibility(View.INVISIBLE);
-            stick_do2.setVisibility(View.VISIBLE);
-        }
-
-        else if (done == 4) {
-            stick3.setVisibility(View.INVISIBLE);
-            stick_do3.setVisibility(View.VISIBLE);
-        }
-
-        else if (done == 5) {
-            stick4.setVisibility(View.INVISIBLE);
-            stick_do4.setVisibility(View.VISIBLE);
-        }
-
-        else if (done == 6) {
-           stick5.setVisibility(View.INVISIBLE);
-           stick_do5.setVisibility(View.VISIBLE);
-       }
-
-        else if (done == 7) {
-            stick6.setVisibility(View.INVISIBLE);
-            stick_do6.setVisibility(View.VISIBLE);
-        }
-
-
-        else if (done == 8) {
-            stick7.setVisibility(View.INVISIBLE);
-            stick_do7.setVisibility(View.VISIBLE);
-            pauseTimer();
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
-            builder.setTitle("Конец");
-            builder.setCancelable(false);
-            builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                    stick.setVisibility(View.VISIBLE);
-                    stick_do.setVisibility(View.INVISIBLE);
-                    stick1.setVisibility(View.VISIBLE);
-                    stick_do1.setVisibility(View.INVISIBLE);
-                    stick2.setVisibility(View.VISIBLE);
-                    stick_do2.setVisibility(View.INVISIBLE);
-                    stick3.setVisibility(View.VISIBLE);
-                    stick_do3.setVisibility(View.INVISIBLE);
-                    stick4.setVisibility(View.VISIBLE);
-                    stick_do4.setVisibility(View.INVISIBLE);
-                    stick5.setVisibility(View.VISIBLE);
-                    stick_do5.setVisibility(View.INVISIBLE);
-                    stick6.setVisibility(View.VISIBLE);
-                    stick_do6.setVisibility(View.INVISIBLE);
-                    stick7.setVisibility(View.VISIBLE);
-                    stick_do7.setVisibility(View.INVISIBLE);
-                    done = 0;
-
-                    dialogInterface.cancel();
-                    resetTimer();
-
-                }
-            });
-            builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    stick7.setVisibility(View.VISIBLE);
-                    stick_do7.setVisibility(View.INVISIBLE);
-                    done = 6;
-                    dialogInterface.cancel();
-                }
-            });
-            builder.show();
-        }
 
 
 
@@ -1309,6 +1303,73 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
+    private void addStartCircles() {
+        ImageView imageView = new ImageView(MainActivity.this);
+        imageView.setImageResource(R.drawable.stick);
+        addView(imageView, 75, 75);
+
+    }
+
+    private void addStartCirclesSpace() {
+        ImageView imageView = new ImageView(MainActivity.this);
+        imageView.setImageResource(R.drawable.stick);
+        addViewSpace(imageView, 75, 75);
+
+    }
+
+    private void replaceCircles(){
+        ImageView imageView = new ImageView(MainActivity.this);
+        imageView.setImageResource(R.drawable.stick_do);
+        replaceView(imageView, 75, 75);
+
+    }
+
+    private void addStartCirclesSpaceReplace() {
+        ImageView imageView = new ImageView(MainActivity.this);
+        imageView.setImageResource(R.drawable.stick);
+        addViewSpaceReplace(imageView, 75, 75);
+    }
+
+
+
+
+
+
+    private void addView(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        layoutParams.setMargins(10, 0, 10, 0);
+        imageView.setLayoutParams(layoutParams);
+
+        circles.addView(imageView);
+
+    }
+
+    private void addViewSpace(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        layoutParams.setMargins(100, 0, 10, 0);
+        imageView.setLayoutParams(layoutParams);
+
+        circles.addView(imageView);
+
+    }
+
+    private void replaceView(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        layoutParams.setMargins(10, 0, 10, 0);
+        imageView.setLayoutParams(layoutParams);
+
+        circles_replace.addView(imageView);
+
+    }
+
+    private void addViewSpaceReplace(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        layoutParams.setMargins(100, 0, 10, 0);
+        imageView.setLayoutParams(layoutParams);
+
+        circles_replace.addView(imageView);
+
+    }
 
 
 
