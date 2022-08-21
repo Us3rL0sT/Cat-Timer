@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
+        onStart();
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -654,6 +654,18 @@ public class MainActivity extends AppCompatActivity {
     } // ONCREATE
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        for (int i = 0; i < whenStopCount - 1; i++) {
+            addStartCircles();
+            if (i == 3) {
+                addStartCirclesSpace();
+
+            }
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         loadCheckAction();
@@ -665,14 +677,8 @@ public class MainActivity extends AppCompatActivity {
         loadValue();
         loadValueRest();
         loadValueLongRest();
-        for (int i = 0; i < whenStopCount - 1; i++) {
-            addStartCircles();
-            if (i == 3) {
-                addStartCirclesSpace();
 
-            }
-        }
-        Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
+
 
         if (current_action.getText().toString().matches("Работа")) {
             updateCountDownText();
@@ -1193,12 +1199,12 @@ public class MainActivity extends AppCompatActivity {
         if (seconds == 0 && minutes == 0) {
             replaceCircles();
             done += 1;
-
+            Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
         }
 
         if (done != whenStopCount) {
-
-            if (done == 3) {
+            Toast.makeText(MainActivity.this, "WHENSTOPCOUNT: " + whenStopCount, Toast.LENGTH_SHORT).show();
+            if (done == 1) {
                 addStartCirclesSpaceReplace();
             }
 
@@ -1213,23 +1219,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-//                    stick.setVisibility(View.VISIBLE);
-//                    stick_do.setVisibility(View.INVISIBLE);
-//                    stick1.setVisibility(View.VISIBLE);
-//                    stick_do1.setVisibility(View.INVISIBLE);
-//                    stick2.setVisibility(View.VISIBLE);
-//                    stick_do2.setVisibility(View.INVISIBLE);
-//                    stick3.setVisibility(View.VISIBLE);
-//                    stick_do3.setVisibility(View.INVISIBLE);
-//                    stick4.setVisibility(View.VISIBLE);
-//                    stick_do4.setVisibility(View.INVISIBLE);
-//                    stick5.setVisibility(View.VISIBLE);
-//                    stick_do5.setVisibility(View.INVISIBLE);
-//                    stick6.setVisibility(View.VISIBLE);
-//                    stick_do6.setVisibility(View.INVISIBLE);
-//                    stick7.setVisibility(View.VISIBLE);
-//                    stick_do7.setVisibility(View.INVISIBLE);
-//                    done = 0;
 
                         dialogInterface.cancel();
                         resetTimer();
@@ -1239,8 +1228,6 @@ public class MainActivity extends AppCompatActivity {
                 builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                    stick7.setVisibility(View.VISIBLE);
-//                    stick_do7.setVisibility(View.INVISIBLE);
                         done = 6;
                         dialogInterface.cancel();
                     }
