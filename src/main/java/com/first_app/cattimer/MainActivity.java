@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences whenstop;
     private SharedPreferences savedone;
 
-    private float CurrentProgress = 100; // начинать с (-1)
+    private float CurrentProgress = 97; // начинать с (-1)
     private float CurrentProgressRest = 100; // начинать с (-1)
     private float CurrentProgressLongRest = 100; // начинать с (-1)
     private ProgressBar progressBar;
@@ -656,13 +656,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        for (int i = 0; i < whenStopCount - 1; i++) {
-            addStartCircles();
-            if (i == 3) {
-                addStartCirclesSpace();
-
-            }
-        }
         loadCheckAction();
         loadValueAutostart();
         loadValueWhenStop();
@@ -672,6 +665,15 @@ public class MainActivity extends AppCompatActivity {
         loadValue();
         loadValueRest();
         loadValueLongRest();
+        for (int i = 0; i < whenStopCount - 1; i++) {
+            addStartCircles();
+            if (i == 3) {
+                addStartCirclesSpace();
+
+            }
+        }
+        Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
+
         if (current_action.getText().toString().matches("Работа")) {
             updateCountDownText();
         }
@@ -693,7 +695,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        done = 0;
+
         saveDone();
         onStart();
 
@@ -1191,13 +1193,16 @@ public class MainActivity extends AppCompatActivity {
         if (seconds == 0 && minutes == 0) {
             replaceCircles();
             done += 1;
-            Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
+
         }
 
         if (done != whenStopCount) {
 
+            if (done == 3) {
+                addStartCirclesSpaceReplace();
+            }
 
-            if (done == 8) {
+            if (done == 7) {
 
                 pauseTimer();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
