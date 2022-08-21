@@ -37,6 +37,8 @@ import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private short iDone = 0;
     private short whenStopCount = 8;
     private int checkAction = 0;
     private int seconds;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences autostart;
     private SharedPreferences whenstop;
     private SharedPreferences savedone;
+    private SharedPreferences savei;
 
     private float CurrentProgress = 97; // начинать с (-1)
     private float CurrentProgressRest = 100; // начинать с (-1)
@@ -188,7 +191,8 @@ public class MainActivity extends AppCompatActivity {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceCircles();
+                done += 1;
+                Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -575,8 +579,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                saveDone();
+               saveI();
                sendValue();
-               onPause();
 
 
 
@@ -656,6 +660,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        loadI();
+        loadDone();
         for (int i = 0; i < whenStopCount - 1; i++) {
             addStartCircles();
             if (i == 3) {
@@ -663,16 +669,29 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+        for (iDone = 0; iDone < done; iDone++) {
+            saveI();
+
+            if (iDone == 4) {
+                addStartCirclesSpaceReplace();
+            } else {
+                replaceCircles();
+            }
+
+        }
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        loadDone();
         loadCheckAction();
         loadValueAutostart();
         loadValueWhenStop();
-        loadDone();
 
+        Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
 
         loadValue();
         loadValueRest();
@@ -702,11 +721,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
 
-        saveDone();
         onStart();
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        iDone = 0;
+        saveI();
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 
     private void startTimer() { // 25 минутный таймер
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
@@ -1197,18 +1236,23 @@ public class MainActivity extends AppCompatActivity {
          seconds = (int) (mTimeLeftInMillis / 1000) % 60;
 
         if (seconds == 0 && minutes == 0) {
-            replaceCircles();
-            done += 1;
-            Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
-        }
 
-        if (done != whenStopCount) {
-            Toast.makeText(MainActivity.this, "WHENSTOPCOUNT: " + whenStopCount, Toast.LENGTH_SHORT).show();
-            if (done == 1) {
+
+            done += 1;
+            if (done == 5) {
+
+            } else {
+                replaceCircles();
+            }
+            Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
+
+
+
+            if (done == 5) {
                 addStartCirclesSpaceReplace();
             }
 
-            if (done == 7) {
+            if (done == whenStopCount) {
 
                 pauseTimer();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -1235,6 +1279,8 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             }
         }
+
+
 
 
 
@@ -1318,7 +1364,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addStartCirclesSpaceReplace() {
         ImageView imageView = new ImageView(MainActivity.this);
-        imageView.setImageResource(R.drawable.stick);
+        imageView.setImageResource(R.drawable.stick_do);
         addViewSpaceReplace(imageView, 75, 75);
     }
 
@@ -1476,6 +1522,21 @@ public class MainActivity extends AppCompatActivity {
     private void loadDone() {
         savedone = getPreferences(MODE_PRIVATE);
         String savedTextLongRest = savedone.getString("save_done", String.valueOf(done));
+        done = Byte.valueOf(savedTextLongRest);
+
+    }
+
+    private void saveI() {
+        savei = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = savei.edit();
+        edlongrest.putString("save_iDone", String.valueOf(iDone));
+        edlongrest.apply();
+
+    }
+
+    private void loadI() {
+        savei = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = savei.getString("save_iDone", String.valueOf(iDone));
         done = Byte.valueOf(savedTextLongRest);
 
     }
