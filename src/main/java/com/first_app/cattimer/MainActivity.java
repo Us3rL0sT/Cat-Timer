@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences whenstop;
     private SharedPreferences savedone;
     private SharedPreferences savei;
+    private SharedPreferences save_exit;
 
     private float CurrentProgress = 97; // начинать с (-1)
     private float CurrentProgressRest = 100; // начинать с (-1)
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean mTimerRunning;
     private boolean autostartIsOn;
+    private boolean isExit;
+    private boolean collapse = false;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private long mRestLeftInMillis = REST_TIME_IN_MILLIS;
@@ -578,9 +581,9 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener goMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               saveDone();
                saveI();
                sendValue();
+               onPause();
 
 
 
@@ -657,41 +660,83 @@ public class MainActivity extends AppCompatActivity {
 
     } // ONCREATE
 
+
     @Override
     protected void onResume() {
         super.onResume();
-        loadI();
-        loadDone();
-        for (int i = 0; i < whenStopCount - 1; i++) {
-            addStartCircles();
-            if (i == 3) {
-                addStartCirclesSpace();
+        loadExit();
+        Toast.makeText(MainActivity.this, "COLLAPSE " + collapse, Toast.LENGTH_SHORT).show();
+        if (collapse == false) {
+            if (isExit == true) {
+                loadI();
+                loadDone();
+                for (int i = 0; i < whenStopCount - 1; i++) {
+                    addStartCircles();
+                    if (i == 3) {
+                        addStartCirclesSpace();
 
-            }
-        }
-        for (iDone = 0; iDone < done; iDone++) {
-            saveI();
+                    }
+                }
+                for (iDone = 0; iDone < done; iDone++) {
+                    saveI();
 
-            if (iDone == 4) {
-                addStartCirclesSpaceReplace();
+                    if (iDone == 4) {
+                        addStartCirclesSpaceReplace();
+                    } else {
+                        replaceCircles();
+                    }
+
+                }
+
+                isExit = false;
+                saveExit();
+
             } else {
-                replaceCircles();
+                done = 0;
+                iDone = 0;
+                for (int i = 0; i < whenStopCount - 1; i++) {
+                    addStartCircles();
+                    if (i == 3) {
+                        addStartCirclesSpace();
+
+                    }
+                }
+                for (iDone = 0; iDone < done; iDone++) {
+                    saveI();
+
+                    if (iDone == 4) {
+                        addStartCirclesSpaceReplace();
+                    } else {
+                        replaceCircles();
+                    }
+
+                }
             }
 
         }
+        collapse = true;
+
+
 
 
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
-        loadDone();
+
+
+        if (isExit == true ) {
+
+        }
+
+
         loadCheckAction();
         loadValueAutostart();
         loadValueWhenStop();
 
-        Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
+
 
         loadValue();
         loadValueRest();
@@ -728,8 +773,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        iDone = 0;
-        saveI();
+        collapse = true;
+
+
+
 
 
     }
@@ -737,6 +784,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        saveDone();
 
 
     }
@@ -744,7 +792,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        isExit = true;
+        saveExit();
     }
 
     private void startTimer() { // 25 минутный таймер
@@ -1254,6 +1303,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (done == whenStopCount) {
 
+                isExit = false;
                 pauseTimer();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
@@ -1368,6 +1418,13 @@ public class MainActivity extends AppCompatActivity {
         addViewSpaceReplace(imageView, 75, 75);
     }
 
+    private void replaceDeleteCircles(){
+        ImageView imageView = new ImageView(MainActivity.this);
+        imageView.setImageResource(R.drawable.stick_do);
+        replaceDeleteView(imageView, 75, 75);
+
+    }
+
 
 
 
@@ -1406,6 +1463,15 @@ public class MainActivity extends AppCompatActivity {
         imageView.setLayoutParams(layoutParams);
 
         circles_replace.addView(imageView);
+
+    }
+
+    private void replaceDeleteView(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        layoutParams.setMargins(10, 0, 10, 0);
+        imageView.setLayoutParams(layoutParams);
+
+        circles_replace.removeView(imageView);
 
     }
 
@@ -1538,6 +1604,21 @@ public class MainActivity extends AppCompatActivity {
         savei = getPreferences(MODE_PRIVATE);
         String savedTextLongRest = savei.getString("save_iDone", String.valueOf(iDone));
         done = Byte.valueOf(savedTextLongRest);
+
+    }
+
+    private void saveExit() {
+        save_exit = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = save_exit.edit();
+        edlongrest.putString("save_exit", String.valueOf(isExit));
+        edlongrest.apply();
+
+    }
+
+    private void loadExit() {
+        save_exit = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = save_exit.getString("save_exit", String.valueOf(isExit));
+        isExit = Boolean.valueOf(savedTextLongRest);
 
     }
 
