@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView stick_do7;
     private ImageView menu;
 
-    private byte done = 0;
+    private byte done = 8;
 
     private NotificationManager notificationManager;
     private static final int NOTIFY_ID = 1;
@@ -665,7 +665,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadExit();
-        Toast.makeText(MainActivity.this, "COLLAPSE " + collapse, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "isExit " + isExit, Toast.LENGTH_SHORT).show();
         if (collapse == false) {
             if (isExit == true) {
                 loadI();
@@ -1303,7 +1303,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (done == whenStopCount) {
 
-                isExit = false;
+
                 pauseTimer();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
@@ -1315,18 +1315,20 @@ public class MainActivity extends AppCompatActivity {
 
 
                         dialogInterface.cancel();
-                        resetTimer();
-
+                        onDestroy();
+                        saveExit();
+                        onResume();
                     }
                 });
                 builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        done = 6;
                         dialogInterface.cancel();
+                        System.exit(0);
                     }
                 });
                 builder.show();
+
             }
         }
 
