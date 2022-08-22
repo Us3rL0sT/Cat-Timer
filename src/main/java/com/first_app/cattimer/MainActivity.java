@@ -38,7 +38,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private short iDone = 0;
+    private short iDone = 1;
     private short whenStopCount = 8;
     private int checkAction = 0;
     private int seconds;
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView stick_do7;
     private ImageView menu;
 
-    private byte done = 8;
+    private byte done = 1;
 
     private NotificationManager notificationManager;
     private static final int NOTIFY_ID = 1;
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                done += 1;
+
                 Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
             }
         });
@@ -581,6 +581,8 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener goMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               isExit = true;
+               saveExit();
                saveI();
                sendValue();
                onPause();
@@ -665,22 +667,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadExit();
-        Toast.makeText(MainActivity.this, "isExit " + isExit, Toast.LENGTH_SHORT).show();
         if (collapse == false) {
             if (isExit == true) {
                 loadI();
                 loadDone();
-                for (int i = 0; i < whenStopCount - 1; i++) {
-                    addStartCircles();
-                    if (i == 3) {
-                        addStartCirclesSpace();
+                for (int i = 0; i < whenStopCount; i++) {
 
+                    if (i == 3) {
+                        addStartCircles();
+
+
+
+                    }
+                    else if (i == 4){
+                        addStartCirclesSpace();
+                    }
+                    else {
+                        addStartCircles();
                     }
                 }
                 for (iDone = 0; iDone < done; iDone++) {
                     saveI();
-
-                    if (iDone == 4) {
+                    if (iDone == 3) {
+                        replaceCircles();
+                    }
+                    else if (iDone == 4) {
                         addStartCirclesSpaceReplace();
                     } else {
                         replaceCircles();
@@ -688,23 +699,36 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                isExit = false;
-                saveExit();
 
-            } else {
+
+            }
+
+
+
+            else {
                 done = 0;
                 iDone = 0;
-                for (int i = 0; i < whenStopCount - 1; i++) {
-                    addStartCircles();
-                    if (i == 3) {
-                        addStartCirclesSpace();
+                for (int i = 0; i < whenStopCount; i++) {
 
+                    if (i == 3) {
+                        addStartCircles();
+
+
+
+                    }
+                    else if (i == 4){
+                        addStartCirclesSpace();
+                    }
+                    else {
+                        addStartCircles();
                     }
                 }
                 for (iDone = 0; iDone < done; iDone++) {
                     saveI();
-
-                    if (iDone == 4) {
+                    if (iDone == 3) {
+                        replaceCircles();
+                    }
+                    else if (iDone == 4) {
                         addStartCirclesSpaceReplace();
                     } else {
                         replaceCircles();

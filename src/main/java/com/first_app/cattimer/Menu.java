@@ -53,6 +53,7 @@ public class Menu extends MainActivity {
         private Button button_autostart_done;
         private Button button_autostart_notdone;
         private Button button_whenstop;
+        private Button button_autostart_background;
 
         private ImageView title;
         private ImageView autostart_done;
@@ -94,6 +95,7 @@ public class Menu extends MainActivity {
         fastAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fast);
 
         button_autostart_done = findViewById(R.id.button_autostart_done);
+        button_autostart_background = findViewById(R.id.button_autostart_background);
         button_autostart_notdone = findViewById(R.id.button_autostart_notdone);
         autostart_done = findViewById(R.id.autostart_done);
         autostart_notdone = findViewById(R.id.autostart_notdone);
@@ -178,6 +180,9 @@ public class Menu extends MainActivity {
                 when_stop_invisible.setVisibility(View.VISIBLE);
                 button_whenstop.setClickable(false);
                 button_color.setClickable(false);
+                button_autostart_done.setClickable(false);
+                button_autostart_notdone.setClickable(false);
+                button_autostart_background.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 1400);
             }
@@ -193,10 +198,13 @@ public class Menu extends MainActivity {
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
                 plus.setVisibility(View.VISIBLE);
                 minus.setVisibility(View.VISIBLE);
+                button_autostart_background.setClickable(false);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 button_color.setClickable(false);
+                button_autostart_done.setClickable(false);
+                button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
             }
@@ -240,10 +248,13 @@ public class Menu extends MainActivity {
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
                 plus_rest.setVisibility(View.VISIBLE);
                 minus_rest.setVisibility(View.VISIBLE);
+                button_autostart_background.setClickable(false);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 button_color.setClickable(false);
+                button_autostart_done.setClickable(false);
+                button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
             }
@@ -287,10 +298,13 @@ public class Menu extends MainActivity {
                 shade.setVisibility(View.VISIBLE);
                 plus_long_rest.setVisibility(View.VISIBLE);
                 minus_long_rest.setVisibility(View.VISIBLE);
+                button_autostart_background.setClickable(false);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 button_color.setClickable(false);
+                button_autostart_done.setClickable(false);
+                button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
             }
@@ -338,6 +352,9 @@ public class Menu extends MainActivity {
                 plus_long_rest.setVisibility(View.INVISIBLE);
                 minus_long_rest.setVisibility(View.INVISIBLE);
                 when_stop_invisible.setVisibility(View.INVISIBLE);
+                button_autostart_background.setClickable(true);
+                button_autostart_done.setClickable(true);
+                button_autostart_notdone.setClickable(true);
                 button_whenstop.setClickable(true);
                 button_work_time.setClickable(true);
                 button_rest_time.setClickable(true);
