@@ -10,11 +10,13 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -129,9 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     private byte done = 1;
 
-    private NotificationManager notificationManager;
-    private static final int NOTIFY_ID = 1;
-    private static final String CHANNEL_ID = "CHANNEL_ID";
+    public static final int PRIMARY_FOREGROUND_NOTIF_SERVICE_ID = 1001;
 
 
 
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
 
         current_action = findViewById(R.id.current_action);
 
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                done += 1;
                 Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
             }
         });
@@ -619,25 +619,45 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Action
-        NotificationCompat.Action action =
-                new NotificationCompat.Action.Builder(android.R.drawable.ic_menu_send, "Запуск", pendingIntent)
-                        .build();
-
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
-                        .setSmallIcon(R.drawable.arrows)
-                        .setContentTitle("Таймер готов к старту!")
-                        .setContentText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60) + ":00")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .addAction(action);
 
 
+//        NotificationCompat.Action action =
+//                new NotificationCompat.Action.Builder(android.R.drawable.ic_menu_send, "Запуск", pendingIntent)
+//                        .build();
+//
+//        NotificationCompat.Builder builder =
+//                new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
+//                        .setSmallIcon(R.drawable.arrows)
+//                        .setContentTitle("Таймер готов к старту!")
+//                        .setContentText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60) + ":00")
+//                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                        .addAction(action);
+//
 
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-        NotificationManagerCompat notificationManager =
-                NotificationManagerCompat.from(MainActivity.this);
-        notificationManager.notify(NOTIFY_ID, builder.build());
+            String id = "_channel_01";
+            int importance = NotificationManager.IMPORTANCE_LOW;
+            NotificationChannel mChannel = new NotificationChannel(id, "notification", importance);
+            mChannel.enableLights(true);
+
+            Notification notification = new Notification.Builder(getApplicationContext(), id)
+                    .setSmallIcon(R.drawable.arrows)
+                    .setContentTitle("Таймер готов к старту!")
+                    .setContentText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60) + ":00")
+                    .build();
+
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (mNotificationManager != null) {
+                mNotificationManager.createNotificationChannel(mChannel);
+                mNotificationManager.notify(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
+            }
+
+            startForeground(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
+        }
+
+
 
         updateCountDownText();
 
@@ -661,6 +681,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     } // ONCREATE
+
+    private void startForeground(int primaryForegroundNotifServiceId, Notification notification) {
+    }
 
 
     @Override
@@ -1328,6 +1351,11 @@ public class MainActivity extends AppCompatActivity {
             if (done == whenStopCount) {
 
 
+
+//                cat_move.startAnimation(nullAnimation);
+//                cat_move.setVisibility(View.INVISIBLE);
+//
+//                cat_question.setVisibility(View.VISIBLE);
                 pauseTimer();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
@@ -1339,9 +1367,10 @@ public class MainActivity extends AppCompatActivity {
 
 
                         dialogInterface.cancel();
-                        onDestroy();
+
                         saveExit();
                         onResume();
+                        onStart();
                     }
                 });
                 builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
