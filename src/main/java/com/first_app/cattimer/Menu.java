@@ -66,6 +66,8 @@ public class Menu extends MainActivity {
         private ImageView minus_rest;
         private ImageView plus_long_rest;
         private ImageView minus_long_rest;
+        private ImageView plus_whenstop;
+        private ImageView minus_whenstop;
 
         private View shade;
 
@@ -107,6 +109,8 @@ public class Menu extends MainActivity {
         minus_rest = findViewById(R.id.minus_rest);
         plus_long_rest = findViewById(R.id.plus_long_rest);
         minus_long_rest = findViewById(R.id.minus_long_rest);
+        plus_whenstop = findViewById(R.id.plus_whenstop);
+        minus_whenstop = findViewById(R.id.minus_whenstop);
 
         SW = findViewById(R.id.SW);
 
@@ -178,6 +182,8 @@ public class Menu extends MainActivity {
                 maximizedContainer.setVisibility(View.VISIBLE);
                 shade.setVisibility(View.VISIBLE);
                 when_stop_invisible.setVisibility(View.VISIBLE);
+                plus_whenstop.setVisibility(View.VISIBLE);
+                minus_whenstop.setVisibility(View.VISIBLE);
                 button_whenstop.setClickable(false);
                 button_color.setClickable(false);
                 button_autostart_done.setClickable(false);
@@ -185,6 +191,32 @@ public class Menu extends MainActivity {
                 button_autostart_background.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 1400);
+            }
+        });
+
+        plus_whenstop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                whenStopCount = (Short.valueOf(when_stop_invisible.getText().toString()));
+                if (whenStopCount < 20) {
+                    whenStopCount += 1;
+                }
+                when_stop.setText(String.valueOf(whenStopCount));
+                when_stop_invisible.setText(String.valueOf(whenStopCount));
+                saveValueWhenStop();
+            }
+        });
+
+        minus_whenstop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                whenStopCount = (Short.valueOf(when_stop_invisible.getText().toString()));
+                if (whenStopCount > 1) {
+                    whenStopCount -= 1;
+                }
+                when_stop.setText(String.valueOf(whenStopCount));
+                when_stop_invisible.setText(String.valueOf(whenStopCount));
+                saveValueWhenStop();
             }
         });
 
@@ -352,6 +384,8 @@ public class Menu extends MainActivity {
                 plus_long_rest.setVisibility(View.INVISIBLE);
                 minus_long_rest.setVisibility(View.INVISIBLE);
                 when_stop_invisible.setVisibility(View.INVISIBLE);
+                plus_whenstop.setVisibility(View.INVISIBLE);
+                minus_whenstop.setVisibility(View.INVISIBLE);
                 button_autostart_background.setClickable(true);
                 button_autostart_done.setClickable(true);
                 button_autostart_notdone.setClickable(true);
@@ -375,7 +409,7 @@ public class Menu extends MainActivity {
                     long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
                     saveValueLongRest();
                 }
-                if (Long.valueOf(when_stop_invisible.getText().toString()) < 100) {
+                if (Long.valueOf(when_stop_invisible.getText().toString()) < 21) {
                     whenStopCount = Short.valueOf(when_stop_invisible.getText().toString());
                     when_stop.setText(String.valueOf(whenStopCount));
                     saveValueWhenStop();

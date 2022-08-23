@@ -60,9 +60,11 @@
             android:id="@+id/button_color"
             android:layout_width="375dp"
             android:layout_height="200dp"
-            android:layout_marginEnd="17dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="800dp"
             android:background="@drawable/border_radius"
+            android:gravity="center_horizontal|top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
@@ -145,6 +147,21 @@
             app:layout_constraintVertical_bias="0.113" />
 
 
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="600dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.015"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.019"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+
+
         <TextView
             android:id="@+id/long_rest_time"
             android:layout_width="59dp"
@@ -160,21 +177,6 @@
             app:layout_constraintStart_toStartOf="@+id/button_long_rest_time"
             app:layout_constraintTop_toTopOf="@+id/button_long_rest_time"
             app:layout_constraintVertical_bias="0.204" />
-
-        <ImageView
-            android:id="@+id/goBack"
-            android:layout_width="39dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="600dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.015"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.019"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
-
 
         <TextView
             android:id="@+id/text_info"
@@ -615,6 +617,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_whenstop_background"
             tools:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/plus_whenstop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/when_stop_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/when_stop_invisible"
+            app:srcCompat="@drawable/plus"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/minus_whenstop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="-150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/when_stop_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/when_stop_invisible"
+            app:srcCompat="@drawable/minus"
+            tools:visibility="visible" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
