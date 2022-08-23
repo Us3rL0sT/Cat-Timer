@@ -1,6 +1,7 @@
 package com.first_app.cattimer;
 
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences save_exit;
 
     private float CurrentProgress = 97; // начинать с (-1)
-    private float CurrentProgressRest = 100; // начинать с (-1)
-    private float CurrentProgressLongRest = 100; // начинать с (-1)
+    private float CurrentProgressRest = 97; // начинать с (-1)
+    private float CurrentProgressLongRest = 97; // начинать с (-1)
     private ProgressBar progressBar;
 
     private Animation inAnimation;
@@ -944,10 +945,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void startTimer() { // 25 минутный таймер
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
-                progressBar.setProgress((int)CurrentProgress); // установка значения
+                progressBar.setProgress((int)CurrentProgress, true); // установка значения
 
                 if (START_TIME_IN_MILLIS > 0) {
                     START_TIME_IN_MILLIS -= 1000;
@@ -1025,10 +1027,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void restTimer() { // 5 минутный таймер
         mCountDownTimer = new CountDownTimer(mRestLeftInMillis, 1000) {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onTick(long restMillisUntilFinished) {
                 mRestLeftInMillis = restMillisUntilFinished;
-                progressBar.setProgress((int)CurrentProgressRest);
+                progressBar.setProgress((int)CurrentProgressRest,true);
                 if (REST_TIME_IN_MILLIS > 0) {
                     REST_TIME_IN_MILLIS -= 1000;
                     CurrentProgressRest = (float) (CurrentProgressRest - (1.666666 / (nowTimeRest / 1000 / 60)));
@@ -1086,10 +1089,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void longRestTimer() { // 15 минутный таймер
         mCountDownTimer = new CountDownTimer(mLongRestLeftInMillis, 1000) {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onTick(long longRestMillisUntilFinished) {
                 mLongRestLeftInMillis = longRestMillisUntilFinished;
-                progressBar.setProgress((int)CurrentProgressLongRest); // установка значения
+                progressBar.setProgress((int)CurrentProgressLongRest,true); // установка значения
                 if (LONG_REST_TIME_IN_MILLIS > 0) {
                     LONG_REST_TIME_IN_MILLIS -= 1000;
                     CurrentProgressLongRest = (float) (CurrentProgressLongRest - (1.666666 / (nowTimeLongRest / 1000 / 60)));
@@ -1688,7 +1692,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (width_phone == 1440){
-            layoutParams.setMargins(130, 0, 10, 0);
+            layoutParams.setMargins(150, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12) {
                 layoutParams.setMargins(110, 0, 10, 0);
             }
@@ -1733,7 +1737,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (width_phone == 1440){
-            layoutParams.setMargins(130, 0, 10, 0);
+            layoutParams.setMargins(150, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12) {
                 layoutParams.setMargins(110, 0, 10, 0);
             }
