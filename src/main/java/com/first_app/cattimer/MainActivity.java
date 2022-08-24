@@ -12,11 +12,14 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private int checkAction = 0;
     private int seconds;
     private int minutes;
-    int height_phone; // экрана
-    int width_phone; // также экрана
+    private int height_phone; // экрана
+    private int width_phone; // также экрана
     private long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
     private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
     private long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
@@ -67,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences savei;
     private SharedPreferences save_exit;
 
-    private float CurrentProgress = 97; // начинать с (-1)
-    private float CurrentProgressRest = 97; // начинать с (-1)
-    private float CurrentProgressLongRest = 97; // начинать с (-1)
+    private float CurrentProgress = 95.5F; // начинать с (-1)
+    private float CurrentProgressRest = 96; // начинать с (-1)
+    private float CurrentProgressLongRest = 96; // начинать с (-1)
     private ProgressBar progressBar;
 
     private Animation inAnimation;
@@ -121,7 +124,13 @@ public class MainActivity extends AppCompatActivity {
 
     private byte done = 1;
 
-    public static final int PRIMARY_FOREGROUND_NOTIF_SERVICE_ID = 1001;
+    private static final int NOTIFY_ID = 101;
+
+    // Идентификатор канала
+    public static final String NOTIFICATION_CHANNEL_ID = "4655";
+    private static final String NOTIFICATION_CHANNEL_NAME = "Cat timer";
+
+
 
 
 
@@ -143,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         height_phone = displayMetrics.heightPixels;
         width_phone = displayMetrics.widthPixels;
-
-
 
 
         current_action = findViewById(R.id.current_action);
@@ -586,6 +593,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener goMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                isExit = true;
                saveExit();
                saveI();
@@ -620,48 +628,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Action
-
-
-//        NotificationCompat.Action action =
-//                new NotificationCompat.Action.Builder(android.R.drawable.ic_menu_send, "Запуск", pendingIntent)
-//                        .build();
-//
-//        NotificationCompat.Builder builder =
-//                new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
-//                        .setSmallIcon(R.drawable.arrows)
-//                        .setContentTitle("Таймер готов к старту!")
-//                        .setContentText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60) + ":00")
-//                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//                        .addAction(action);
-//
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            String id = "_channel_01";
-            int importance = NotificationManager.IMPORTANCE_LOW;
-            NotificationChannel mChannel = new NotificationChannel(id, "notification", importance);
-            mChannel.enableLights(true);
-
-            Notification notification = new Notification.Builder(getApplicationContext(), id)
-                    .setSmallIcon(R.drawable.arrows)
-                    .setContentTitle("Таймер готов к старту!")
-                    .setContentText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60) + ":00")
-                    .build();
-
-            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            if (mNotificationManager != null) {
-                mNotificationManager.createNotificationChannel(mChannel);
-                mNotificationManager.notify(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
-            }
-
-            startForeground(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
-        }
-
+        showNotification();
 
 
         updateCountDownText();
@@ -687,6 +655,37 @@ public class MainActivity extends AppCompatActivity {
 
     } // ONCREATE
 
+
+    private void showNotification() {
+
+//Notification Channel
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            CharSequence channelName = NOTIFICATION_CHANNEL_NAME;
+            int importance = NotificationManager.IMPORTANCE_LOW;
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, importance);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+
+            NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NOTIFICATION_CHANNEL_ID)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setSmallIcon(R.drawable.arrows)
+                .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+                .setSound(null)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(false);
+
+    }
+
+
+
     private void startForeground(int primaryForegroundNotifServiceId, Notification notification) {
     }
 
@@ -694,6 +693,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        showNotification();
         loadExit();
         if (collapse == false) {
             if (isExit == true) {
@@ -872,7 +872,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        showNotification();
 
         if (isExit == true ) {
 
@@ -1006,8 +1006,7 @@ public class MainActivity extends AppCompatActivity {
                         mButtonStartPause.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = REST_TIME_IN_MILLIS;
                         restUpdateCountDownText();
-                        restTimer();
-                        pauseTimerRest();
+                        pauseTimer();
 
                     }
                 }
@@ -1038,6 +1037,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 restUpdateCountDownText();
                 current_action.setText("Отдых");
+                cat_question.startAnimation(nullAnimation);
                 cat_sleep.setVisibility(View.VISIBLE);
                 cat_move.setVisibility(View.INVISIBLE);
                 cat_question.setVisibility(View.INVISIBLE);
@@ -1072,8 +1072,7 @@ public class MainActivity extends AppCompatActivity {
                     mTimeLeftInMillis = nowTime;
                     ((GifDrawable)cat_move.getDrawable()).start();
                     updateCountDownText();
-                    startTimer();
-                    pauseTimer();
+                    pauseTimerRest();
                 }
 
             }
@@ -1134,8 +1133,7 @@ public class MainActivity extends AppCompatActivity {
                     mTimeLeftInMillis = nowTime;
                     ((GifDrawable)cat_move.getDrawable()).start();
                     updateCountDownText();
-                    startTimer();
-                    pauseTimer();
+                    pauseTimerLongRest();
                 }
             }
         }.start();
@@ -1678,7 +1676,7 @@ public class MainActivity extends AppCompatActivity {
     private void addViewSpace(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
         if (width_phone == 1080) {
-            layoutParams.setMargins(75, 0, 10, 0);
+            layoutParams.setMargins(100, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12) {
                 layoutParams.setMargins(60, 0, 10, 0);
             }
@@ -1723,7 +1721,7 @@ public class MainActivity extends AppCompatActivity {
     private void addViewSpaceReplace(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
         if (width_phone == 1080) {
-            layoutParams.setMargins(75, 0, 10, 0);
+            layoutParams.setMargins(100, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12) {
                 layoutParams.setMargins(60, 0, 10, 0);
             }
