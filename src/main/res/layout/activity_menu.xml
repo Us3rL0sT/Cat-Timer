@@ -356,9 +356,9 @@
 
         <Button
             android:id="@+id/button_whenstop"
-            android:layout_width="145dp"
+            android:layout_width="135dp"
             android:layout_height="102dp"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="160dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/border_radius"
             android:radius="5dp"
@@ -373,7 +373,7 @@
             android:id="@+id/when_stop"
             android:layout_width="65dp"
             android:layout_height="60dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="7dp"
             android:fontFamily="@font/graduate"
             android:text="TextView"
@@ -391,7 +391,7 @@
             android:layout_width="152dp"
             android:layout_height="36dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="13dp"
+            android:layout_marginEnd="25dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/graduate"
             android:text="Ежедневная цель"
@@ -401,6 +401,56 @@
             app:layout_constraintEnd_toEndOf="@+id/button_whenstop"
             app:layout_constraintHorizontal_bias="0.218"
             app:layout_constraintStart_toStartOf="@+id/button_whenstop"
+            app:layout_constraintTop_toBottomOf="@+id/when_stop"
+            app:layout_constraintVertical_bias="0.855" />
+
+        <Button
+            android:id="@+id/button_until_end"
+            android:layout_width="135dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="120dp"
+            android:background="@drawable/border_radius"
+            android:radius="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_whenstop_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_whenstop_background"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="@+id/button_whenstop_background"
+            app:layout_constraintTop_toTopOf="@+id/button_whenstop_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <TextView
+            android:id="@+id/until_end"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/graduate"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_until_end"
+            app:layout_constraintEnd_toEndOf="@+id/button_until_end"
+            app:layout_constraintHorizontal_bias="0.218"
+            app:layout_constraintStart_toStartOf="@+id/button_until_end"
+            app:layout_constraintTop_toTopOf="@+id/button_until_end"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <TextView
+            android:id="@+id/until_end_action_name"
+            android:layout_width="152dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/graduate"
+            android:text="Работ до длинного перерыва"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_until_end"
+            app:layout_constraintEnd_toEndOf="@+id/button_until_end"
+            app:layout_constraintHorizontal_bias="0.218"
+            app:layout_constraintStart_toStartOf="@+id/button_until_end"
             app:layout_constraintTop_toBottomOf="@+id/when_stop"
             app:layout_constraintVertical_bias="0.855" />
 
@@ -643,6 +693,55 @@
             app:layout_constraintEnd_toEndOf="@+id/button_color"
             app:layout_constraintStart_toStartOf="@+id/button_color"
             app:layout_constraintTop_toTopOf="@+id/when_stop_invisible"
+            app:srcCompat="@drawable/minus"
+            tools:visibility="visible" />
+
+        <EditText
+            android:id="@+id/until_end_invisible"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|center"
+            android:layout_marginTop="100dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/graduate"
+            android:gravity="center"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_whenstop_background"
+            tools:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/plus_until_end"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/until_end_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/until_end_invisible"
+            app:srcCompat="@drawable/plus"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/minus_until_end"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="-150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/until_end_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/until_end_invisible"
             app:srcCompat="@drawable/minus"
             tools:visibility="visible" />
 

@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private short iDone = 1;
     private short whenStopCount = 8;
+    private short untilEndCount = 4;
     private int checkAction = 0;
     private int seconds;
     private int minutes;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences check;
     private SharedPreferences autostart;
     private SharedPreferences whenstop;
+    private SharedPreferences untilend;
     private SharedPreferences savedone;
     private SharedPreferences savei;
     private SharedPreferences save_exit;
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mLongRestButtonReset;
     private Button edit_current_action;
     private Button addImage;
-    private Button deleteImage;
+
 
     private CountDownTimer mCountDownTimer;
 
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView arrows;
     private ImageView arrows_rest;
     private ImageView arrows_long_rest;
-
+    private ImageView deleteImage;
     private ImageView menu;
 
     private byte done = 1;
@@ -127,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int NOTIFY_ID = 101;
 
     // Идентификатор канала
-    public static final String NOTIFICATION_CHANNEL_ID = "4655";
-    private static final String NOTIFICATION_CHANNEL_NAME = "Cat timer";
+
+    private static final int PRIMARY_FOREGROUND_NOTIF_SERVICE_ID = 122;
 
 
 
@@ -200,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 done += 1;
                 Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -208,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 done = 0;
                 Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
+                deleteImage.startAnimation(inAnimation);
             }
         });
 
@@ -373,6 +378,16 @@ public class MainActivity extends AppCompatActivity {
             short returnLong = getIntent().getShortExtra("WHEN_STOP", whenStopCount);
             whenStopCount = returnLong;
             saveValueWhenStop();
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+        Intent iCheckUntilEnd = getIntent();
+        if (iCheckUntilEnd != null) {
+
+            short returnLong = getIntent().getShortExtra("UNTIL_END", untilEndCount);
+            untilEndCount = returnLong;
+            saveValueUntilEnd();
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
@@ -659,30 +674,36 @@ public class MainActivity extends AppCompatActivity {
     private void showNotification() {
 
 //Notification Channel
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            CharSequence channelName = NOTIFICATION_CHANNEL_NAME;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            String id = "_channel_01";
             int importance = NotificationManager.IMPORTANCE_LOW;
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, importance);
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            notificationChannel.enableVibration(true);
-            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            NotificationChannel mChannel = new NotificationChannel(id, "notification", importance);
+            mChannel.enableLights(true);
 
+            Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this,
+                    0, notificationIntent,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
 
-            NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(notificationChannel);
+            Notification notification = new Notification.Builder(getApplicationContext(), id)
+                    .setSmallIcon(R.drawable.arrows)
+                    .setContentTitle("Таймер готов к старту!")
+                    .setContentText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60) + ":00")
+                    .addAction(R.drawable.arrows, "Открыть", pendingIntent)
+                    .build();
+
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (mNotificationManager != null) {
+                mNotificationManager.createNotificationChannel(mChannel);
+                mNotificationManager.notify(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
+            }
+
+            startForeground(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
         }
-
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NOTIFICATION_CHANNEL_ID)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setSmallIcon(R.drawable.arrows)
-                .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
-                .setSound(null)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(false);
-
     }
+
+
 
 
 
@@ -693,7 +714,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        showNotification();
         loadExit();
         if (collapse == false) {
             if (isExit == true) {
@@ -701,40 +721,60 @@ public class MainActivity extends AppCompatActivity {
                 loadDone();
                 for (int i = 0; i < whenStopCount; i++) {
 
-                    if (i == 3) {
+                    if (untilEndCount == 1)
+                        addStartCirclesSpace();
+                    else if (untilEndCount == 2) {
+                        addStartCirclesSpace();
                         addStartCircles();
                     }
-                    else if (i == 4){
+                    else if (untilEndCount == 3) {
                         addStartCirclesSpace();
+                        addStartCircles();
+                        addStartCircles();
                     }
-                    else if (i == 7)
+                    else if (untilEndCount == 4) {
+
                         addStartCircles();
-                    else if (i == 8)
-                        addStartCirclesSpace();
-                    else if (i == 11)
                         addStartCircles();
-                    else if (i == 12)
-                        addStartCirclesSpace();
-                    else if (i == 15)
                         addStartCircles();
-                    else if (i == 16)
-                        addStartCirclesSpace();
-                    else if (i == 19)
-                        addStartCircles();
-                    else if (i == 20)
-                        addStartCirclesSpace();
-                    else if (i == 23)
-                        addStartCircles();
-                    else if (i == 24)
-                        addStartCirclesSpace();
-                    else if (i == 27)
-                        addStartCircles();
-                    else if (i == 28)
                         addStartCirclesSpace();
 
-                    else {
+                    }
+                    else if (untilEndCount == 5) {
+                        addStartCirclesSpace();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
                         addStartCircles();
                     }
+                    else if (untilEndCount == 6) {
+                        addStartCirclesSpace();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                    }
+                    else if (untilEndCount == 7) {
+                        addStartCirclesSpace();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                    }
+                    else if (untilEndCount == 8) {
+                        addStartCirclesSpace();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                        addStartCircles();
+                    }
+
                 }
                 for (iDone = 0; iDone < done; iDone++) {
                     saveI();
@@ -785,40 +825,49 @@ public class MainActivity extends AppCompatActivity {
                 iDone = 0;
                 for (int i = 0; i < whenStopCount; i++) {
 
-                    if (i == 3) {
-                        addStartCircles();
-                    }
-                    else if (i == 4){
-                        addStartCirclesSpace();
-                    }
-                    else if (i == 7)
-                        addStartCircles();
-                    else if (i == 8)
-                        addStartCirclesSpace();
-                    else if (i == 11)
-                        addStartCircles();
-                    else if (i == 12)
-                        addStartCirclesSpace();
-                    else if (i == 15)
-                        addStartCircles();
-                    else if (i == 16)
-                        addStartCirclesSpace();
-                    else if (i == 19)
-                        addStartCircles();
-                    else if (i == 20)
-                        addStartCirclesSpace();
-                    else if (i == 23)
-                        addStartCircles();
-                    else if (i == 24)
-                        addStartCirclesSpace();
-                    else if (i == 27)
-                        addStartCircles();
-                    else if (i == 28)
-                        addStartCirclesSpace();
+//                    if (i == 3) {
+//                        addStartCircles();
+//                    }
+//                    else if (i == 4){
+//                        addStartCirclesSpace();
+//                    }
+//                    else if (i == 7)
+//                        addStartCircles();
+//                    else if (i == 8)
+//                        addStartCirclesSpace();
+//                    else if (i == 11)
+//                        addStartCircles();
+//                    else if (i == 12)
+//                        addStartCirclesSpace();
+//                    else if (i == 15)
+//                        addStartCircles();
+//                    else if (i == 16)
+//                        addStartCirclesSpace();
+//                    else if (i == 19)
+//                        addStartCircles();
+//                    else if (i == 20)
+//                        addStartCirclesSpace();
+//                    else if (i == 23)
+//                        addStartCircles();
+//                    else if (i == 24)
+//                        addStartCirclesSpace();
+//                    else if (i == 27)
+//                        addStartCircles();
+//                    else if (i == 28)
+//                        addStartCirclesSpace();
+//
+//                    else {
+//                        addStartCircles();
+//                    }
 
-                    else {
+                    if (untilEndCount == 1)
+                        addStartCirclesSpace();
+                    else if (untilEndCount == 2) {
                         addStartCircles();
+                        addStartCirclesSpace();
                     }
+
+
                 }
                 for (iDone = 0; iDone < done; iDone++) {
                     saveI();
@@ -872,7 +921,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        showNotification();
+
 
         if (isExit == true ) {
 
@@ -882,6 +931,7 @@ public class MainActivity extends AppCompatActivity {
         loadCheckAction();
         loadValueAutostart();
         loadValueWhenStop();
+        loadValueUntilEnd();
 
 
 
@@ -905,7 +955,6 @@ public class MainActivity extends AppCompatActivity {
             cat_pause.setVisibility(View.VISIBLE);
         }
 
-        menu.startAnimation(inAnimation);
 
     }
 
@@ -1236,6 +1285,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonStartPauseRest.setVisibility(View.VISIBLE);
         arrows_rest.startAnimation(inAnimation);
         menu.startAnimation(inAnimation);
+        Toast.makeText(MainActivity.this, "HERE3 IS FUCK", Toast.LENGTH_SHORT).show();
         progressBar.setProgress(0);
         visibilityYes();
         edit_current_action.setVisibility(View.VISIBLE);
@@ -1261,6 +1311,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
         arrows_long_rest.startAnimation(inAnimation);
         menu.startAnimation(inAnimation);
+        Toast.makeText(MainActivity.this, "HERE4 IS FUCK", Toast.LENGTH_SHORT).show();
         progressBar.setProgress(0);
         visibilityYes();
         edit_current_action.setVisibility(View.VISIBLE);
@@ -1578,7 +1629,7 @@ public class MainActivity extends AppCompatActivity {
     private void addStartCirclesSpace() {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick);
-        if (whenStopCount <= 8) {
+        if (whenStopCount <= 8 && untilEndCount == 4) {
             if (width_phone == 1080)
                 addViewSpace(imageView, 50, 50);
             if (width_phone == 1440)
@@ -1853,6 +1904,20 @@ public class MainActivity extends AppCompatActivity {
         whenstop = getPreferences(MODE_PRIVATE);
         String savedTextLongRest = whenstop.getString("save_whenstop", String.valueOf(whenStopCount));
         whenStopCount = Short.valueOf(savedTextLongRest);
+    }
+
+    private void saveValueUntilEnd() {
+        untilend = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = untilend.edit();
+        edlongrest.putString("save_untilend", String.valueOf(untilEndCount));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueUntilEnd() {
+        untilend = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = untilend.getString("save_untilend", String.valueOf(untilEndCount));
+        untilEndCount = Short.valueOf(savedTextLongRest);
     }
 
     private void saveDone() {

@@ -30,12 +30,14 @@ public class Menu extends MainActivity {
         private long LONG_REST_TIME_IN_MILLIS = 900 * 1000;
 
         private short whenStopCount = 8;
+        private short untilEndCount = 4;
 
         private SharedPreferences pref;
         private SharedPreferences prefrest;
         private SharedPreferences preflongrest;
         private SharedPreferences prefautostart;
         private SharedPreferences whenstop;
+        private SharedPreferences untilend;
 
         private TextView work_time;
         private TextView rest_time;
@@ -43,8 +45,11 @@ public class Menu extends MainActivity {
         private EditText work_time_invisible;
         private TextView rest_time_invisible;
         private TextView long_rest_time_invisible;
-        private TextView when_stop_invisible;
+
+        private TextView until_end_invisible;
         private TextView when_stop;
+        private TextView until_end;
+        private TextView when_stop_invisible;
 
         private Button button_work_time;
         private Button button_rest_time;
@@ -53,6 +58,7 @@ public class Menu extends MainActivity {
         private Button button_autostart_done;
         private Button button_autostart_notdone;
         private Button button_whenstop;
+        private Button button_until_end;
         private Button button_autostart_background;
 
         private ImageView title;
@@ -67,7 +73,9 @@ public class Menu extends MainActivity {
         private ImageView plus_long_rest;
         private ImageView minus_long_rest;
         private ImageView plus_whenstop;
+        private ImageView plus_until_end;
         private ImageView minus_whenstop;
+        private ImageView minus_until_end;
 
         private View shade;
 
@@ -110,7 +118,9 @@ public class Menu extends MainActivity {
         plus_long_rest = findViewById(R.id.plus_long_rest);
         minus_long_rest = findViewById(R.id.minus_long_rest);
         plus_whenstop = findViewById(R.id.plus_whenstop);
+        plus_until_end = findViewById(R.id.plus_until_end);
         minus_whenstop = findViewById(R.id.minus_whenstop);
+        minus_until_end = findViewById(R.id.minus_until_end);
 
         SW = findViewById(R.id.SW);
 
@@ -124,9 +134,11 @@ public class Menu extends MainActivity {
         long_rest_time = (findViewById(R.id.long_rest_time));
         work_time_invisible = findViewById(R.id.work_time_invisible);
         rest_time_invisible = findViewById(R.id.rest_time_invisible);
+        until_end_invisible = findViewById(R.id.until_end_invisible);
         when_stop_invisible = findViewById(R.id.when_stop_invisible);
         long_rest_time_invisible = findViewById(R.id.long_rest_time_invisible);
         when_stop = findViewById(R.id.when_stop);
+        until_end = findViewById(R.id.until_end);
 
 
         button_work_time = findViewById(R.id.button_work_time);
@@ -134,8 +146,10 @@ public class Menu extends MainActivity {
         button_long_rest_time = findViewById(R.id.button_long_rest_time);
         button_color = findViewById(R.id.button_color);
         button_whenstop = findViewById(R.id.button_whenstop);
+        button_until_end = findViewById(R.id.button_until_end);
 
         button_whenstop.getBackground().setAlpha(128);
+        button_until_end.getBackground().setAlpha(128);
         button_work_time.getBackground().setAlpha(128);
         button_rest_time.getBackground().setAlpha(128);
         button_long_rest_time.getBackground().setAlpha(128);
@@ -144,12 +158,14 @@ public class Menu extends MainActivity {
         rest_time.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
         when_stop.setText(String.valueOf(whenStopCount));
+        until_end.setText(String.valueOf(untilEndCount));
 
 
         work_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         long_rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         when_stop_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
+        until_end_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
 
 
 
@@ -159,6 +175,7 @@ public class Menu extends MainActivity {
         loadValueLongRest();
         loadValueAutostart();
         loadValueWhenStop();
+        loadValueUntilEnd();
 
 
         if (autostartIsOn == true) {
@@ -174,6 +191,7 @@ public class Menu extends MainActivity {
         rest_time_invisible.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
         long_rest_time_invisible.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
         when_stop_invisible.setText(String.valueOf(whenStopCount));
+        until_end_invisible.setText(String.valueOf(untilEndCount));
 
 
         button_whenstop.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +203,7 @@ public class Menu extends MainActivity {
                 plus_whenstop.setVisibility(View.VISIBLE);
                 minus_whenstop.setVisibility(View.VISIBLE);
                 button_whenstop.setClickable(false);
+                button_until_end.setClickable(false);
                 button_color.setClickable(false);
                 button_autostart_done.setClickable(false);
                 button_autostart_notdone.setClickable(false);
@@ -217,6 +236,51 @@ public class Menu extends MainActivity {
                 when_stop.setText(String.valueOf(whenStopCount));
                 when_stop_invisible.setText(String.valueOf(whenStopCount));
                 saveValueWhenStop();
+            }
+        });
+
+        button_until_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                maximizedContainer.setVisibility(View.VISIBLE);
+                shade.setVisibility(View.VISIBLE);
+                until_end_invisible.setVisibility(View.VISIBLE);
+                plus_until_end.setVisibility(View.VISIBLE);
+                minus_until_end.setVisibility(View.VISIBLE);
+                button_until_end.setClickable(false);
+                button_whenstop.setClickable(false);
+                button_color.setClickable(false);
+                button_autostart_done.setClickable(false);
+                button_autostart_notdone.setClickable(false);
+                button_autostart_background.setClickable(false);
+                isBlockedScrollView = true;
+                SW.smoothScrollTo(0, 1400);
+            }
+        });
+
+        plus_until_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                untilEndCount = (Short.valueOf(until_end_invisible.getText().toString()));
+                if (untilEndCount < 20) {
+                    untilEndCount += 1;
+                }
+                until_end.setText(String.valueOf(untilEndCount));
+                until_end_invisible.setText(String.valueOf(untilEndCount));
+                saveValueUntilEnd();
+            }
+        });
+
+        minus_until_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                untilEndCount = (Short.valueOf(until_end_invisible.getText().toString()));
+                if (untilEndCount > 1) {
+                    untilEndCount -= 1;
+                }
+                until_end.setText(String.valueOf(untilEndCount));
+                until_end_invisible.setText(String.valueOf(untilEndCount));
+                saveValueUntilEnd();
             }
         });
 
@@ -384,12 +448,16 @@ public class Menu extends MainActivity {
                 plus_long_rest.setVisibility(View.INVISIBLE);
                 minus_long_rest.setVisibility(View.INVISIBLE);
                 when_stop_invisible.setVisibility(View.INVISIBLE);
+                until_end_invisible.setVisibility(View.INVISIBLE);
                 plus_whenstop.setVisibility(View.INVISIBLE);
+                plus_until_end.setVisibility(View.INVISIBLE);
                 minus_whenstop.setVisibility(View.INVISIBLE);
+                minus_until_end.setVisibility(View.INVISIBLE);
                 button_autostart_background.setClickable(true);
                 button_autostart_done.setClickable(true);
                 button_autostart_notdone.setClickable(true);
                 button_whenstop.setClickable(true);
+                button_until_end.setClickable(true);
                 button_work_time.setClickable(true);
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
@@ -413,6 +481,11 @@ public class Menu extends MainActivity {
                     whenStopCount = Short.valueOf(when_stop_invisible.getText().toString());
                     when_stop.setText(String.valueOf(whenStopCount));
                     saveValueWhenStop();
+                }
+                if (Long.valueOf(until_end_invisible.getText().toString()) < 21) {
+                    untilEndCount = Short.valueOf(until_end_invisible.getText().toString());
+                    until_end.setText(String.valueOf(untilEndCount));
+                    saveValueUntilEnd();
                 }
 
             }
@@ -517,6 +590,7 @@ public class Menu extends MainActivity {
         a.putExtra("LONG_REST_PERIOD", LONG_REST_TIME_IN_MILLIS);
         a.putExtra("AUTOSTART_CHECK", autostartIsOn);
         a.putExtra("WHEN_STOP", whenStopCount);
+        a.putExtra("UNTIL_END", untilEndCount);
         startActivity(a);
         this.finish();
     }
@@ -601,6 +675,22 @@ public class Menu extends MainActivity {
         whenStopCount = Short.valueOf(savedTextLongRest);
         when_stop.setText(String.valueOf(savedTextLongRest));
         when_stop_invisible.setText(String.valueOf(savedTextLongRest));
+    }
+
+    private void saveValueUntilEnd() {
+        untilend = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = untilend.edit();
+        edlongrest.putString("save_untilend", String.valueOf(untilEndCount));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueUntilEnd() {
+        untilend = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = untilend.getString("save_untilend", String.valueOf(untilEndCount));
+        untilEndCount = Short.valueOf(savedTextLongRest);
+        until_end.setText(String.valueOf(savedTextLongRest));
+        until_end_invisible.setText(String.valueOf(savedTextLongRest));
     }
 
     public static void hideKeyboard( Activity activity ) {
