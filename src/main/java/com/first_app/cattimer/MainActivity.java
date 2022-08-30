@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private short iDone = 1;
     private short whenStopCount = 8;
     private short untilEndCount = 4;
+    private short countCircles = 0;
     private int checkAction = 0;
     private int seconds;
     private int minutes;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mLongRestButtonReset;
     private Button edit_current_action;
     private Button addImage;
+    private Button removeImage;
 
 
     private CountDownTimer mCountDownTimer;
@@ -102,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean autostartIsOn;
     private boolean isExit;
     private boolean collapse = false;
+    private boolean one_circle = true;
+    private boolean two_circle = true;
+    private boolean three_circle = true;
+    private boolean four_circle = true;
+    private boolean five_circle = true;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private long mRestLeftInMillis = REST_TIME_IN_MILLIS;
@@ -172,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         mLongRestButtonReset = findViewById(R.id.button_long_rest_restart);
         edit_current_action = findViewById(R.id.edit_current_action);
         addImage = findViewById(R.id.addImage);
+        removeImage = findViewById(R.id.removeImage);
         deleteImage = findViewById(R.id.deleteImage);
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
@@ -202,6 +210,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 done += 1;
+                if (done == whenStopCount + 1)
+                    done -= 1;
+                Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        removeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                done -= 1;
+
                 Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
 
             }
@@ -715,6 +735,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadExit();
+
         if (collapse == false) {
             if (isExit == true) {
                 loadI();
@@ -728,18 +749,51 @@ public class MainActivity extends AppCompatActivity {
                         addStartCircles();
                     }
                     else if (untilEndCount == 3) {
+                        if (three_circle == true) {
+                            addStartCircles();
+                            countCircles += 1;
+                            countCircles();
+                            three_circle = false;
+                        }
+
+                        addStartCircles();
+                        countCircles += 1;
+                        countCircles();
+                        addStartCircles();
+                        countCircles += 1;
+                        countCircles();
                         addStartCirclesSpace();
-                        addStartCircles();
-                        addStartCircles();
+                        countCircles += 1;
+                        countCircles();
+
+
                     }
                     else if (untilEndCount == 4) {
 
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCirclesSpace();
+                            if (four_circle == true) {
+                                addStartCircles();
+                                countCircles += 1;
+                                countCircles();
+                                four_circle = false;
+                            }
 
-                    }
+                            addStartCircles();
+                            countCircles += 1;
+                            countCircles();
+                            addStartCircles();
+                            countCircles += 1;
+                            countCircles();
+                            addStartCircles();
+                            countCircles += 1;
+                            countCircles();
+                            addStartCirclesSpace();
+                            countCircles += 1;
+                            countCircles();
+
+
+
+                        }
+
                     else if (untilEndCount == 5) {
                         addStartCirclesSpace();
                         addStartCircles();
@@ -778,39 +832,68 @@ public class MainActivity extends AppCompatActivity {
                 }
                 for (iDone = 0; iDone < done; iDone++) {
                     saveI();
-                    if (iDone == 3) {
-                        replaceCircles();
+                    if (untilEndCount == 3) {
+                        if (iDone == 2) {
+                            replaceCircles();
+                        }
+                        else if (iDone == 3) {
+                            addStartCirclesSpaceReplace();
+                        }
+                        else if (iDone == 5)
+                            replaceCircles();
+                        else if (iDone == 6)
+                            addStartCirclesSpaceReplace();
+                        else if (iDone == 8)
+                            replaceCircles();
+                        else if (iDone == 9)
+                            addStartCirclesSpaceReplace();
+                        else if (iDone == 11)
+                            replaceCircles();
+                        else if (iDone == 12)
+                            addStartCirclesSpaceReplace();
+                        else if (iDone == 14)
+                            replaceCircles();
+                        else if (iDone == 15)
+                            addStartCirclesSpaceReplace();
+                        else if (iDone == 17)
+                            replaceCircles();
+                        else if (iDone == 18)
+                            addStartCirclesSpaceReplace();
+                        else if (iDone == 20)
+                            replaceCircles();
+                        else {
+                            replaceCircles();
+                        }
                     }
-                    else if (iDone == 4) {
-                        addStartCirclesSpaceReplace();
+
+                    if (untilEndCount == 4) {
+                        if (iDone == 3) {
+                            replaceCircles();
+                        }
+                        else if (iDone == 4) {
+                            addStartCirclesSpaceReplace();
+                        }
+                        else if (iDone == 7)
+                            replaceCircles();
+                        else if (iDone == 8)
+                            addStartCirclesSpaceReplace();
+                        else if (iDone == 11)
+                            replaceCircles();
+                        else if (iDone == 12)
+                            addStartCirclesSpaceReplace();
+                        else if (iDone == 15)
+                            replaceCircles();
+                        else if (iDone == 16)
+                            addStartCirclesSpaceReplace();
+                        else if (iDone == 19)
+                            replaceCircles();
+                        else if (iDone == 20)
+                            addStartCirclesSpaceReplace();
+                        else {
+                            replaceCircles();
+                        }
                     }
-                    else if (iDone == 7)
-                        replaceCircles();
-                    else if (iDone == 8)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 11)
-                        replaceCircles();
-                    else if (iDone == 12)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 15)
-                        replaceCircles();
-                    else if (iDone == 16)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 19)
-                        replaceCircles();
-                    else if (iDone == 20)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 23)
-                        replaceCircles();
-                    else if (iDone == 24)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 27)
-                        replaceCircles();
-                    else if (iDone == 28)
-                        addStartCirclesSpaceReplace();
-                    else {
-                        replaceCircles();
-                    }
+
 
                 }
 
@@ -893,14 +976,6 @@ public class MainActivity extends AppCompatActivity {
                     else if (iDone == 19)
                         replaceCircles();
                     else if (iDone == 20)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 23)
-                        replaceCircles();
-                    else if (iDone == 24)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 27)
-                        replaceCircles();
-                    else if (iDone == 28)
                         addStartCirclesSpaceReplace();
                     else {
                         replaceCircles();
@@ -1492,7 +1567,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 replaceCircles();
             }
-            Toast.makeText(MainActivity.this, "DONE: " + done, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -1519,7 +1594,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                         dialogInterface.cancel();
-
+                        done = 0;
+                        removeReplaceCircles();
+                        removeReplaceCircles();
+                        removeReplaceCircles();
+                        removeReplaceCircles();
                         saveExit();
                         onResume();
                         onStart();
@@ -1629,6 +1708,12 @@ public class MainActivity extends AppCompatActivity {
     private void addStartCirclesSpace() {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick);
+        if (whenStopCount <= 8 && untilEndCount == 3) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 50, 50);
+            if (width_phone == 1440)
+                addViewSpace(imageView, 70, 70);
+        }
         if (whenStopCount <= 8 && untilEndCount == 4) {
             if (width_phone == 1080)
                 addViewSpace(imageView, 50, 50);
@@ -1650,6 +1735,61 @@ public class MainActivity extends AppCompatActivity {
                 addViewSpace(imageView, 5, 5);
             if (width_phone == 1440)
                 addViewSpace(imageView, 15, 15);
+        }
+
+    }
+
+    private void addStartBigSpace() {
+        ImageView imageView = new ImageView(MainActivity.this);
+        imageView.setImageResource(R.drawable.stick);
+
+         // 3
+        if (whenStopCount <= 8 && untilEndCount == 3) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 50, 50);
+            if (width_phone == 1440)
+                addViewBigSpace(imageView, 70, 70);
+        } else if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 3) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 25, 25);
+            if (width_phone == 1440)
+                addViewBigSpace(imageView, 35, 35);
+        } else if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 3) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 15, 15);
+            if (width_phone == 1440)
+                addViewBigSpace(imageView, 25, 25);
+        }
+        else if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 3) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 5, 5);
+            if (width_phone == 1440)
+                addViewBigSpace(imageView, 15, 15);
+        }
+
+
+         // 4
+        if (whenStopCount <= 8 && untilEndCount == 4) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 50, 50);
+            if (width_phone == 1440)
+                addViewBigSpace(imageView, 70, 70);
+        } else if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 25, 25);
+            if (width_phone == 1440)
+                addViewBigSpace(imageView, 35, 35);
+        } else if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 15, 15);
+            if (width_phone == 1440)
+                addViewBigSpace(imageView, 25, 25);
+        }
+        else if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
+            if (width_phone == 1080)
+                addViewSpace(imageView, 5, 5);
+            if (width_phone == 1440)
+                addViewBigSpace(imageView, 15, 15);
         }
 
     }
@@ -1709,6 +1849,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void removeReplaceCircles(){
+        ImageView imageView = new ImageView(MainActivity.this);
+        imageView.setImageResource(R.drawable.stick_do);
+        if (whenStopCount <= 8) {
+            if (width_phone == 1080)
+                replaceRemoveView(imageView, 50, 50);
+            if (width_phone == 1440)
+                replaceRemoveView(imageView, 70, 70);
+        } else if (whenStopCount > 8 && whenStopCount <= 12) {
+            if (width_phone == 1080)
+                replaceRemoveView(imageView, 25, 25);
+            if (width_phone == 1440)
+                replaceRemoveView(imageView, 35, 35);
+        } else if (whenStopCount > 12 && whenStopCount <= 16) {
+            if (width_phone == 1080)
+                replaceRemoveView(imageView, 15, 15);
+            if (width_phone == 1440)
+                replaceRemoveView(imageView, 25, 25);
+        }
+        else if (whenStopCount > 16 && whenStopCount <= 20) {
+            if (width_phone == 1080)
+                replaceRemoveView(imageView, 5, 5);
+            if (width_phone == 1440)
+                replaceRemoveView(imageView, 15, 15);
+        }
+
+    }
+
+
 
 
 
@@ -1724,6 +1893,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+    private void replaceView(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        layoutParams.setMargins(10, 0, 10, 0);
+        imageView.setLayoutParams(layoutParams);
+
+        circles_replace.addView(imageView);
+
+    }
+
+    private void replaceRemoveView(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        layoutParams.setMargins(10, 0, 10, 0);
+        imageView.setLayoutParams(layoutParams);
+
+        circles_replace.removeView(imageView);
+
+    }
+
+    // Пропуск незакрашенных
     private void addViewSpace(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
         if (width_phone == 1080) {
@@ -1741,14 +1931,34 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (width_phone == 1440){
-            layoutParams.setMargins(150, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12) {
+            if (untilEndCount == 1)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (untilEndCount == 2)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (untilEndCount == 3)
+                layoutParams.setMargins(330, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
+                layoutParams.setMargins(100, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount >= 9 && whenStopCount <= 12)
+                layoutParams.setMargins(80, 0, 10, 0);
+            if (whenStopCount > 12 && whenStopCount <= 15 && untilEndCount == 3) {
+                layoutParams.setMargins(60, 0, 10, 0);
+            }
+            if (whenStopCount >= 16 && whenStopCount <= 20 && untilEndCount == 3) {
+                layoutParams.setMargins(30, 0, 10, 0);
+            }
+
+
+
+            if (untilEndCount == 4)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
                 layoutParams.setMargins(110, 0, 10, 0);
             }
-            if (whenStopCount > 12 && whenStopCount <= 16) {
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
                 layoutParams.setMargins(68, 0, 10, 0);
             }
-            if (whenStopCount > 16 && whenStopCount <= 20) {
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
                 layoutParams.setMargins(58, 0, 10, 0);
             }
         }
@@ -1760,15 +1970,45 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void replaceView(ImageView imageView, int width, int height) {
+    private void addViewBigSpace(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
-        layoutParams.setMargins(10, 0, 10, 0);
+        if (width_phone == 1080) {
+            layoutParams.setMargins(100, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12) {
+                layoutParams.setMargins(60, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16) {
+                layoutParams.setMargins(40, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+        }
+
+
+        if (width_phone == 1440){
+            if (whenStopCount > 0 && whenStopCount <= 8)
+                layoutParams.setMargins(1400, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12) {
+                layoutParams.setMargins(1000, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16) {
+                layoutParams.setMargins(1000, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20) {
+                layoutParams.setMargins(1000, 0, 10, 0);
+            }
+        }
+
+
         imageView.setLayoutParams(layoutParams);
 
-        circles_replace.addView(imageView);
+        circles.addView(imageView);
 
     }
 
+
+    //
     private void addViewSpaceReplace(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
         if (width_phone == 1080) {
@@ -1786,7 +2026,64 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (width_phone == 1440){
-            layoutParams.setMargins(150, 0, 10, 0);
+            if (untilEndCount == 1)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (untilEndCount == 2)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (untilEndCount == 3)
+                layoutParams.setMargins(330, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
+                layoutParams.setMargins(100, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount >= 9 && whenStopCount <= 12)
+                layoutParams.setMargins(80, 0, 10, 0);
+            if (whenStopCount > 12 && whenStopCount <= 15 && untilEndCount == 3) {
+                layoutParams.setMargins(60, 0, 10, 0);
+            }
+            if (whenStopCount >= 16 && whenStopCount <= 20 && untilEndCount == 3) {
+                layoutParams.setMargins(30, 0, 10, 0);
+            }
+
+
+
+            if (untilEndCount == 4)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+        }
+        imageView.setLayoutParams(layoutParams);
+
+        circles_replace.addView(imageView);
+
+    }
+
+
+    // удаление закрашенных пропусков
+    private void removeViewSpaceReplace(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        if (width_phone == 1080) {
+            layoutParams.setMargins(100, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12) {
+                layoutParams.setMargins(60, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16) {
+                layoutParams.setMargins(40, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+        }
+
+
+        if (width_phone == 1440){
+            if (untilEndCount == 4)
+                layoutParams.setMargins(170, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12) {
                 layoutParams.setMargins(110, 0, 10, 0);
             }
@@ -1799,8 +2096,17 @@ public class MainActivity extends AppCompatActivity {
         }
         imageView.setLayoutParams(layoutParams);
 
-        circles_replace.addView(imageView);
+        circles_replace.removeView(imageView);
 
+    }
+
+    private void countCircles(){
+        if (countCircles == whenStopCount) {
+            addStartBigSpace();
+            Toast.makeText(MainActivity.this, "CountCircles " + countCircles, Toast.LENGTH_SHORT).show();
+            countCircles = 0;
+
+        }
     }
 
 
