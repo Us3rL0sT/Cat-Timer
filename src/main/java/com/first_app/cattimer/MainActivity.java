@@ -741,176 +741,106 @@ public class MainActivity extends AppCompatActivity {
                 loadI();
                 loadDone();
                 for (int i = 0; i < whenStopCount; i++) {
+                    if (i == untilEndCount)
+                        f();
+                     else if (i == untilEndCount * 2)
+                        f();
+                     else if (i == untilEndCount * 3)
+                        f();
+                    else if (i == untilEndCount * 4)
+                        f();
+                    else if (i == untilEndCount * 5)
+                        f();
+                    else if (i == untilEndCount * 6)
+                        f();
+                    else if (i == untilEndCount * 7)
+                        f();
+                    else if (i == untilEndCount * 8)
+                        f();
+                    else if (i == untilEndCount * 9)
+                        f();
+                    else if (i == untilEndCount * 10)
+                        f();
+                    else if (i == untilEndCount * 11)
+                        f();
+                    else if (i == untilEndCount * 12)
+                        f();
+                    else if (i == untilEndCount * 13)
+                        f();
+                    else if (i == untilEndCount * 14)
+                        f();
+                    else if (i == untilEndCount * 15)
+                        f();
+                    else if (i == untilEndCount * 16)
+                        f();
+                    else if (i == untilEndCount * 17)
+                        f();
+                    else if (i == untilEndCount * 18)
+                        f();
+                    else if (i == untilEndCount * 19)
+                        f();
+                    else if (i == untilEndCount * 20)
+                        f();
 
-                    if (untilEndCount == 1) {
-                        if (one_circle == true) {
-                            addStartCircles();
-                            countCircles += 1;
-                            countCircles();
-                            one_circle = false;
-                        }
-                        addStartCirclesSpace();
+                    else {
+                        addStartCircles();
                         countCircles += 1;
                         countCircles();
                     }
-                    else if (untilEndCount == 2) {
-                        if (two_circle == true) {
-                            addStartCircles();
-                            countCircles += 1;
-                            countCircles();
-                            two_circle = false;
-                        }
-                        addStartCircles();
-                        countCircles += 1;
-                        countCircles();
-                        addStartCirclesSpace();
-                        countCircles += 1;
-                        countCircles();
-                    }
-                    else if (untilEndCount == 3) {
-                        if (three_circle == true) {
-                            addStartCircles();
-                            countCircles += 1;
-                            countCircles();
-                            three_circle = false;
-                        }
-
-                        addStartCircles();
-                        countCircles += 1;
-                        countCircles();
-                        addStartCircles();
-                        countCircles += 1;
-                        countCircles();
-                        addStartCirclesSpace();
-                        countCircles += 1;
-                        countCircles();
-
-
-                    }
-                    else if (untilEndCount == 4) {
-
-                            if (four_circle == true) {
-                                addStartCircles();
-                                countCircles += 1;
-                                countCircles();
-                                four_circle = false;
-                            }
-
-                            addStartCircles();
-                            countCircles += 1;
-                            countCircles();
-                            addStartCircles();
-                            countCircles += 1;
-                            countCircles();
-                            addStartCircles();
-                            countCircles += 1;
-                            countCircles();
-                            addStartCirclesSpace();
-                            countCircles += 1;
-                            countCircles();
-
-
-
-                        }
-
-                    else if (untilEndCount == 5) {
-                        addStartCirclesSpace();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                    }
-                    else if (untilEndCount == 6) {
-                        addStartCirclesSpace();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                    }
-                    else if (untilEndCount == 7) {
-                        addStartCirclesSpace();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                    }
-                    else if (untilEndCount == 8) {
-                        addStartCirclesSpace();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                        addStartCircles();
-                    }
-
                 }
                 for (iDone = 0; iDone < done; iDone++) {
                     saveI();
-                    if (untilEndCount == 3) {
-                        if (iDone == 2) {
-                            replaceCircles();
-                        }
-                        else if (iDone == 3) {
-                            addStartCirclesSpaceReplace();
-                        }
-                        else if (iDone == 5)
-                            replaceCircles();
-                        else if (iDone == 6)
-                            addStartCirclesSpaceReplace();
-                        else if (iDone == 8)
-                            replaceCircles();
-                        else if (iDone == 9)
-                            addStartCirclesSpaceReplace();
-                        else if (iDone == 11)
-                            replaceCircles();
-                        else if (iDone == 12)
-                            addStartCirclesSpaceReplace();
-                        else if (iDone == 14)
-                            replaceCircles();
-                        else if (iDone == 15)
-                            addStartCirclesSpaceReplace();
-                        else if (iDone == 17)
-                            replaceCircles();
-                        else if (iDone == 18)
-                            addStartCirclesSpaceReplace();
-                        else if (iDone == 20)
-                            replaceCircles();
-                        else {
-                            replaceCircles();
-                        }
+                    if (iDone == untilEndCount) {
+                        u();
+                    } else if (iDone == untilEndCount * 2) {
+                        u();
+                    } else if (iDone == untilEndCount * 3) {
+                        u();
+                    }else if (iDone == untilEndCount * 4) {
+                        u();
+                    }else if (iDone == untilEndCount * 5) {
+                        u();
+                    }else if (iDone == untilEndCount * 6) {
+                        u();
+                    }else if (iDone == untilEndCount * 7) {
+                        u();
+                    }else if (iDone == untilEndCount * 8) {
+                        u();
+                    }else if (iDone == untilEndCount * 9) {
+                        u();
+                    }else if (iDone == untilEndCount * 10) {
+                        u();
+                    }else if (iDone == untilEndCount * 11) {
+                        u();
+                    }else if (iDone == untilEndCount * 12) {
+                        u();
+                    }else if (iDone == untilEndCount * 13) {
+                        u();
+                    }else if (iDone == untilEndCount * 14) {
+                        u();
+                    }else if (iDone == untilEndCount * 15) {
+                        u();
+                    }else if (iDone == untilEndCount * 16) {
+                        u();
+                    }else if (iDone == untilEndCount * 17) {
+                        u();
+                    }else if (iDone == untilEndCount * 18) {
+                        u();
+                    }else if (iDone == untilEndCount * 19) {
+                        u();
+                    }else if (iDone == untilEndCount * 20) {
+                        u();
+                    }
+                    else {
+                        replaceCircles();
+                        countCircles += 1;
+                        countCircles();
                     }
 
-                    if (untilEndCount == 4) {
-                        if (iDone == 3) {
-                            replaceCircles();
-                        }
-                        else if (iDone == 4) {
-                            addStartCirclesSpaceReplace();
-                        }
-                        else if (iDone == 7)
-                            replaceCircles();
-                        else if (iDone == 8)
-                            addStartCirclesSpaceReplace();
-                        else if (iDone == 11)
-                            replaceCircles();
-                        else if (iDone == 12)
-                            addStartCirclesSpaceReplace();
-                        else if (iDone == 15)
-                            replaceCircles();
-                        else if (iDone == 16)
-                            addStartCirclesSpaceReplace();
-                        else if (iDone == 19)
-                            replaceCircles();
-                        else if (iDone == 20)
-                            addStartCirclesSpaceReplace();
-                        else {
-                            replaceCircles();
-                        }
+                    }
+
+
+
                     }
 
 
@@ -918,98 +848,26 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            }
+
 
 
 
             else {
                 done = 0;
                 iDone = 0;
-                for (int i = 0; i < whenStopCount; i++) {
-
-//                    if (i == 3) {
-//                        addStartCircles();
-//                    }
-//                    else if (i == 4){
-//                        addStartCirclesSpace();
-//                    }
-//                    else if (i == 7)
-//                        addStartCircles();
-//                    else if (i == 8)
-//                        addStartCirclesSpace();
-//                    else if (i == 11)
-//                        addStartCircles();
-//                    else if (i == 12)
-//                        addStartCirclesSpace();
-//                    else if (i == 15)
-//                        addStartCircles();
-//                    else if (i == 16)
-//                        addStartCirclesSpace();
-//                    else if (i == 19)
-//                        addStartCircles();
-//                    else if (i == 20)
-//                        addStartCirclesSpace();
-//                    else if (i == 23)
-//                        addStartCircles();
-//                    else if (i == 24)
-//                        addStartCirclesSpace();
-//                    else if (i == 27)
-//                        addStartCircles();
-//                    else if (i == 28)
-//                        addStartCirclesSpace();
-//
-//                    else {
-//                        addStartCircles();
-//                    }
-
-                    if (untilEndCount == 1)
-                        addStartCirclesSpace();
-                    else if (untilEndCount == 2) {
-                        addStartCircles();
-                        addStartCirclesSpace();
-                    }
 
 
-                }
-                for (iDone = 0; iDone < done; iDone++) {
-                    saveI();
-                    if (iDone == 3) {
-                        replaceCircles();
-                    }
-                    else if (iDone == 4) {
-                        addStartCirclesSpaceReplace();
 
-                    }
-                    else if (iDone == 7)
-                        replaceCircles();
-                    else if (iDone == 8)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 11)
-                        replaceCircles();
-                    else if (iDone == 12)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 15)
-                        replaceCircles();
-                    else if (iDone == 16)
-                        addStartCirclesSpaceReplace();
-                    else if (iDone == 19)
-                        replaceCircles();
-                    else if (iDone == 20)
-                        addStartCirclesSpaceReplace();
-                    else {
-                        replaceCircles();
-                    }
 
-                }
             }
-
-        }
         collapse = true;
+        }
 
 
 
 
-    }
+
+
 
 
     @Override
@@ -1964,6 +1822,213 @@ public class MainActivity extends AppCompatActivity {
             if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
                 layoutParams.setMargins(58, 0, 10, 0);
             }
+
+
+            if (untilEndCount == 5)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 6)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 7)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 8)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 9)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 10)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+            if (untilEndCount == 11)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 12)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 13)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 14)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 15)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 16)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 17)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 18)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 19)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 20)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
         }
 
 
@@ -2038,9 +2103,15 @@ public class MainActivity extends AppCompatActivity {
             if (untilEndCount == 1 && whenStopCount > 12 && whenStopCount <= 16)
                 layoutParams.setMargins(20, 0, 10, 0);
             if (untilEndCount == 1 && whenStopCount > 16 && whenStopCount <= 20)
-                layoutParams.setMargins(15, 0, 10, 0);
+                layoutParams.setMargins(17, 0, 10, 0);
+
             if (untilEndCount == 2)
-                layoutParams.setMargins(170, 0, 10, 0);
+                layoutParams.setMargins(60, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 8)
+                layoutParams.setMargins(50, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 14)
+                layoutParams.setMargins(30, 0, 10, 0);
+
             if (untilEndCount == 3)
                 layoutParams.setMargins(330, 0, 10, 0);
             if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
@@ -2065,6 +2136,213 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(68, 0, 10, 0);
             }
             if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 5)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 6)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 7)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 8)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 9)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 10)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+            if (untilEndCount == 11)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 12)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 13)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 14)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 15)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 16)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 17)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 18)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 19)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
+                layoutParams.setMargins(58, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 20)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
+                layoutParams.setMargins(110, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
+                layoutParams.setMargins(68, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
                 layoutParams.setMargins(58, 0, 10, 0);
             }
         }
@@ -2118,6 +2396,18 @@ public class MainActivity extends AppCompatActivity {
             countCircles = 0;
 
         }
+    }
+
+    private void f(){
+        addStartCirclesSpace();
+        countCircles += 1;
+        countCircles();
+    }
+
+    private void u() {
+        addStartCirclesSpaceReplace();
+        countCircles += 1;
+        countCircles();
     }
 
 
@@ -2281,6 +2571,8 @@ public class MainActivity extends AppCompatActivity {
         isExit = Boolean.valueOf(savedTextLongRest);
 
     }
+
+
 
 
 
