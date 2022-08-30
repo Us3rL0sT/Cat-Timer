@@ -60,6 +60,7 @@ public class Menu extends MainActivity {
         private Button button_whenstop;
         private Button button_until_end;
         private Button button_autostart_background;
+        private Button button_whenstop_background;
 
         private ImageView title;
         private ImageView autostart_done;
@@ -105,6 +106,7 @@ public class Menu extends MainActivity {
         fastAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fast);
 
         button_autostart_done = findViewById(R.id.button_autostart_done);
+        button_whenstop_background = findViewById(R.id.button_whenstop_background);
         button_autostart_background = findViewById(R.id.button_autostart_background);
         button_autostart_notdone = findViewById(R.id.button_autostart_notdone);
         autostart_done = findViewById(R.id.autostart_done);
@@ -208,6 +210,7 @@ public class Menu extends MainActivity {
                 button_autostart_done.setClickable(false);
                 button_autostart_notdone.setClickable(false);
                 button_autostart_background.setClickable(false);
+                button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 1400);
             }
@@ -253,6 +256,7 @@ public class Menu extends MainActivity {
                 button_autostart_done.setClickable(false);
                 button_autostart_notdone.setClickable(false);
                 button_autostart_background.setClickable(false);
+                button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 1400);
             }
@@ -454,6 +458,7 @@ public class Menu extends MainActivity {
                 minus_whenstop.setVisibility(View.INVISIBLE);
                 minus_until_end.setVisibility(View.INVISIBLE);
                 button_autostart_background.setClickable(true);
+                button_whenstop_background.setClickable(true);
                 button_autostart_done.setClickable(true);
                 button_autostart_notdone.setClickable(true);
                 button_whenstop.setClickable(true);

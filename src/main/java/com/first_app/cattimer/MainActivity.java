@@ -742,11 +742,30 @@ public class MainActivity extends AppCompatActivity {
                 loadDone();
                 for (int i = 0; i < whenStopCount; i++) {
 
-                    if (untilEndCount == 1)
+                    if (untilEndCount == 1) {
+                        if (one_circle == true) {
+                            addStartCircles();
+                            countCircles += 1;
+                            countCircles();
+                            one_circle = false;
+                        }
                         addStartCirclesSpace();
+                        countCircles += 1;
+                        countCircles();
+                    }
                     else if (untilEndCount == 2) {
-                        addStartCirclesSpace();
+                        if (two_circle == true) {
+                            addStartCircles();
+                            countCircles += 1;
+                            countCircles();
+                            two_circle = false;
+                        }
                         addStartCircles();
+                        countCircles += 1;
+                        countCircles();
+                        addStartCirclesSpace();
+                        countCircles += 1;
+                        countCircles();
                     }
                     else if (untilEndCount == 3) {
                         if (three_circle == true) {
@@ -1708,13 +1727,7 @@ public class MainActivity extends AppCompatActivity {
     private void addStartCirclesSpace() {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick);
-        if (whenStopCount <= 8 && untilEndCount == 3) {
-            if (width_phone == 1080)
-                addViewSpace(imageView, 50, 50);
-            if (width_phone == 1440)
-                addViewSpace(imageView, 70, 70);
-        }
-        if (whenStopCount <= 8 && untilEndCount == 4) {
+        if (whenStopCount <= 8) {
             if (width_phone == 1080)
                 addViewSpace(imageView, 50, 50);
             if (width_phone == 1440)
@@ -1743,49 +1756,25 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick);
 
-         // 3
-        if (whenStopCount <= 8 && untilEndCount == 3) {
+
+        // тут ничего изменять не надо
+        if (whenStopCount <= 8) {
             if (width_phone == 1080)
                 addViewSpace(imageView, 50, 50);
             if (width_phone == 1440)
                 addViewBigSpace(imageView, 70, 70);
-        } else if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 3) {
+        } else if (whenStopCount > 8 && whenStopCount <= 12) {
             if (width_phone == 1080)
                 addViewSpace(imageView, 25, 25);
             if (width_phone == 1440)
                 addViewBigSpace(imageView, 35, 35);
-        } else if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 3) {
+        } else if (whenStopCount > 12 && whenStopCount <= 16) {
             if (width_phone == 1080)
                 addViewSpace(imageView, 15, 15);
             if (width_phone == 1440)
                 addViewBigSpace(imageView, 25, 25);
         }
-        else if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 3) {
-            if (width_phone == 1080)
-                addViewSpace(imageView, 5, 5);
-            if (width_phone == 1440)
-                addViewBigSpace(imageView, 15, 15);
-        }
-
-
-         // 4
-        if (whenStopCount <= 8 && untilEndCount == 4) {
-            if (width_phone == 1080)
-                addViewSpace(imageView, 50, 50);
-            if (width_phone == 1440)
-                addViewBigSpace(imageView, 70, 70);
-        } else if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
-            if (width_phone == 1080)
-                addViewSpace(imageView, 25, 25);
-            if (width_phone == 1440)
-                addViewBigSpace(imageView, 35, 35);
-        } else if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
-            if (width_phone == 1080)
-                addViewSpace(imageView, 15, 15);
-            if (width_phone == 1440)
-                addViewBigSpace(imageView, 25, 25);
-        }
-        else if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
+        else if (whenStopCount > 16 && whenStopCount <= 20) {
             if (width_phone == 1080)
                 addViewSpace(imageView, 5, 5);
             if (width_phone == 1440)
@@ -1933,8 +1922,22 @@ public class MainActivity extends AppCompatActivity {
         if (width_phone == 1440){
             if (untilEndCount == 1)
                 layoutParams.setMargins(170, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 4 && whenStopCount <= 8)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 8 && whenStopCount <= 12)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 12 && whenStopCount <= 16)
+                layoutParams.setMargins(20, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 16 && whenStopCount <= 20)
+                layoutParams.setMargins(17, 0, 10, 0);
+
             if (untilEndCount == 2)
-                layoutParams.setMargins(170, 0, 10, 0);
+                layoutParams.setMargins(60, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 8)
+                layoutParams.setMargins(50, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 14)
+                layoutParams.setMargins(30, 0, 10, 0);
+
             if (untilEndCount == 3)
                 layoutParams.setMargins(330, 0, 10, 0);
             if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
@@ -2028,6 +2031,14 @@ public class MainActivity extends AppCompatActivity {
         if (width_phone == 1440){
             if (untilEndCount == 1)
                 layoutParams.setMargins(170, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 4 && whenStopCount <= 8)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 8 && whenStopCount <= 12)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 12 && whenStopCount <= 16)
+                layoutParams.setMargins(20, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 16 && whenStopCount <= 20)
+                layoutParams.setMargins(15, 0, 10, 0);
             if (untilEndCount == 2)
                 layoutParams.setMargins(170, 0, 10, 0);
             if (untilEndCount == 3)
