@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,6 +29,9 @@ public class Menu extends MainActivity {
         private long START_TIME_IN_MILLIS = 1500 * 1000;
         private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
         private long LONG_REST_TIME_IN_MILLIS = 900 * 1000;
+
+        private int height_phone; // экрана
+        private int width_phone; // также экрана
 
         private short whenStopCount = 8;
         private short untilEndCount = 4;
@@ -99,6 +103,15 @@ public class Menu extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height_phone = displayMetrics.heightPixels;
+        width_phone = displayMetrics.widthPixels;
+
+        if (height_phone == 2400) {
+            button_color.setX(-300);
+        }
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
