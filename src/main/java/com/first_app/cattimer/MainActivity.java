@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean mTimerRunning;
     private boolean autostartIsOn;
-    private boolean isExit;
+    private boolean isExit = false;
     private boolean collapse = false;
     private boolean first_start = true;
 
@@ -687,6 +687,8 @@ public class MainActivity extends AppCompatActivity {
     } // ONCREATE
 
 
+
+
     private void showNotification() {
 
 //Notification Channel
@@ -961,228 +963,237 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (first_start == true) {
-            if (collapse == false) {
-                if (isExit == true) {
-                    loadI();
-                    loadDone();
-                    for (int i = 0; i < whenStopCount; i++) {
-                        if (i == untilEndCount)
-                            f();
-                        else if (i == untilEndCount * 2)
-                            f();
-                        else if (i == untilEndCount * 3)
-                            f();
-                        else if (i == untilEndCount * 4)
-                            f();
-                        else if (i == untilEndCount * 5)
-                            f();
-                        else if (i == untilEndCount * 6)
-                            f();
-                        else if (i == untilEndCount * 7)
-                            f();
-                        else if (i == untilEndCount * 8)
-                            f();
-                        else if (i == untilEndCount * 9)
-                            f();
-                        else if (i == untilEndCount * 10)
-                            f();
-                        else if (i == untilEndCount * 11)
-                            f();
-                        else if (i == untilEndCount * 12)
-                            f();
-                        else if (i == untilEndCount * 13)
-                            f();
-                        else if (i == untilEndCount * 14)
-                            f();
-                        else if (i == untilEndCount * 15)
-                            f();
-                        else if (i == untilEndCount * 16)
-                            f();
-                        else if (i == untilEndCount * 17)
-                            f();
-                        else if (i == untilEndCount * 18)
-                            f();
-                        else if (i == untilEndCount * 19)
-                            f();
-                        else if (i == untilEndCount * 20)
-                            f();
+//        if (first_start == true) {
+//            Toast.makeText(MainActivity.this, "FIRST START: " + first_start, Toast.LENGTH_SHORT).show();
+//            if (collapse == false) {
+//                Toast.makeText(MainActivity.this, "COLLAPSE" + collapse, Toast.LENGTH_SHORT).show();
+//                if (isExit == true) {
+//                    Toast.makeText(MainActivity.this, "isExit" + isExit, Toast.LENGTH_SHORT).show();
+//                    loadI();
+//                    loadDone();
+//                    for (int i = 0; i < whenStopCount; i++) {
+//
+//
+//
+//                        if (i == untilEndCount)
+//                            f();
+//                        else if (i == untilEndCount * 2)
+//                            f();
+//                        else if (i == untilEndCount * 3)
+//                            f();
+//                        else if (i == untilEndCount * 4)
+//                            f();
+//                        else if (i == untilEndCount * 5)
+//                            f();
+//                        else if (i == untilEndCount * 6)
+//                            f();
+//                        else if (i == untilEndCount * 7)
+//                            f();
+//                        else if (i == untilEndCount * 8)
+//                            f();
+//                        else if (i == untilEndCount * 9)
+//                            f();
+//                        else if (i == untilEndCount * 10)
+//                            f();
+//                        else if (i == untilEndCount * 11)
+//                            f();
+//                        else if (i == untilEndCount * 12)
+//                            f();
+//                        else if (i == untilEndCount * 13)
+//                            f();
+//                        else if (i == untilEndCount * 14)
+//                            f();
+//                        else if (i == untilEndCount * 15)
+//                            f();
+//                        else if (i == untilEndCount * 16)
+//                            f();
+//                        else if (i == untilEndCount * 17)
+//                            f();
+//                        else if (i == untilEndCount * 18)
+//                            f();
+//                        else if (i == untilEndCount * 19)
+//                            f();
+//                        else if (i == untilEndCount * 20)
+//                            f();
+//
+//                        else {
+//                            addStartCircles();
+//                            countCircles += 1;
+//                            countCircles();
+//                        }
+//                    }
+//                    for (iDone = 0; iDone < done; iDone++) {
+//                        saveI();
+//                        if (iDone == untilEndCount) {
+//                            u();
+//                        } else if (iDone == untilEndCount * 2) {
+//                            u();
+//                        } else if (iDone == untilEndCount * 3) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 4) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 5) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 6) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 7) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 8) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 9) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 10) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 11) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 12) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 13) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 14) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 15) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 16) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 17) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 18) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 19) {
+//                            u();
+//                        }else if (iDone == untilEndCount * 20) {
+//                            u();
+//                        }
+//                        else {
+//                            replaceCircles();
+//                            countCircles += 1;
+//                            countCircles();
+//                        }
+//
+//                    }
+//                }
+//            }
+//            else {
+//                done = 0;
+//                iDone = 0;
+//
+//                loadI();
+//                loadDone();
+//                for (int i = 0; i < whenStopCount; i++) {
+//                    if (i == untilEndCount)
+//                        f();
+//                    else if (i == untilEndCount * 2)
+//                        f();
+//                    else if (i == untilEndCount * 3)
+//                        f();
+//                    else if (i == untilEndCount * 4)
+//                        f();
+//                    else if (i == untilEndCount * 5)
+//                        f();
+//                    else if (i == untilEndCount * 6)
+//                        f();
+//                    else if (i == untilEndCount * 7)
+//                        f();
+//                    else if (i == untilEndCount * 8)
+//                        f();
+//                    else if (i == untilEndCount * 9)
+//                        f();
+//                    else if (i == untilEndCount * 10)
+//                        f();
+//                    else if (i == untilEndCount * 11)
+//                        f();
+//                    else if (i == untilEndCount * 12)
+//                        f();
+//                    else if (i == untilEndCount * 13)
+//                        f();
+//                    else if (i == untilEndCount * 14)
+//                        f();
+//                    else if (i == untilEndCount * 15)
+//                        f();
+//                    else if (i == untilEndCount * 16)
+//                        f();
+//                    else if (i == untilEndCount * 17)
+//                        f();
+//                    else if (i == untilEndCount * 18)
+//                        f();
+//                    else if (i == untilEndCount * 19)
+//                        f();
+//                    else if (i == untilEndCount * 20)
+//                        f();
+//
+//                    else {
+//                        addStartCircles();
+//                        countCircles += 1;
+//                        countCircles();
+//                    }
+//                }
+//                for (iDone = 0; iDone < done; iDone++) {
+//                    saveI();
+//                    if (iDone == untilEndCount) {
+//                        u();
+//                    } else if (iDone == untilEndCount * 2) {
+//                        u();
+//                    } else if (iDone == untilEndCount * 3) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 4) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 5) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 6) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 7) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 8) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 9) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 10) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 11) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 12) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 13) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 14) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 15) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 16) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 17) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 18) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 19) {
+//                        u();
+//                    }else if (iDone == untilEndCount * 20) {
+//                        u();
+//                    }
+//                    else {
+//                        replaceCircles();
+//                        countCircles += 1;
+//                        countCircles();
+//                    }
+//                }
+//
+//
+//
+//
+//
+//
+//            }
+//            collapse = true;
 
-                        else {
-                            addStartCircles();
-                            countCircles += 1;
-                            countCircles();
-                        }
-                    }
-                    for (iDone = 0; iDone < done; iDone++) {
-                        saveI();
-                        if (iDone == untilEndCount) {
-                            u();
-                        } else if (iDone == untilEndCount * 2) {
-                            u();
-                        } else if (iDone == untilEndCount * 3) {
-                            u();
-                        }else if (iDone == untilEndCount * 4) {
-                            u();
-                        }else if (iDone == untilEndCount * 5) {
-                            u();
-                        }else if (iDone == untilEndCount * 6) {
-                            u();
-                        }else if (iDone == untilEndCount * 7) {
-                            u();
-                        }else if (iDone == untilEndCount * 8) {
-                            u();
-                        }else if (iDone == untilEndCount * 9) {
-                            u();
-                        }else if (iDone == untilEndCount * 10) {
-                            u();
-                        }else if (iDone == untilEndCount * 11) {
-                            u();
-                        }else if (iDone == untilEndCount * 12) {
-                            u();
-                        }else if (iDone == untilEndCount * 13) {
-                            u();
-                        }else if (iDone == untilEndCount * 14) {
-                            u();
-                        }else if (iDone == untilEndCount * 15) {
-                            u();
-                        }else if (iDone == untilEndCount * 16) {
-                            u();
-                        }else if (iDone == untilEndCount * 17) {
-                            u();
-                        }else if (iDone == untilEndCount * 18) {
-                            u();
-                        }else if (iDone == untilEndCount * 19) {
-                            u();
-                        }else if (iDone == untilEndCount * 20) {
-                            u();
-                        }
-                        else {
-                            replaceCircles();
-                            countCircles += 1;
-                            countCircles();
-                        }
-
-                    }
-                }
-            }
-            else {
-                done = 0;
-                iDone = 0;
-
-                loadI();
-                loadDone();
-                for (int i = 0; i < whenStopCount; i++) {
-                    if (i == untilEndCount)
-                        f();
-                    else if (i == untilEndCount * 2)
-                        f();
-                    else if (i == untilEndCount * 3)
-                        f();
-                    else if (i == untilEndCount * 4)
-                        f();
-                    else if (i == untilEndCount * 5)
-                        f();
-                    else if (i == untilEndCount * 6)
-                        f();
-                    else if (i == untilEndCount * 7)
-                        f();
-                    else if (i == untilEndCount * 8)
-                        f();
-                    else if (i == untilEndCount * 9)
-                        f();
-                    else if (i == untilEndCount * 10)
-                        f();
-                    else if (i == untilEndCount * 11)
-                        f();
-                    else if (i == untilEndCount * 12)
-                        f();
-                    else if (i == untilEndCount * 13)
-                        f();
-                    else if (i == untilEndCount * 14)
-                        f();
-                    else if (i == untilEndCount * 15)
-                        f();
-                    else if (i == untilEndCount * 16)
-                        f();
-                    else if (i == untilEndCount * 17)
-                        f();
-                    else if (i == untilEndCount * 18)
-                        f();
-                    else if (i == untilEndCount * 19)
-                        f();
-                    else if (i == untilEndCount * 20)
-                        f();
-
-                    else {
-                        addStartCircles();
-                        countCircles += 1;
-                        countCircles();
-                    }
-                }
-                for (iDone = 0; iDone < done; iDone++) {
-                    saveI();
-                    if (iDone == untilEndCount) {
-                        u();
-                    } else if (iDone == untilEndCount * 2) {
-                        u();
-                    } else if (iDone == untilEndCount * 3) {
-                        u();
-                    }else if (iDone == untilEndCount * 4) {
-                        u();
-                    }else if (iDone == untilEndCount * 5) {
-                        u();
-                    }else if (iDone == untilEndCount * 6) {
-                        u();
-                    }else if (iDone == untilEndCount * 7) {
-                        u();
-                    }else if (iDone == untilEndCount * 8) {
-                        u();
-                    }else if (iDone == untilEndCount * 9) {
-                        u();
-                    }else if (iDone == untilEndCount * 10) {
-                        u();
-                    }else if (iDone == untilEndCount * 11) {
-                        u();
-                    }else if (iDone == untilEndCount * 12) {
-                        u();
-                    }else if (iDone == untilEndCount * 13) {
-                        u();
-                    }else if (iDone == untilEndCount * 14) {
-                        u();
-                    }else if (iDone == untilEndCount * 15) {
-                        u();
-                    }else if (iDone == untilEndCount * 16) {
-                        u();
-                    }else if (iDone == untilEndCount * 17) {
-                        u();
-                    }else if (iDone == untilEndCount * 18) {
-                        u();
-                    }else if (iDone == untilEndCount * 19) {
-                        u();
-                    }else if (iDone == untilEndCount * 20) {
-                        u();
-                    }
-                    else {
-                        replaceCircles();
-                        countCircles += 1;
-                        countCircles();
-                    }
-                }
 
 
+//        }
 
-
-
-
-            }
-            collapse = true;
-            first_start = false;
-
-
-        }
+        onResume();
 
         Toast.makeText(MainActivity.this, "HEIGHT: " + height_phone + " WIDTH: " + width_phone, Toast.LENGTH_SHORT).show();
+
 
         loadCheckAction();
         loadValueAutostart();
@@ -1844,198 +1855,6 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
-
-
-
-
-
-
-
-
-    private void countCircles(){
-        if (countCircles == whenStopCount) {
-            addStartBigSpace();
-            Toast.makeText(MainActivity.this, "CountCircles " + countCircles, Toast.LENGTH_SHORT).show();
-            countCircles = 0;
-
-        }
-    }
-
-    private void f(){
-        addStartCirclesSpace();
-        countCircles += 1;
-        countCircles();
-    }
-
-    private void u() {
-        addStartCirclesSpaceReplace();
-        countCircles += 1;
-        countCircles();
-    }
-
-
-
-
-
-
-    private void saveValue() {
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor ed = pref.edit();
-        ed.putLong("save_time", nowTime);
-        ed.apply();
-    }
-
-    private void loadValue() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        START_TIME_IN_MILLIS = pref.getLong("save_time", 0);
-        if (START_TIME_IN_MILLIS == 0) {
-            START_TIME_IN_MILLIS = 1500 * 1000;
-        }
-
-        nowTime = START_TIME_IN_MILLIS;
-        mTimeLeftInMillis = START_TIME_IN_MILLIS;
-        updateCountDownText();
-    }
-
-    private void saveValueRest() {
-        prefrest = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor edrest = prefrest.edit();
-        edrest.putLong("save_keyrest", nowTimeRest);
-        edrest.apply();
-    }
-
-    private void loadValueRest() {
-        SharedPreferences prefrest = PreferenceManager.getDefaultSharedPreferences(this);
-        REST_TIME_IN_MILLIS = prefrest.getLong("save_keyrest", 0);
-        if (REST_TIME_IN_MILLIS == 0) {
-            REST_TIME_IN_MILLIS = 300 * 1000;
-        }
-        nowTimeRest = REST_TIME_IN_MILLIS;
-        mRestLeftInMillis = REST_TIME_IN_MILLIS;
-        restUpdateCountDownText();
-
-    }
-
-    private void saveValueLongRest() {
-        preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor edlongrest = preflongrest.edit();
-        edlongrest.putLong("save_keylongrest", nowTimeLongRest);
-        edlongrest.apply();
-
-    }
-
-    private void loadValueLongRest() {
-        SharedPreferences preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
-        LONG_REST_TIME_IN_MILLIS = preflongrest.getLong("save_keylongrest", 0);
-        if (LONG_REST_TIME_IN_MILLIS == 0) {
-            LONG_REST_TIME_IN_MILLIS = 900 * 1000;
-        }
-        nowTimeLongRest = LONG_REST_TIME_IN_MILLIS;
-        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
-        longRestUpdateCountDownText();
-    }
-
-    private void saveCheckAction(){
-        check = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor sp = check.edit();
-        sp.putInt("check_action", checkAction);
-        sp.apply();
-    }
-
-    private void loadCheckAction() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        checkAction = sp.getInt("check_action", 0);
-        longRestUpdateCountDownText();
-    }
-
-    private void saveValueAutostart() {
-        autostart = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edq = autostart.edit();
-        edq.putBoolean("autostart_key", autostartIsOn);
-
-        edq.apply();
-    }
-
-    private void loadValueAutostart() {
-        autostart = getPreferences(MODE_PRIVATE);
-        boolean savedTextAutostart = autostart.getBoolean("autostart_key", false);
-        autostartIsOn = savedTextAutostart;
-    }
-
-    private void saveValueWhenStop() {
-        whenstop = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = whenstop.edit();
-        edlongrest.putString("save_whenstop", String.valueOf(whenStopCount));
-        edlongrest.apply();
-
-    }
-
-    private void loadValueWhenStop() {
-        whenstop = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = whenstop.getString("save_whenstop", String.valueOf(whenStopCount));
-        whenStopCount = Short.valueOf(savedTextLongRest);
-    }
-
-    private void saveValueUntilEnd() {
-        untilend = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = untilend.edit();
-        edlongrest.putString("save_untilend", String.valueOf(untilEndCount));
-        edlongrest.apply();
-
-    }
-
-    private void loadValueUntilEnd() {
-        untilend = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = untilend.getString("save_untilend", String.valueOf(untilEndCount));
-        untilEndCount = Short.valueOf(savedTextLongRest);
-    }
-
-    private void saveDone() {
-        savedone = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = savedone.edit();
-        edlongrest.putString("save_done", String.valueOf(done));
-        edlongrest.apply();
-
-    }
-
-    private void loadDone() {
-        savedone = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = savedone.getString("save_done", String.valueOf(done));
-        done = Byte.valueOf(savedTextLongRest);
-
-    }
-
-    private void saveI() {
-        savei = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = savei.edit();
-        edlongrest.putString("save_iDone", String.valueOf(iDone));
-        edlongrest.apply();
-
-    }
-
-    private void loadI() {
-        savei = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = savei.getString("save_iDone", String.valueOf(iDone));
-        done = Byte.valueOf(savedTextLongRest);
-
-    }
-
-    private void saveExit() {
-        save_exit = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = save_exit.edit();
-        edlongrest.putString("save_exit", String.valueOf(isExit));
-        edlongrest.apply();
-
-    }
-
-    private void loadExit() {
-        save_exit = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = save_exit.getString("save_exit", String.valueOf(isExit));
-        isExit = Boolean.valueOf(savedTextLongRest);
-
-    }
-
-
     private void addStartCircles() {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick);
@@ -2253,6 +2072,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+
+
 
 
 
@@ -3055,7 +2879,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (width_phone == 2160) {
+        if (width_phone == 2160){
             if (untilEndCount == 1)
                 layoutParams.setMargins(170, 0, 10, 0);
             if (untilEndCount == 1 && whenStopCount > 4 && whenStopCount <= 8)
@@ -4140,6 +3964,190 @@ public class MainActivity extends AppCompatActivity {
         circles_replace.addView(imageView);
 
     }
+
+
+    private void countCircles(){
+        if (countCircles == whenStopCount) {
+            addStartBigSpace();
+            countCircles = 0;
+
+        }
+    }
+
+    private void f(){
+        addStartCirclesSpace();
+        countCircles += 1;
+        countCircles();
+    }
+
+    private void u() {
+        addStartCirclesSpaceReplace();
+        countCircles += 1;
+        countCircles();
+    }
+
+
+
+
+
+
+    private void saveValue() {
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor ed = pref.edit();
+        ed.putLong("save_time", nowTime);
+        ed.apply();
+    }
+
+    private void loadValue() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        START_TIME_IN_MILLIS = pref.getLong("save_time", 0);
+        if (START_TIME_IN_MILLIS == 0) {
+            START_TIME_IN_MILLIS = 1500 * 1000;
+        }
+
+        nowTime = START_TIME_IN_MILLIS;
+        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+        updateCountDownText();
+    }
+
+    private void saveValueRest() {
+        prefrest = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edrest = prefrest.edit();
+        edrest.putLong("save_keyrest", nowTimeRest);
+        edrest.apply();
+    }
+
+    private void loadValueRest() {
+        SharedPreferences prefrest = PreferenceManager.getDefaultSharedPreferences(this);
+        REST_TIME_IN_MILLIS = prefrest.getLong("save_keyrest", 0);
+        if (REST_TIME_IN_MILLIS == 0) {
+            REST_TIME_IN_MILLIS = 300 * 1000;
+        }
+        nowTimeRest = REST_TIME_IN_MILLIS;
+        mRestLeftInMillis = REST_TIME_IN_MILLIS;
+        restUpdateCountDownText();
+
+    }
+
+    private void saveValueLongRest() {
+        preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edlongrest = preflongrest.edit();
+        edlongrest.putLong("save_keylongrest", nowTimeLongRest);
+        edlongrest.apply();
+
+    }
+
+    private void loadValueLongRest() {
+        SharedPreferences preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
+        LONG_REST_TIME_IN_MILLIS = preflongrest.getLong("save_keylongrest", 0);
+        if (LONG_REST_TIME_IN_MILLIS == 0) {
+            LONG_REST_TIME_IN_MILLIS = 900 * 1000;
+        }
+        nowTimeLongRest = LONG_REST_TIME_IN_MILLIS;
+        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+        longRestUpdateCountDownText();
+    }
+
+    private void saveCheckAction(){
+        check = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor sp = check.edit();
+        sp.putInt("check_action", checkAction);
+        sp.apply();
+    }
+
+    private void loadCheckAction() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        checkAction = sp.getInt("check_action", 0);
+        longRestUpdateCountDownText();
+    }
+
+    private void saveValueAutostart() {
+        autostart = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edq = autostart.edit();
+        edq.putBoolean("autostart_key", autostartIsOn);
+
+        edq.apply();
+    }
+
+    private void loadValueAutostart() {
+        autostart = getPreferences(MODE_PRIVATE);
+        boolean savedTextAutostart = autostart.getBoolean("autostart_key", false);
+        autostartIsOn = savedTextAutostart;
+    }
+
+    private void saveValueWhenStop() {
+        whenstop = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = whenstop.edit();
+        edlongrest.putString("save_whenstop", String.valueOf(whenStopCount));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueWhenStop() {
+        whenstop = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = whenstop.getString("save_whenstop", String.valueOf(whenStopCount));
+        whenStopCount = Short.valueOf(savedTextLongRest);
+    }
+
+    private void saveValueUntilEnd() {
+        untilend = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = untilend.edit();
+        edlongrest.putString("save_untilend", String.valueOf(untilEndCount));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueUntilEnd() {
+        untilend = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = untilend.getString("save_untilend", String.valueOf(untilEndCount));
+        untilEndCount = Short.valueOf(savedTextLongRest);
+    }
+
+    private void saveDone() {
+        savedone = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = savedone.edit();
+        edlongrest.putString("save_done", String.valueOf(done));
+        edlongrest.apply();
+
+    }
+
+    private void loadDone() {
+        savedone = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = savedone.getString("save_done", String.valueOf(done));
+        done = Byte.valueOf(savedTextLongRest);
+
+    }
+
+    private void saveI() {
+        savei = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = savei.edit();
+        edlongrest.putString("save_iDone", String.valueOf(iDone));
+        edlongrest.apply();
+
+    }
+
+    private void loadI() {
+        savei = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = savei.getString("save_iDone", String.valueOf(iDone));
+        done = Byte.valueOf(savedTextLongRest);
+
+    }
+
+    private void saveExit() {
+        save_exit = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = save_exit.edit();
+        edlongrest.putString("save_exit", String.valueOf(isExit));
+        edlongrest.apply();
+
+    }
+
+    private void loadExit() {
+        save_exit = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = save_exit.getString("save_exit", String.valueOf(isExit));
+        isExit = Boolean.valueOf(savedTextLongRest);
+
+    }
+
 
 
 
