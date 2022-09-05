@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences savei;
     private SharedPreferences save_exit;
 
-    private float CurrentProgress = 95.5F; // начинать с (-1)
+    private float CurrentProgress = 96; // начинать с (-1)
     private float CurrentProgressRest = 96; // начинать с (-1)
     private float CurrentProgressLongRest = 96; // начинать с (-1)
     private ProgressBar progressBar;
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextViewCountDown;
     private TextView current_action;
+    private TextView openthemenu;
 
     private Button mButtonStartPause;
     private Button mButtonStartPauseRest;
@@ -95,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     private Button mLongRestButtonReset;
     private Button edit_current_action;
     private Button addImage;
-    private Button removeImage;
 
 
     private CountDownTimer mCountDownTimer;
@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         current_action = findViewById(R.id.current_action);
+        openthemenu = findViewById(R.id.openthemenu);
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
 
@@ -175,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
         mLongRestButtonReset = findViewById(R.id.button_long_rest_restart);
         edit_current_action = findViewById(R.id.edit_current_action);
         addImage = findViewById(R.id.addImage);
-        removeImage = findViewById(R.id.removeImage);
         deleteImage = findViewById(R.id.deleteImage);
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
@@ -213,22 +213,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        removeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                done -= 1;
-
-                Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
         deleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 done = 0;
                 Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
                 deleteImage.startAnimation(inAnimation);
+                openthemenu.setText("Открой меню," + "\n" + "чтобы обновить (* ^ ω ^)");
+                openthemenu.startAnimation(inAnimation);
+                openthemenu.setVisibility(View.VISIBLE);
+                visibilityOpenTheMenuText();
             }
         });
 
@@ -1642,6 +1636,34 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
+    private void visibilityOpenTheMenuText(){
+        new CountDownTimer(10000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                openthemenu.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
+    private void visibilityCatMove(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                cat_move.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
 
     private void clickableAnimation(){
         mButtonStartPause.setClickable(false);
@@ -1733,28 +1755,14 @@ public class MainActivity extends AppCompatActivity {
 
 
             done += 1;
-            if (done == 5) {
-
-            } else {
-                replaceCircles();
-            }
-
-
-
-
-            if (done == 5) {
-                addStartCirclesSpaceReplace();
-            }
 
             if (done == whenStopCount) {
 
-
-
-//                cat_move.startAnimation(nullAnimation);
-//                cat_move.setVisibility(View.INVISIBLE);
-//
-//                cat_question.setVisibility(View.VISIBLE);
                 pauseTimer();
+                ((GifDrawable)cat_move.getDrawable()).stop();
+                cat_question.setVisibility(View.VISIBLE);
+                menu.setVisibility(View.VISIBLE);
+                visibilityCatMove();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
                 builder.setTitle("Конец");
@@ -1762,13 +1770,12 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
-
                         dialogInterface.cancel();
                         done = 0;
-                        saveExit();
-                        onResume();
-                        onStart();
+                        openthemenu.setText("Открой меню," + "\n" + "чтобы обновить (* ^ ω ^)");
+                        openthemenu.startAnimation(inAnimation);
+                        openthemenu.setVisibility(View.VISIBLE);
+                        visibilityOpenTheMenuText();
                     }
                 });
                 builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
@@ -1844,26 +1851,196 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
+
+
+
+
+    private void saveValue() {
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor ed = pref.edit();
+        ed.putLong("save_time", nowTime);
+        ed.apply();
+    }
+
+    private void loadValue() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        START_TIME_IN_MILLIS = pref.getLong("save_time", 0);
+        if (START_TIME_IN_MILLIS == 0) {
+            START_TIME_IN_MILLIS = 1500 * 1000;
+        }
+
+        nowTime = START_TIME_IN_MILLIS;
+        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+        updateCountDownText();
+    }
+
+    private void saveValueRest() {
+        prefrest = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edrest = prefrest.edit();
+        edrest.putLong("save_keyrest", nowTimeRest);
+        edrest.apply();
+    }
+
+    private void loadValueRest() {
+        SharedPreferences prefrest = PreferenceManager.getDefaultSharedPreferences(this);
+        REST_TIME_IN_MILLIS = prefrest.getLong("save_keyrest", 0);
+        if (REST_TIME_IN_MILLIS == 0) {
+            REST_TIME_IN_MILLIS = 300 * 1000;
+        }
+        nowTimeRest = REST_TIME_IN_MILLIS;
+        mRestLeftInMillis = REST_TIME_IN_MILLIS;
+        restUpdateCountDownText();
+
+    }
+
+    private void saveValueLongRest() {
+        preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edlongrest = preflongrest.edit();
+        edlongrest.putLong("save_keylongrest", nowTimeLongRest);
+        edlongrest.apply();
+
+    }
+
+    private void loadValueLongRest() {
+        SharedPreferences preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
+        LONG_REST_TIME_IN_MILLIS = preflongrest.getLong("save_keylongrest", 0);
+        if (LONG_REST_TIME_IN_MILLIS == 0) {
+            LONG_REST_TIME_IN_MILLIS = 900 * 1000;
+        }
+        nowTimeLongRest = LONG_REST_TIME_IN_MILLIS;
+        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+        longRestUpdateCountDownText();
+    }
+
+    private void saveCheckAction(){
+        check = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor sp = check.edit();
+        sp.putInt("check_action", checkAction);
+        sp.apply();
+    }
+
+    private void loadCheckAction() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        checkAction = sp.getInt("check_action", 0);
+        longRestUpdateCountDownText();
+    }
+
+    private void saveValueAutostart() {
+        autostart = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edq = autostart.edit();
+        edq.putBoolean("autostart_key", autostartIsOn);
+
+        edq.apply();
+    }
+
+    private void loadValueAutostart() {
+        autostart = getPreferences(MODE_PRIVATE);
+        boolean savedTextAutostart = autostart.getBoolean("autostart_key", false);
+        autostartIsOn = savedTextAutostart;
+    }
+
+    private void saveValueWhenStop() {
+        whenstop = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = whenstop.edit();
+        edlongrest.putString("save_whenstop", String.valueOf(whenStopCount));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueWhenStop() {
+        whenstop = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = whenstop.getString("save_whenstop", String.valueOf(whenStopCount));
+        whenStopCount = Short.valueOf(savedTextLongRest);
+    }
+
+    private void saveValueUntilEnd() {
+        untilend = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = untilend.edit();
+        edlongrest.putString("save_untilend", String.valueOf(untilEndCount));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueUntilEnd() {
+        untilend = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = untilend.getString("save_untilend", String.valueOf(untilEndCount));
+        untilEndCount = Short.valueOf(savedTextLongRest);
+    }
+
+    private void saveDone() {
+        savedone = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = savedone.edit();
+        edlongrest.putString("save_done", String.valueOf(done));
+        edlongrest.apply();
+
+    }
+
+    private void loadDone() {
+        savedone = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = savedone.getString("save_done", String.valueOf(done));
+        done = Byte.valueOf(savedTextLongRest);
+
+    }
+
+    private void saveI() {
+        savei = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = savei.edit();
+        edlongrest.putString("save_iDone", String.valueOf(iDone));
+        edlongrest.apply();
+
+    }
+
+    private void loadI() {
+        savei = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = savei.getString("save_iDone", String.valueOf(iDone));
+        done = Byte.valueOf(savedTextLongRest);
+
+    }
+
+    private void saveExit() {
+        save_exit = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = save_exit.edit();
+        edlongrest.putString("save_exit", String.valueOf(isExit));
+        edlongrest.apply();
+
+    }
+
+    private void loadExit() {
+        save_exit = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = save_exit.getString("save_exit", String.valueOf(isExit));
+        isExit = Boolean.valueOf(savedTextLongRest);
+
+    }
+
+
     private void addStartCircles() {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick);
         if (whenStopCount <= 8) {
+            if (width_phone == 720)
+                addView(imageView, 30, 30);
             if (width_phone == 1080)
                 addView(imageView, 50, 50);
             if (width_phone == 1440)
                 addView(imageView, 70, 70);
         } else if (whenStopCount > 8 && whenStopCount <= 12) {
+            if (width_phone == 720)
+                addView(imageView, 15, 15);
             if (width_phone == 1080)
                 addView(imageView, 25, 25);
             if (width_phone == 1440)
                 addView(imageView, 35, 35);
         } else if (whenStopCount > 12 && whenStopCount <= 16) {
+            if (width_phone == 720)
+                addView(imageView, 10, 10);
             if (width_phone == 1080)
                 addView(imageView, 15, 15);
             if (width_phone == 1440)
                 addView(imageView, 25, 25);
         }
         else if (whenStopCount > 16 && whenStopCount <= 20) {
+            if (width_phone == 720)
+                addView(imageView, 3, 3);
             if (width_phone == 1080)
                 addView(imageView, 5, 5);
             if (width_phone == 1440)
@@ -1876,22 +2053,30 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick);
         if (whenStopCount <= 8) {
+            if (width_phone == 720)
+                addViewSpace(imageView, 30, 30);
             if (width_phone == 1080)
                 addViewSpace(imageView, 50, 50);
             if (width_phone == 1440)
                 addViewSpace(imageView, 70, 70);
         } else if (whenStopCount > 8 && whenStopCount <= 12) {
+            if (width_phone == 720)
+                addViewSpace(imageView, 15, 15);
             if (width_phone == 1080)
                 addViewSpace(imageView, 25, 25);
             if (width_phone == 1440)
                 addViewSpace(imageView, 35, 35);
         } else if (whenStopCount > 12 && whenStopCount <= 16) {
+            if (width_phone == 720)
+                addViewSpace(imageView, 10, 10);
             if (width_phone == 1080)
                 addViewSpace(imageView, 15, 15);
             if (width_phone == 1440)
                 addViewSpace(imageView, 25, 25);
         }
         else if (whenStopCount > 16 && whenStopCount <= 20) {
+            if (width_phone == 720)
+                addViewSpace(imageView, 3, 3);
             if (width_phone == 1080)
                 addViewSpace(imageView, 5, 5);
             if (width_phone == 1440)
@@ -1907,22 +2092,30 @@ public class MainActivity extends AppCompatActivity {
 
         // тут ничего изменять не надо
         if (whenStopCount <= 8) {
+            if (width_phone == 720)
+                addViewBigSpace(imageView, 30, 30);
             if (width_phone == 1080)
                 addViewBigSpace(imageView, 50, 50);
             if (width_phone == 1440)
                 addViewBigSpace(imageView, 70, 70);
         } else if (whenStopCount > 8 && whenStopCount <= 12) {
+            if (width_phone == 720)
+                addViewBigSpace(imageView, 15, 15);
             if (width_phone == 1080)
                 addViewBigSpace(imageView, 25, 25);
             if (width_phone == 1440)
                 addViewBigSpace(imageView, 35, 35);
         } else if (whenStopCount > 12 && whenStopCount <= 16) {
+            if (width_phone == 720)
+                addViewBigSpace(imageView, 10, 10);
             if (width_phone == 1080)
                 addViewBigSpace(imageView, 15, 15);
             if (width_phone == 1440)
                 addViewBigSpace(imageView, 25, 25);
         }
         else if (whenStopCount > 16 && whenStopCount <= 20) {
+            if (width_phone == 720)
+                addViewBigSpace(imageView, 3, 3);
             if (width_phone == 1080)
                 addViewBigSpace(imageView, 5, 5);
             if (width_phone == 1440)
@@ -1935,22 +2128,30 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick_do);
         if (whenStopCount <= 8) {
+            if (width_phone == 720)
+                replaceView(imageView, 30, 30);
             if (width_phone == 1080)
                 replaceView(imageView, 50, 50);
             if (width_phone == 1440)
                 replaceView(imageView, 70, 70);
         } else if (whenStopCount > 8 && whenStopCount <= 12) {
+            if (width_phone == 720)
+                replaceView(imageView, 15, 15);
             if (width_phone == 1080)
                 replaceView(imageView, 25, 25);
             if (width_phone == 1440)
                 replaceView(imageView, 35, 35);
         } else if (whenStopCount > 12 && whenStopCount <= 16) {
+            if (width_phone == 720)
+                replaceView(imageView, 10, 10);
             if (width_phone == 1080)
                 replaceView(imageView, 15, 15);
             if (width_phone == 1440)
                 replaceView(imageView, 25, 25);
         }
         else if (whenStopCount > 16 && whenStopCount <= 20) {
+            if (width_phone == 720)
+                replaceView(imageView, 3, 3);
             if (width_phone == 1080)
                 replaceView(imageView, 5, 5);
             if (width_phone == 1440)
@@ -1963,22 +2164,30 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(MainActivity.this);
         imageView.setImageResource(R.drawable.stick_do);
         if (whenStopCount <= 8) {
+            if (width_phone == 720)
+                addViewSpaceReplace(imageView, 30, 30);
             if (width_phone == 1080)
                 addViewSpaceReplace(imageView, 50, 50);
             if (width_phone == 1440)
                 addViewSpaceReplace(imageView, 70, 70);
         } else if (whenStopCount > 8 && whenStopCount <= 12) {
+            if (width_phone == 720)
+                addViewSpaceReplace(imageView, 15, 15);
             if (width_phone == 1080)
                 addViewSpaceReplace(imageView, 25, 25);
             if (width_phone == 1440)
                 addViewSpaceReplace(imageView, 35, 35);
         } else if (whenStopCount > 12 && whenStopCount <= 16) {
+            if (width_phone == 720)
+                addViewSpaceReplace(imageView, 10, 10);
             if (width_phone == 1080)
                 addViewSpaceReplace(imageView, 15, 15);
             if (width_phone == 1440)
                 addViewSpaceReplace(imageView, 25, 25);
         }
         else if (whenStopCount > 16 && whenStopCount <= 20) {
+            if (width_phone == 720)
+                addViewSpaceReplace(imageView, 3, 3);
             if (width_phone == 1080)
                 addViewSpaceReplace(imageView, 5, 5);
             if (width_phone == 1440)
@@ -1986,33 +2195,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void removeReplaceCircles(){
-        ImageView imageView = new ImageView(MainActivity.this);
-        imageView.setImageResource(R.drawable.stick_do);
-        if (whenStopCount <= 8) {
-            if (width_phone == 1080)
-                replaceRemoveView(imageView, 50, 50);
-            if (width_phone == 1440)
-                replaceRemoveView(imageView, 70, 70);
-        } else if (whenStopCount > 8 && whenStopCount <= 12) {
-            if (width_phone == 1080)
-                replaceRemoveView(imageView, 25, 25);
-            if (width_phone == 1440)
-                replaceRemoveView(imageView, 35, 35);
-        } else if (whenStopCount > 12 && whenStopCount <= 16) {
-            if (width_phone == 1080)
-                replaceRemoveView(imageView, 15, 15);
-            if (width_phone == 1440)
-                replaceRemoveView(imageView, 25, 25);
-        }
-        else if (whenStopCount > 16 && whenStopCount <= 20) {
-            if (width_phone == 1080)
-                replaceRemoveView(imageView, 5, 5);
-            if (width_phone == 1440)
-                replaceRemoveView(imageView, 15, 15);
-        }
-
-    }
 
 
 
@@ -2041,19 +2223,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void replaceRemoveView(ImageView imageView, int width, int height) {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
-        layoutParams.setMargins(10, 0, 10, 0);
-        imageView.setLayoutParams(layoutParams);
 
-        circles_replace.removeView(imageView);
-
-    }
 
     // Пропуск незакрашенных
     private void addViewSpace(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
-        if (width_phone == 1080) {
+
+        if (width_phone == 720) {
 
             if (untilEndCount == 1)
                 layoutParams.setMargins(130, 0, 10, 0);
@@ -2065,6 +2241,262 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(15, 0, 10, 0);
             if (untilEndCount == 1 && whenStopCount > 16 && whenStopCount <= 20)
                 layoutParams.setMargins(16, 0, 10, 0);
+
+            if (untilEndCount == 2)
+                layoutParams.setMargins(45, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 8)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 14)
+                layoutParams.setMargins(20, 0, 10, 0);
+
+            if (untilEndCount == 3)
+                layoutParams.setMargins(250, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
+                layoutParams.setMargins(60, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount >= 9 && whenStopCount <= 12)
+                layoutParams.setMargins(40, 0, 10, 0);
+            if (whenStopCount > 12 && whenStopCount <= 15 && untilEndCount == 3) {
+                layoutParams.setMargins(30, 0, 10, 0);
+            }
+            if (whenStopCount >= 16 && whenStopCount <= 20 && untilEndCount == 3) {
+                layoutParams.setMargins(25, 0, 10, 0);
+            }
+
+
+
+            if (untilEndCount == 4)
+                layoutParams.setMargins(120, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
+                layoutParams.setMargins(70, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 5)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 6)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 7)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 8)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 9)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 10)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+            if (untilEndCount == 11)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 12)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 13)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 14)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 15)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 16)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 17)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 18)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 19)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 20)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+        }
+
+        if (width_phone == 1080) {
+
+            if (untilEndCount == 1)
+                layoutParams.setMargins(130, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 4 && whenStopCount <= 8)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 8 && whenStopCount <= 12)
+                layoutParams.setMargins(25, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 12 && whenStopCount <= 16)
+                layoutParams.setMargins(22, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 16 && whenStopCount <= 20)
+                layoutParams.setMargins(20, 0, 10, 0);
 
             if (untilEndCount == 2)
                 layoutParams.setMargins(45, 0, 10, 0);
@@ -2829,6 +3261,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void addViewBigSpace(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+
+        if (width_phone == 720) {
+            layoutParams.setMargins(1400, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12) {
+                layoutParams.setMargins(1400, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16) {
+                layoutParams.setMargins(1000, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20) {
+                layoutParams.setMargins(1000, 0, 10, 0);
+            }
+        }
+
         if (width_phone == 1080) {
             layoutParams.setMargins(1400, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12) {
@@ -2868,6 +3314,263 @@ public class MainActivity extends AppCompatActivity {
     //
     private void addViewSpaceReplace(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+
+        if (width_phone == 720) {
+
+            if (untilEndCount == 1)
+                layoutParams.setMargins(130, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 4 && whenStopCount <= 8)
+                layoutParams.setMargins(25, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 8 && whenStopCount <= 12)
+                layoutParams.setMargins(20, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 12 && whenStopCount <= 16)
+                layoutParams.setMargins(15, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 16 && whenStopCount <= 20)
+                layoutParams.setMargins(16, 0, 10, 0);
+
+            if (untilEndCount == 2)
+                layoutParams.setMargins(45, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 8)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 14)
+                layoutParams.setMargins(20, 0, 10, 0);
+
+            if (untilEndCount == 3)
+                layoutParams.setMargins(250, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
+                layoutParams.setMargins(60, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount >= 9 && whenStopCount <= 12)
+                layoutParams.setMargins(40, 0, 10, 0);
+            if (whenStopCount > 12 && whenStopCount <= 15 && untilEndCount == 3) {
+                layoutParams.setMargins(30, 0, 10, 0);
+            }
+            if (whenStopCount >= 16 && whenStopCount <= 20 && untilEndCount == 3) {
+                layoutParams.setMargins(25, 0, 10, 0);
+            }
+
+
+
+            if (untilEndCount == 4)
+                layoutParams.setMargins(120, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
+                layoutParams.setMargins(70, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 5)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 6)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 7)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 8)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 9)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 10)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+            if (untilEndCount == 11)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 12)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 13)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 14)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 15)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 16)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 17)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 18)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 19)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 20)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
+                layoutParams.setMargins(50, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
+                layoutParams.setMargins(20, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
+                layoutParams.setMargins(15, 0, 10, 0);
+            }
+
+        }
+
         if (width_phone == 1080) {
 
             if (untilEndCount == 1)
@@ -3404,168 +4107,6 @@ public class MainActivity extends AppCompatActivity {
         addStartCirclesSpaceReplace();
         countCircles += 1;
         countCircles();
-    }
-
-
-
-
-
-
-    private void saveValue() {
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor ed = pref.edit();
-        ed.putLong("save_time", nowTime);
-        ed.apply();
-    }
-
-    private void loadValue() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        START_TIME_IN_MILLIS = pref.getLong("save_time", 0);
-        if (START_TIME_IN_MILLIS == 0) {
-            START_TIME_IN_MILLIS = 1500 * 1000;
-        }
-
-        nowTime = START_TIME_IN_MILLIS;
-        mTimeLeftInMillis = START_TIME_IN_MILLIS;
-        updateCountDownText();
-    }
-
-    private void saveValueRest() {
-        prefrest = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor edrest = prefrest.edit();
-        edrest.putLong("save_keyrest", nowTimeRest);
-        edrest.apply();
-    }
-
-    private void loadValueRest() {
-        SharedPreferences prefrest = PreferenceManager.getDefaultSharedPreferences(this);
-        REST_TIME_IN_MILLIS = prefrest.getLong("save_keyrest", 0);
-        if (REST_TIME_IN_MILLIS == 0) {
-            REST_TIME_IN_MILLIS = 300 * 1000;
-        }
-        nowTimeRest = REST_TIME_IN_MILLIS;
-        mRestLeftInMillis = REST_TIME_IN_MILLIS;
-        restUpdateCountDownText();
-
-    }
-
-    private void saveValueLongRest() {
-        preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor edlongrest = preflongrest.edit();
-        edlongrest.putLong("save_keylongrest", nowTimeLongRest);
-        edlongrest.apply();
-
-    }
-
-    private void loadValueLongRest() {
-        SharedPreferences preflongrest = PreferenceManager.getDefaultSharedPreferences(this);
-        LONG_REST_TIME_IN_MILLIS = preflongrest.getLong("save_keylongrest", 0);
-        if (LONG_REST_TIME_IN_MILLIS == 0) {
-            LONG_REST_TIME_IN_MILLIS = 900 * 1000;
-        }
-        nowTimeLongRest = LONG_REST_TIME_IN_MILLIS;
-        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
-        longRestUpdateCountDownText();
-    }
-
-    private void saveCheckAction(){
-        check = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor sp = check.edit();
-        sp.putInt("check_action", checkAction);
-        sp.apply();
-    }
-
-    private void loadCheckAction() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        checkAction = sp.getInt("check_action", 0);
-        longRestUpdateCountDownText();
-    }
-
-    private void saveValueAutostart() {
-        autostart = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edq = autostart.edit();
-        edq.putBoolean("autostart_key", autostartIsOn);
-
-        edq.apply();
-    }
-
-    private void loadValueAutostart() {
-        autostart = getPreferences(MODE_PRIVATE);
-        boolean savedTextAutostart = autostart.getBoolean("autostart_key", false);
-        autostartIsOn = savedTextAutostart;
-    }
-
-    private void saveValueWhenStop() {
-        whenstop = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = whenstop.edit();
-        edlongrest.putString("save_whenstop", String.valueOf(whenStopCount));
-        edlongrest.apply();
-
-    }
-
-    private void loadValueWhenStop() {
-        whenstop = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = whenstop.getString("save_whenstop", String.valueOf(whenStopCount));
-        whenStopCount = Short.valueOf(savedTextLongRest);
-    }
-
-    private void saveValueUntilEnd() {
-        untilend = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = untilend.edit();
-        edlongrest.putString("save_untilend", String.valueOf(untilEndCount));
-        edlongrest.apply();
-
-    }
-
-    private void loadValueUntilEnd() {
-        untilend = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = untilend.getString("save_untilend", String.valueOf(untilEndCount));
-        untilEndCount = Short.valueOf(savedTextLongRest);
-    }
-
-    private void saveDone() {
-        savedone = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = savedone.edit();
-        edlongrest.putString("save_done", String.valueOf(done));
-        edlongrest.apply();
-
-    }
-
-    private void loadDone() {
-        savedone = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = savedone.getString("save_done", String.valueOf(done));
-        done = Byte.valueOf(savedTextLongRest);
-
-    }
-
-    private void saveI() {
-        savei = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = savei.edit();
-        edlongrest.putString("save_iDone", String.valueOf(iDone));
-        edlongrest.apply();
-
-    }
-
-    private void loadI() {
-        savei = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = savei.getString("save_iDone", String.valueOf(iDone));
-        done = Byte.valueOf(savedTextLongRest);
-
-    }
-
-    private void saveExit() {
-        save_exit = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = save_exit.edit();
-        edlongrest.putString("save_exit", String.valueOf(isExit));
-        edlongrest.apply();
-
-    }
-
-    private void loadExit() {
-        save_exit = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = save_exit.getString("save_exit", String.valueOf(isExit));
-        isExit = Boolean.valueOf(savedTextLongRest);
-
     }
 
 

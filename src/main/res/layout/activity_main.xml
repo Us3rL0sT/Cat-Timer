@@ -323,7 +323,7 @@
         android:text="Button"
         app:layout_constraintBottom_toTopOf="@+id/cat_sleep"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/progressBar"
         app:layout_constraintVertical_bias="0.0" />
@@ -339,15 +339,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/reload" />
 
-    <Button
-        android:id="@+id/removeImage"
+    <TextView
+        android:id="@+id/openthemenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.752"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/cat_move"
+        app:layout_constraintEnd_toStartOf="@+id/deleteImage"
+        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintStart_toEndOf="@+id/menu_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintVertical_bias="0.682"
+        tools:visibility="visible"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
