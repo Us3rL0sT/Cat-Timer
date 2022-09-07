@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -40,6 +41,7 @@ public class Menu extends MainActivity {
         private SharedPreferences prefrest;
         private SharedPreferences preflongrest;
         private SharedPreferences prefautostart;
+        private SharedPreferences prefvibration;
         private SharedPreferences whenstop;
         private SharedPreferences untilend;
 
@@ -49,6 +51,9 @@ public class Menu extends MainActivity {
         private EditText work_time_invisible;
         private TextView rest_time_invisible;
         private TextView long_rest_time_invisible;
+        private TextView work_time_text;
+        private TextView rest_time_text;
+        private TextView long_rest_time_text;
 
         private TextView until_end_invisible;
         private TextView when_stop;
@@ -60,17 +65,24 @@ public class Menu extends MainActivity {
         private Button button_long_rest_time;
         private Button button_color;
         private Button button_autostart_done;
+        private Button button_vibration_done;
         private Button button_autostart_notdone;
+        private Button button_vibration_notdone;
         private Button button_whenstop;
         private Button button_until_end;
         private Button button_autostart_background;
+        private Button button_vibration_background;
         private Button button_whenstop_background;
 
         private ImageView title;
         private ImageView autostart_done;
+        private ImageView vibration_done;
         private ImageView autostart_notdone;
+        private ImageView vibration_notdone;
         private ImageView underline1;
         private ImageView underline2;
+        private ImageView underline3;
+        private ImageView underline4;
         private ImageView plus;
         private ImageView minus;
         private ImageView plus_rest;
@@ -90,11 +102,14 @@ public class Menu extends MainActivity {
 
         private boolean isBlockedScrollView;
         private boolean autostartIsOn = true;
+        private boolean vibration = true;
 
         private Animation inAnimation;
         private Animation outAnimation;
         private Animation nullAnimation;
         private Animation fastAnimation;
+
+        private Vibrator vibrator;
 
 
 
@@ -119,13 +134,20 @@ public class Menu extends MainActivity {
         fastAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fast);
 
         button_autostart_done = findViewById(R.id.button_autostart_done);
+        button_vibration_done = findViewById(R.id.button_vibration_done);
         button_whenstop_background = findViewById(R.id.button_whenstop_background);
         button_autostart_background = findViewById(R.id.button_autostart_background);
+        button_vibration_background = findViewById(R.id.button_vibration_background);
         button_autostart_notdone = findViewById(R.id.button_autostart_notdone);
+        button_vibration_notdone = findViewById(R.id.button_vibration_notdone);
         autostart_done = findViewById(R.id.autostart_done);
+        vibration_done = findViewById(R.id.vibration_done);
         autostart_notdone = findViewById(R.id.autostart_notdone);
+        vibration_notdone = findViewById(R.id.vibration_notdone);
         underline1 = findViewById(R.id.underline1);
         underline2 = findViewById(R.id.underline2);
+        underline3 = findViewById(R.id.underline3);
+        underline4 = findViewById(R.id.underline4);
         plus = findViewById(R.id.plus);
         minus = findViewById(R.id.minus);
         plus_rest = findViewById(R.id.plus_rest);
@@ -152,6 +174,9 @@ public class Menu extends MainActivity {
         until_end_invisible = findViewById(R.id.until_end_invisible);
         when_stop_invisible = findViewById(R.id.when_stop_invisible);
         long_rest_time_invisible = findViewById(R.id.long_rest_time_invisible);
+        work_time_text = findViewById(R.id.work_time_text);
+        rest_time_text = findViewById(R.id.rest_time_text);
+        long_rest_time_text = findViewById(R.id.long_rest_time_text);
         when_stop = findViewById(R.id.when_stop);
         until_end = findViewById(R.id.until_end);
 
@@ -162,6 +187,8 @@ public class Menu extends MainActivity {
         button_color = findViewById(R.id.button_color);
         button_whenstop = findViewById(R.id.button_whenstop);
         button_until_end = findViewById(R.id.button_until_end);
+
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         button_whenstop.getBackground().setAlpha(128);
         button_until_end.getBackground().setAlpha(128);
@@ -189,6 +216,7 @@ public class Menu extends MainActivity {
         loadValueRest();
         loadValueLongRest();
         loadValueAutostart();
+        loadValueVibration();
         loadValueWhenStop();
         loadValueUntilEnd();
 
@@ -199,6 +227,14 @@ public class Menu extends MainActivity {
         } else {
             underline2.setVisibility(View.VISIBLE);
             underline1.setVisibility(View.INVISIBLE);
+        }
+
+        if (vibration == true) {
+            underline3.setVisibility(View.VISIBLE);
+            underline4.setVisibility(View.INVISIBLE);
+        } else {
+            underline4.setVisibility(View.VISIBLE);
+            underline3.setVisibility(View.INVISIBLE);
         }
 
 
@@ -221,8 +257,11 @@ public class Menu extends MainActivity {
                 button_until_end.setClickable(false);
                 button_color.setClickable(false);
                 button_autostart_done.setClickable(false);
+                button_vibration_done.setClickable(false);
                 button_autostart_notdone.setClickable(false);
+                button_vibration_notdone.setClickable(false);
                 button_autostart_background.setClickable(false);
+                button_vibration_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 1400);
@@ -267,8 +306,10 @@ public class Menu extends MainActivity {
                 button_whenstop.setClickable(false);
                 button_color.setClickable(false);
                 button_autostart_done.setClickable(false);
+                button_vibration_done.setClickable(false);
                 button_autostart_notdone.setClickable(false);
                 button_autostart_background.setClickable(false);
+                button_vibration_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 1400);
@@ -311,12 +352,15 @@ public class Menu extends MainActivity {
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
                 plus.setVisibility(View.VISIBLE);
                 minus.setVisibility(View.VISIBLE);
+                work_time_text.setVisibility(View.VISIBLE);
                 button_autostart_background.setClickable(false);
+                button_vibration_background.setClickable(false);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 button_color.setClickable(false);
                 button_autostart_done.setClickable(false);
+                button_vibration_done.setClickable(false);
                 button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
@@ -361,12 +405,15 @@ public class Menu extends MainActivity {
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
                 plus_rest.setVisibility(View.VISIBLE);
                 minus_rest.setVisibility(View.VISIBLE);
+                rest_time_text.setVisibility(View.VISIBLE);
                 button_autostart_background.setClickable(false);
+                button_vibration_background.setClickable(false);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 button_color.setClickable(false);
                 button_autostart_done.setClickable(false);
+                button_vibration_done.setClickable(false);
                 button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
@@ -411,12 +458,15 @@ public class Menu extends MainActivity {
                 shade.setVisibility(View.VISIBLE);
                 plus_long_rest.setVisibility(View.VISIBLE);
                 minus_long_rest.setVisibility(View.VISIBLE);
+                long_rest_time_text.setVisibility(View.VISIBLE);
                 button_autostart_background.setClickable(false);
+                button_vibration_background.setClickable(false);
                 button_work_time.setClickable(false);
                 button_rest_time.setClickable(false);
                 button_long_rest_time.setClickable(false);
                 button_color.setClickable(false);
                 button_autostart_done.setClickable(false);
+                button_vibration_done.setClickable(false);
                 button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
@@ -470,9 +520,14 @@ public class Menu extends MainActivity {
                 plus_until_end.setVisibility(View.INVISIBLE);
                 minus_whenstop.setVisibility(View.INVISIBLE);
                 minus_until_end.setVisibility(View.INVISIBLE);
+                work_time_text.setVisibility(View.INVISIBLE);
+                rest_time_text.setVisibility(View.INVISIBLE);
+                long_rest_time_text.setVisibility(View.INVISIBLE);
                 button_autostart_background.setClickable(true);
+                button_vibration_background.setClickable(true);
                 button_whenstop_background.setClickable(true);
                 button_autostart_done.setClickable(true);
+                button_vibration_done.setClickable(true);
                 button_autostart_notdone.setClickable(true);
                 button_whenstop.setClickable(true);
                 button_until_end.setClickable(true);
@@ -526,6 +581,7 @@ public class Menu extends MainActivity {
                 finish();
                 sendValue();
                 saveValueAutostart();
+                saveValueVibration();
             }
         };
         title.setOnClickListener(goBack);
@@ -555,6 +611,32 @@ public class Menu extends MainActivity {
                 button_autostart_notdone.setClickable(false);
                 underline2.startAnimation(inAnimation);
                 autostartAnimationFixNotDone();
+            }
+        });
+
+        // VIBRATION
+        button_vibration_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vibrator.vibrate(300);
+                vibration = true;
+                underline3.startAnimation(inAnimation);
+                underline4.setVisibility(View.INVISIBLE);
+                button_vibration_done.setClickable(false);
+                button_vibration_notdone.setClickable(false);
+                vibrationAnimationFixDone();
+            }
+        });
+
+        button_vibration_notdone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vibration = false;
+                underline3.setVisibility(View.INVISIBLE);
+                button_vibration_done.setClickable(false);
+                button_vibration_notdone.setClickable(false);
+                underline4.startAnimation(inAnimation);
+                vibrationAnimationFixNotDone();
             }
         });
 
@@ -601,12 +683,47 @@ public class Menu extends MainActivity {
         }.start();
     }
 
+    private void vibrationAnimationFixDone(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+
+                button_vibration_notdone.setClickable(true);
+                underline3.setVisibility(View.VISIBLE);
+                underline4.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
+    private void vibrationAnimationFixNotDone(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+
+                button_vibration_done.setClickable(true);
+                underline4.setVisibility(View.VISIBLE);
+                underline3.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
     private void sendValue() {
         Intent a = new Intent(Menu.this, MainActivity.class);
         a.putExtra("WORK_PERIOD", START_TIME_IN_MILLIS);
         a.putExtra("REST_PERIOD", REST_TIME_IN_MILLIS);
         a.putExtra("LONG_REST_PERIOD", LONG_REST_TIME_IN_MILLIS);
         a.putExtra("AUTOSTART_CHECK", autostartIsOn);
+        a.putExtra("VIBRATION", vibration);
         a.putExtra("WHEN_STOP", whenStopCount);
         a.putExtra("UNTIL_END", untilEndCount);
         startActivity(a);
@@ -625,6 +742,20 @@ public class Menu extends MainActivity {
         prefautostart = getPreferences(MODE_PRIVATE);
         boolean savedTextAutostart = pref.getBoolean("autostart_key", false);
         autostartIsOn = savedTextAutostart;
+    }
+
+    private void saveValueVibration() {
+        prefvibration = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edq = pref.edit();
+        edq.putBoolean("vibration_key", vibration);
+
+        edq.apply();
+    }
+
+    private void loadValueVibration() {
+        prefvibration = getPreferences(MODE_PRIVATE);
+        boolean savedTextVibration = pref.getBoolean("vibration_key", false);
+        vibration = savedTextVibration;
     }
 
 

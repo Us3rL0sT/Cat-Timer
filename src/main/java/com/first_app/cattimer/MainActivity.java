@@ -25,6 +25,7 @@ import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences savedone;
     private SharedPreferences savei;
     private SharedPreferences save_exit;
+    private SharedPreferences pref_vibration;
 
     private float CurrentProgress = 96; // начинать с (-1)
     private float CurrentProgressRest = 96; // начинать с (-1)
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isExit;
     private boolean collapse = false;
     private boolean first_start = true;
+    private boolean vibration = true;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private long mRestLeftInMillis = REST_TIME_IN_MILLIS;
@@ -135,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
     // Идентификатор канала
 
     private static final int PRIMARY_FOREGROUND_NOTIF_SERVICE_ID = 122;
+
+    private Vibrator vibrator;
 
 
 
@@ -197,6 +202,10 @@ public class MainActivity extends AppCompatActivity {
 
         menu = findViewById(R.id.menu_icon);
 
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+
+
+
         ((GifDrawable)cat_move.getDrawable()).stop(); // кот не бежит с самого начала, без нажатия на кнопку старт
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -208,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
                 done += 1;
                 if (done == whenStopCount + 1)
                     done -= 1;
-                Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -217,12 +225,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 done = 0;
-                Toast.makeText(MainActivity.this, "DEWEQONE: " + done, Toast.LENGTH_SHORT).show();
-                deleteImage.startAnimation(inAnimation);
-                openthemenu.setText("Открой меню," + "\n" + "чтобы обновить (* ^ ω ^)");
-                openthemenu.startAnimation(inAnimation);
-                openthemenu.setVisibility(View.VISIBLE);
-                visibilityOpenTheMenuText();
+                Intent intent = getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -398,6 +404,17 @@ public class MainActivity extends AppCompatActivity {
             short returnLong = getIntent().getShortExtra("UNTIL_END", untilEndCount);
             untilEndCount = returnLong;
             saveValueUntilEnd();
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
+        Intent iCheckVibration = getIntent();
+        if (iCheckVibration != null) {
+
+            boolean returnLong = getIntent().getBooleanExtra("VIBRATION", vibration);
+            vibration = returnLong;
+            saveValueVibration();
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
@@ -961,100 +978,29 @@ public class MainActivity extends AppCompatActivity {
                     loadI();
                     loadDone();
                     for (int i = 0; i < whenStopCount; i++) {
-                        if (i == untilEndCount)
-                            f();
-                        else if (i == untilEndCount * 2)
-                            f();
-                        else if (i == untilEndCount * 3)
-                            f();
-                        else if (i == untilEndCount * 4)
-                            f();
-                        else if (i == untilEndCount * 5)
-                            f();
-                        else if (i == untilEndCount * 6)
-                            f();
-                        else if (i == untilEndCount * 7)
-                            f();
-                        else if (i == untilEndCount * 8)
-                            f();
-                        else if (i == untilEndCount * 9)
-                            f();
-                        else if (i == untilEndCount * 10)
-                            f();
-                        else if (i == untilEndCount * 11)
-                            f();
-                        else if (i == untilEndCount * 12)
-                            f();
-                        else if (i == untilEndCount * 13)
-                            f();
-                        else if (i == untilEndCount * 14)
-                            f();
-                        else if (i == untilEndCount * 15)
-                            f();
-                        else if (i == untilEndCount * 16)
-                            f();
-                        else if (i == untilEndCount * 17)
-                            f();
-                        else if (i == untilEndCount * 18)
-                            f();
-                        else if (i == untilEndCount * 19)
-                            f();
-                        else if (i == untilEndCount * 20)
-                            f();
-
-                        else {
-                            addStartCircles();
-                            countCircles += 1;
-                            countCircles();
+                        for (int j = 1; j < 21; j++) {
+                            if (i == untilEndCount * j)
+                                f();
+                            else {
+                                addStartCircles();
+                                countCircles += 1;
+                                countCircles();
+                            }
                         }
+
+
                     }
                     for (iDone = 0; iDone < done; iDone++) {
                         saveI();
-                        if (iDone == untilEndCount) {
-                            u();
-                        } else if (iDone == untilEndCount * 2) {
-                            u();
-                        } else if (iDone == untilEndCount * 3) {
-                            u();
-                        }else if (iDone == untilEndCount * 4) {
-                            u();
-                        }else if (iDone == untilEndCount * 5) {
-                            u();
-                        }else if (iDone == untilEndCount * 6) {
-                            u();
-                        }else if (iDone == untilEndCount * 7) {
-                            u();
-                        }else if (iDone == untilEndCount * 8) {
-                            u();
-                        }else if (iDone == untilEndCount * 9) {
-                            u();
-                        }else if (iDone == untilEndCount * 10) {
-                            u();
-                        }else if (iDone == untilEndCount * 11) {
-                            u();
-                        }else if (iDone == untilEndCount * 12) {
-                            u();
-                        }else if (iDone == untilEndCount * 13) {
-                            u();
-                        }else if (iDone == untilEndCount * 14) {
-                            u();
-                        }else if (iDone == untilEndCount * 15) {
-                            u();
-                        }else if (iDone == untilEndCount * 16) {
-                            u();
-                        }else if (iDone == untilEndCount * 17) {
-                            u();
-                        }else if (iDone == untilEndCount * 18) {
-                            u();
-                        }else if (iDone == untilEndCount * 19) {
-                            u();
-                        }else if (iDone == untilEndCount * 20) {
-                            u();
-                        }
-                        else {
-                            replaceCircles();
-                            countCircles += 1;
-                            countCircles();
+
+                        for (int j = 1; j < 21; j++) {
+                            if (iDone == untilEndCount * j)
+                                f();
+                            else {
+                                replaceCircles();
+                                countCircles += 1;
+                                countCircles();
+                            }
                         }
 
                     }
@@ -1067,100 +1013,27 @@ public class MainActivity extends AppCompatActivity {
                 loadI();
                 loadDone();
                 for (int i = 0; i < whenStopCount; i++) {
-                    if (i == untilEndCount)
-                        f();
-                    else if (i == untilEndCount * 2)
-                        f();
-                    else if (i == untilEndCount * 3)
-                        f();
-                    else if (i == untilEndCount * 4)
-                        f();
-                    else if (i == untilEndCount * 5)
-                        f();
-                    else if (i == untilEndCount * 6)
-                        f();
-                    else if (i == untilEndCount * 7)
-                        f();
-                    else if (i == untilEndCount * 8)
-                        f();
-                    else if (i == untilEndCount * 9)
-                        f();
-                    else if (i == untilEndCount * 10)
-                        f();
-                    else if (i == untilEndCount * 11)
-                        f();
-                    else if (i == untilEndCount * 12)
-                        f();
-                    else if (i == untilEndCount * 13)
-                        f();
-                    else if (i == untilEndCount * 14)
-                        f();
-                    else if (i == untilEndCount * 15)
-                        f();
-                    else if (i == untilEndCount * 16)
-                        f();
-                    else if (i == untilEndCount * 17)
-                        f();
-                    else if (i == untilEndCount * 18)
-                        f();
-                    else if (i == untilEndCount * 19)
-                        f();
-                    else if (i == untilEndCount * 20)
-                        f();
-
-                    else {
-                        addStartCircles();
-                        countCircles += 1;
-                        countCircles();
+                    for (int j = 1; j < 21; j++) {
+                        if (i == untilEndCount * j)
+                            f();
+                        else {
+                            addStartCircles();
+                            countCircles += 1;
+                            countCircles();
+                        }
                     }
                 }
                 for (iDone = 0; iDone < done; iDone++) {
                     saveI();
-                    if (iDone == untilEndCount) {
-                        u();
-                    } else if (iDone == untilEndCount * 2) {
-                        u();
-                    } else if (iDone == untilEndCount * 3) {
-                        u();
-                    }else if (iDone == untilEndCount * 4) {
-                        u();
-                    }else if (iDone == untilEndCount * 5) {
-                        u();
-                    }else if (iDone == untilEndCount * 6) {
-                        u();
-                    }else if (iDone == untilEndCount * 7) {
-                        u();
-                    }else if (iDone == untilEndCount * 8) {
-                        u();
-                    }else if (iDone == untilEndCount * 9) {
-                        u();
-                    }else if (iDone == untilEndCount * 10) {
-                        u();
-                    }else if (iDone == untilEndCount * 11) {
-                        u();
-                    }else if (iDone == untilEndCount * 12) {
-                        u();
-                    }else if (iDone == untilEndCount * 13) {
-                        u();
-                    }else if (iDone == untilEndCount * 14) {
-                        u();
-                    }else if (iDone == untilEndCount * 15) {
-                        u();
-                    }else if (iDone == untilEndCount * 16) {
-                        u();
-                    }else if (iDone == untilEndCount * 17) {
-                        u();
-                    }else if (iDone == untilEndCount * 18) {
-                        u();
-                    }else if (iDone == untilEndCount * 19) {
-                        u();
-                    }else if (iDone == untilEndCount * 20) {
-                        u();
-                    }
-                    else {
-                        replaceCircles();
-                        countCircles += 1;
-                        countCircles();
+
+                    for (int j = 1; j < 21; j++) {
+                        if (iDone == untilEndCount * j)
+                            f();
+                        else {
+                            replaceCircles();
+                            countCircles += 1;
+                            countCircles();
+                        }
                     }
                 }
 
@@ -1251,13 +1124,15 @@ public class MainActivity extends AppCompatActivity {
                 arrows.setVisibility(View.INVISIBLE);
                 arrows_rest.setVisibility(View.INVISIBLE);
                 arrows_long_rest.setVisibility(View.INVISIBLE);
-
+                deleteImage.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFinish() {
                 if (done == 4) {
                     if (autostartIsOn == true) {
+                        if (vibration == true)
+                            vibrator.vibrate(500);
                         CurrentProgress = 99;
                         REST_TIME_IN_MILLIS = nowTimeRest;
                         mRestButtonReset.setVisibility(View.INVISIBLE);
@@ -1267,6 +1142,8 @@ public class MainActivity extends AppCompatActivity {
                         longRestUpdateCountDownText();
                         longRestTimer();
                     } else {
+                        if (vibration == true)
+                            vibrator.vibrate(500);
                         CurrentProgress = 99;
                         REST_TIME_IN_MILLIS = nowTimeRest;
                         mRestButtonReset.setVisibility(View.INVISIBLE);
@@ -1279,6 +1156,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else {
                     if (autostartIsOn == true) {
+                        if (vibration == true)
+                            vibrator.vibrate(500);
                         CurrentProgress = 99;
                         START_TIME_IN_MILLIS = nowTime;
                         mButtonReset.setVisibility(View.INVISIBLE);
@@ -1288,6 +1167,8 @@ public class MainActivity extends AppCompatActivity {
                         restUpdateCountDownText();
                         restTimer();
                     } else {
+                        if (vibration == true)
+                            vibrator.vibrate(500);
                         CurrentProgress = 99;
                         START_TIME_IN_MILLIS = nowTime;
                         mButtonReset.setVisibility(View.INVISIBLE);
@@ -1334,11 +1215,14 @@ public class MainActivity extends AppCompatActivity {
                 arrows.setVisibility(View.INVISIBLE);
                 arrows_rest.setVisibility(View.INVISIBLE);
                 arrows_long_rest.setVisibility(View.INVISIBLE);
+                deleteImage.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFinish() {
                 if (autostartIsOn == true) {
+                    if (vibration == true)
+                        vibrator.vibrate(500);
                     CurrentProgress = 99;
                     LONG_REST_TIME_IN_MILLIS = nowTimeRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
@@ -1351,6 +1235,8 @@ public class MainActivity extends AppCompatActivity {
                     updateCountDownText();
                     startTimer();
                 } else {
+                    if (vibration == true)
+                        vibrator.vibrate(500);
                     CurrentProgress = 99;
                     LONG_REST_TIME_IN_MILLIS = nowTimeRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
@@ -1395,11 +1281,14 @@ public class MainActivity extends AppCompatActivity {
                 arrows.setVisibility(View.INVISIBLE);
                 arrows_rest.setVisibility(View.INVISIBLE);
                 arrows_long_rest.setVisibility(View.INVISIBLE);
+                deleteImage.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFinish() {
                 if (autostartIsOn == true) {
+                    if (vibration == true)
+                        vibrator.vibrate(500);
                     CurrentProgress = 99;
                     LONG_REST_TIME_IN_MILLIS = nowTimeRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
@@ -1412,6 +1301,8 @@ public class MainActivity extends AppCompatActivity {
                     updateCountDownText();
                     startTimer();
                 } else {
+                    if (vibration == true)
+                        vibrator.vibrate(500);
                     CurrentProgress = 99;
                     LONG_REST_TIME_IN_MILLIS = nowTimeRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
@@ -1498,6 +1389,7 @@ public class MainActivity extends AppCompatActivity {
         cat_fall.setVisibility(View.VISIBLE);
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
+        deleteImage.startAnimation(inAnimation);
         arrows.startAnimation(inAnimation);
         edit_current_action.setVisibility(View.VISIBLE);
         progressBar.setProgress(0);
@@ -1523,9 +1415,9 @@ public class MainActivity extends AppCompatActivity {
         cat_pause.setAnimation(fastAnimation);
         mRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseRest.setVisibility(View.VISIBLE);
+        deleteImage.startAnimation(inAnimation);
         arrows_rest.startAnimation(inAnimation);
         menu.startAnimation(inAnimation);
-        Toast.makeText(MainActivity.this, "HERE3 IS FUCK", Toast.LENGTH_SHORT).show();
         progressBar.setProgress(0);
         visibilityYes();
         edit_current_action.setVisibility(View.VISIBLE);
@@ -1549,9 +1441,9 @@ public class MainActivity extends AppCompatActivity {
         cat_pause.setAnimation(fastAnimation);
         mLongRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+        deleteImage.startAnimation(inAnimation);
         arrows_long_rest.startAnimation(inAnimation);
         menu.startAnimation(inAnimation);
-        Toast.makeText(MainActivity.this, "HERE4 IS FUCK", Toast.LENGTH_SHORT).show();
         progressBar.setProgress(0);
         visibilityYes();
         edit_current_action.setVisibility(View.VISIBLE);
@@ -1600,6 +1492,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onFinish() {
                 menu.setVisibility(View.VISIBLE);
+                deleteImage.setVisibility(View.VISIBLE);
             }
 
         }.start();
@@ -1755,6 +1648,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             done += 1;
+            
 
             if (done == whenStopCount) {
 
@@ -2012,6 +1906,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void saveValueVibration() {
+        pref_vibration = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = pref_vibration.edit();
+        edlongrest.putString("save_vibration", String.valueOf(vibration));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueVibration() {
+        pref_vibration = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = pref_vibration.getString("save_vibration", String.valueOf(vibration));
+        vibration = Boolean.valueOf(savedTextLongRest);
+    }
+
+
+
 
     private void addStartCircles() {
         ImageView imageView = new ImageView(MainActivity.this);
@@ -2048,7 +1958,7 @@ public class MainActivity extends AppCompatActivity {
             if (width_phone == 720)
                 addView(imageView, 3, 3);
             if (width_phone == 1080)
-                addView(imageView, 5, 5);
+                addView(imageView, 10, 10);
             if (width_phone == 1440)
                 addView(imageView, 15, 15);
             if (width_phone == 2160)
@@ -2092,7 +2002,7 @@ public class MainActivity extends AppCompatActivity {
             if (width_phone == 720)
                 addViewSpace(imageView, 3, 3);
             if (width_phone == 1080)
-                addViewSpace(imageView, 5, 5);
+                addViewSpace(imageView, 10, 10);
             if (width_phone == 1440)
                 addViewSpace(imageView, 15, 15);
             if (width_phone == 2160)
@@ -2139,7 +2049,7 @@ public class MainActivity extends AppCompatActivity {
             if (width_phone == 720)
                 addViewBigSpace(imageView, 3, 3);
             if (width_phone == 1080)
-                addViewBigSpace(imageView, 5, 5);
+                addViewBigSpace(imageView, 10, 10);
             if (width_phone == 1440)
                 addViewBigSpace(imageView, 15, 15);
             if (width_phone == 2160)
@@ -2183,7 +2093,7 @@ public class MainActivity extends AppCompatActivity {
             if (width_phone == 720)
                 replaceView(imageView, 3, 3);
             if (width_phone == 1080)
-                replaceView(imageView, 5, 5);
+                replaceView(imageView, 10, 10);
             if (width_phone == 1440)
                 replaceView(imageView, 15, 15);
             if (width_phone == 2160)
@@ -2227,7 +2137,7 @@ public class MainActivity extends AppCompatActivity {
             if (width_phone == 720)
                 addViewSpaceReplace(imageView, 3, 3);
             if (width_phone == 1080)
-                addViewSpaceReplace(imageView, 5, 5);
+                addViewSpaceReplace(imageView, 10, 10);
             if (width_phone == 1440)
                 addViewSpaceReplace(imageView, 15, 15);
             if (width_phone == 2160)
@@ -2315,213 +2225,19 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(15, 0, 10, 0);
             }
 
-
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(50, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(50, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(20, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(15, 0, 10, 0);
+                }
             }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
         }
 
         if (width_phone == 1080) {
@@ -2558,7 +2274,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-
             if (untilEndCount == 4)
                 layoutParams.setMargins(170, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
@@ -2571,214 +2286,21 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(40, 0, 10, 0);
             }
 
-
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(70, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(100, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(60, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(70, 0, 10, 0);
+                }
             }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
         }
+
 
         if (width_phone == 1080 && height_phone == 1794) {
 
@@ -2828,212 +2350,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(70, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(70, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(45, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(40, 0, 10, 0);
+                }
             }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
         }
 
 
@@ -3083,211 +2412,18 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(58, 0, 10, 0);
             }
 
-
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(58, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(110, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(68, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(58, 0, 10, 0);
+                }
             }
         }
 
@@ -3324,7 +2460,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-
             if (untilEndCount == 4)
                 layoutParams.setMargins(200, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
@@ -3337,211 +2472,18 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(75, 0, 10, 0);
             }
 
-
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(58, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(110, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(68, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(58, 0, 10, 0);
+                }
             }
         }
 
@@ -3668,216 +2610,84 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(15, 0, 10, 0);
             }
 
-
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(50, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(50, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(20, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(15, 0, 10, 0);
+                }
             }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(50, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(20, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(15, 0, 10, 0);
-            }
-
         }
 
         if (width_phone == 1080) {
+
+            if (untilEndCount == 1)
+                layoutParams.setMargins(130, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 4 && whenStopCount <= 8)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 8 && whenStopCount <= 12)
+                layoutParams.setMargins(25, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 12 && whenStopCount <= 16)
+                layoutParams.setMargins(22, 0, 10, 0);
+            if (untilEndCount == 1 && whenStopCount > 16 && whenStopCount <= 20)
+                layoutParams.setMargins(20, 0, 10, 0);
+
+            if (untilEndCount == 2)
+                layoutParams.setMargins(45, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 8)
+                layoutParams.setMargins(30, 0, 10, 0);
+            if (untilEndCount == 2 && whenStopCount > 14)
+                layoutParams.setMargins(20, 0, 10, 0);
+
+            if (untilEndCount == 3)
+                layoutParams.setMargins(250, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
+                layoutParams.setMargins(60, 0, 10, 0);
+            if (untilEndCount == 3 && whenStopCount >= 9 && whenStopCount <= 12)
+                layoutParams.setMargins(40, 0, 10, 0);
+            if (whenStopCount > 12 && whenStopCount <= 15 && untilEndCount == 3) {
+                layoutParams.setMargins(30, 0, 10, 0);
+            }
+            if (whenStopCount >= 16 && whenStopCount <= 20 && untilEndCount == 3) {
+                layoutParams.setMargins(25, 0, 10, 0);
+            }
+
+
+            if (untilEndCount == 4)
+                layoutParams.setMargins(170, 0, 10, 0);
+            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
+                layoutParams.setMargins(70, 0, 10, 0);
+            }
+            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
+                layoutParams.setMargins(45, 0, 10, 0);
+            }
+            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
+                layoutParams.setMargins(40, 0, 10, 0);
+            }
+
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(100, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(60, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(70, 0, 10, 0);
+                }
+            }
+        }
+
+
+        if (width_phone == 1080 && height_phone == 1794) {
 
             if (untilEndCount == 1)
                 layoutParams.setMargins(130, 0, 10, 0);
@@ -3913,9 +2723,9 @@ public class MainActivity extends AppCompatActivity {
 
 
             if (untilEndCount == 4)
-                layoutParams.setMargins(170, 0, 10, 0);
+                layoutParams.setMargins(120, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
-                layoutParams.setMargins(70, 0, 10, 0);
+                layoutParams.setMargins(50, 0, 10, 0);
             }
             if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
                 layoutParams.setMargins(45, 0, 10, 0);
@@ -3925,216 +2735,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(70, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(70, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(45, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(40, 0, 10, 0);
+                }
             }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(70, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(45, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(40, 0, 10, 0);
-            }
-
         }
 
 
-        if (width_phone == 1440) {
+        if (width_phone == 1440){
             if (untilEndCount == 1)
                 layoutParams.setMargins(170, 0, 10, 0);
             if (untilEndCount == 1 && whenStopCount > 4 && whenStopCount <= 8)
@@ -4180,465 +2797,78 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(58, 0, 10, 0);
             }
 
-
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(58, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(110, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(68, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(58, 0, 10, 0);
+                }
             }
         }
 
         if (width_phone == 2160) {
             if (untilEndCount == 1)
-                layoutParams.setMargins(170, 0, 10, 0);
+                layoutParams.setMargins(200, 0, 10, 0);
             if (untilEndCount == 1 && whenStopCount > 4 && whenStopCount <= 8)
-                layoutParams.setMargins(30, 0, 10, 0);
+                layoutParams.setMargins(50, 0, 10, 0);
             if (untilEndCount == 1 && whenStopCount > 8 && whenStopCount <= 12)
-                layoutParams.setMargins(30, 0, 10, 0);
+                layoutParams.setMargins(35, 0, 10, 0);
             if (untilEndCount == 1 && whenStopCount > 12 && whenStopCount <= 16)
-                layoutParams.setMargins(20, 0, 10, 0);
+                layoutParams.setMargins(25, 0, 10, 0);
             if (untilEndCount == 1 && whenStopCount > 16 && whenStopCount <= 20)
-                layoutParams.setMargins(17, 0, 10, 0);
+                layoutParams.setMargins(22, 0, 10, 0);
 
             if (untilEndCount == 2)
-                layoutParams.setMargins(60, 0, 10, 0);
+                layoutParams.setMargins(80, 0, 10, 0);
             if (untilEndCount == 2 && whenStopCount > 8)
-                layoutParams.setMargins(50, 0, 10, 0);
+                layoutParams.setMargins(70, 0, 10, 0);
             if (untilEndCount == 2 && whenStopCount > 14)
-                layoutParams.setMargins(30, 0, 10, 0);
+                layoutParams.setMargins(40, 0, 10, 0);
 
             if (untilEndCount == 3)
-                layoutParams.setMargins(330, 0, 10, 0);
+                layoutParams.setMargins(370, 0, 10, 0);
             if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
                 layoutParams.setMargins(100, 0, 10, 0);
             if (untilEndCount == 3 && whenStopCount >= 9 && whenStopCount <= 12)
-                layoutParams.setMargins(80, 0, 10, 0);
+                layoutParams.setMargins(90, 0, 10, 0);
             if (whenStopCount > 12 && whenStopCount <= 15 && untilEndCount == 3) {
-                layoutParams.setMargins(60, 0, 10, 0);
+                layoutParams.setMargins(70, 0, 10, 0);
             }
             if (whenStopCount >= 16 && whenStopCount <= 20 && untilEndCount == 3) {
-                layoutParams.setMargins(30, 0, 10, 0);
+                layoutParams.setMargins(50, 0, 10, 0);
             }
-
 
 
             if (untilEndCount == 4)
-                layoutParams.setMargins(170, 0, 10, 0);
+                layoutParams.setMargins(200, 0, 10, 0);
             if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 4) {
-                layoutParams.setMargins(110, 0, 10, 0);
+                layoutParams.setMargins(170, 0, 10, 0);
             }
             if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 4) {
-                layoutParams.setMargins(68, 0, 10, 0);
+                layoutParams.setMargins(90, 0, 10, 0);
             }
             if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 4) {
-                layoutParams.setMargins(58, 0, 10, 0);
+                layoutParams.setMargins(75, 0, 10, 0);
             }
 
-
-            if (untilEndCount == 5)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 5) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 5) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 5) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 6)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 6) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 6) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 6) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 7)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 7) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 7) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 7) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 8)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 8) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 8) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 8) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 9)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 9) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 9) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 9) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 10)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 10) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 10) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 10) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-            if (untilEndCount == 11)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 11) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 11) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 11) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 12)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 12) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 12) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 12) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 13)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 13) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 13) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 13) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 14)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 14) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 14) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 14) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 15)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 15) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 15) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 15) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 16)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 16) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 16) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 16) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 17)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 17) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 17) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 17) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 18)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 18) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 18) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 18) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 19)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 19) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 19) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 19) {
-                layoutParams.setMargins(58, 0, 10, 0);
-            }
-
-
-            if (untilEndCount == 20)
-                layoutParams.setMargins(170, 0, 10, 0);
-            if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == 20) {
-                layoutParams.setMargins(110, 0, 10, 0);
-            }
-            if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == 20) {
-                layoutParams.setMargins(68, 0, 10, 0);
-            }
-            if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == 20) {
-                layoutParams.setMargins(58, 0, 10, 0);
+            for (int i = 5; i < 21; i++) {
+                if (untilEndCount == i)
+                    layoutParams.setMargins(170, 0, 10, 0);
+                if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
+                    layoutParams.setMargins(110, 0, 10, 0);
+                }
+                if (whenStopCount > 12 && whenStopCount <= 16 && untilEndCount == i) {
+                    layoutParams.setMargins(68, 0, 10, 0);
+                }
+                if (whenStopCount > 16 && whenStopCount <= 20 && untilEndCount == i) {
+                    layoutParams.setMargins(58, 0, 10, 0);
+                }
             }
         }
         imageView.setLayoutParams(layoutParams);
@@ -4651,7 +2881,6 @@ public class MainActivity extends AppCompatActivity {
     private void countCircles(){
         if (countCircles == whenStopCount) {
             addStartBigSpace();
-            Toast.makeText(MainActivity.this, "CountCircles " + countCircles, Toast.LENGTH_SHORT).show();
             countCircles = 0;
 
         }

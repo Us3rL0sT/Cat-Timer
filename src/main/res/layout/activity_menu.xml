@@ -446,6 +446,122 @@
             app:layout_constraintTop_toBottomOf="@+id/when_stop"
             app:layout_constraintVertical_bias="0.855" />
 
+        <Button
+            android:id="@+id/button_vibration_background"
+            android:layout_width="300dp"
+            android:layout_height="110dp"
+            android:background="@drawable/autostart_background"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center|center_horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/maximized_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_whenstop_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <Button
+            android:id="@+id/button_vibration_done"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="170dp"
+            android:background="@drawable/make_done_border"
+            android:foregroundGravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="@+id/button_vibration_background"
+            app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <Button
+            android:id="@+id/button_vibration_notdone"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/make_done_border"
+            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="@+id/button_vibration_background"
+            app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+
+        <ImageView
+            android:id="@+id/vibration_done"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_done"
+            app:layout_constraintEnd_toEndOf="@+id/button_vibration_done"
+            app:layout_constraintStart_toStartOf="@+id/button_vibration_done"
+            app:layout_constraintTop_toTopOf="@+id/button_vibration_done"
+            app:srcCompat="@drawable/make_done"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/vibration_notdone"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_notdone"
+            app:layout_constraintEnd_toEndOf="@+id/button_vibration_notdone"
+            app:layout_constraintStart_toStartOf="@+id/button_vibration_notdone"
+            app:layout_constraintTop_toTopOf="@+id/button_vibration_notdone"
+            app:srcCompat="@drawable/notdone"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/underline3"
+            android:layout_width="139dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="105dp"
+            android:layout_marginEnd="95dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
+            app:layout_constraintStart_toStartOf="@+id/button_vibration_background"
+            app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
+            app:srcCompat="@drawable/underline" />
+
+        <ImageView
+            android:id="@+id/underline4"
+            android:layout_width="139dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="105dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
+            app:layout_constraintStart_toStartOf="@+id/button_vibration_background"
+            app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
+            app:srcCompat="@drawable/underline"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/vibration_text"
+            android:layout_width="125dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="170dp"
+            android:fontFamily="@font/graduate"
+            android:text="Вибрация"
+            android:textAlignment="center"
+
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
+            app:layout_constraintStart_toStartOf="@+id/button_vibration_background"
+            app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
+            tools:visibility="visible" />
+
+
+
+
+
+
+
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/maximized_container"
@@ -466,12 +582,31 @@
                 android:elevation="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.543"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.975" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/work_time_text"
+            android:layout_width="125dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/graduate"
+            android:text="Работа"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/work_time_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/work_time_invisible"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="@+id/work_time_invisible"
+            app:layout_constraintTop_toTopOf="@+id/button_color"
+            app:layout_constraintVertical_bias="0.78"
+            tools:visibility="visible" />
 
 
         <EditText
@@ -524,6 +659,25 @@
             tools:visibility="visible" />
 
 
+        <TextView
+            android:id="@+id/rest_time_text"
+            android:layout_width="125dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/graduate"
+            android:text="Отдых"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/work_time_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/work_time_invisible"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="@+id/work_time_invisible"
+            app:layout_constraintTop_toTopOf="@+id/button_color"
+            app:layout_constraintVertical_bias="0.78"
+            tools:visibility="visible" />
+
         <EditText
             android:id="@+id/rest_time_invisible"
             android:layout_width="100dp"
@@ -546,20 +700,6 @@
             tools:visibility="invisible" />
 
         <ImageView
-            android:id="@+id/plus_rest"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="150dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/button_color"
-            app:layout_constraintEnd_toEndOf="@+id/button_color"
-            app:layout_constraintStart_toStartOf="@+id/button_color"
-            app:layout_constraintTop_toTopOf="@+id/text_color"
-            app:srcCompat="@drawable/plus"
-            tools:visibility="visible" />
-
-        <ImageView
             android:id="@+id/minus_rest"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -573,6 +713,39 @@
             app:srcCompat="@drawable/minus"
             tools:visibility="visible" />
 
+        <ImageView
+            android:id="@+id/plus_rest"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_color"
+            app:layout_constraintEnd_toEndOf="@+id/button_color"
+            app:layout_constraintStart_toStartOf="@+id/button_color"
+            app:layout_constraintTop_toTopOf="@+id/text_color"
+            app:srcCompat="@drawable/plus"
+            tools:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/long_rest_time_text"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/graduate"
+            android:text="Долгий отдых"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/work_time_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/work_time_invisible"
+            app:layout_constraintHorizontal_bias="0.53"
+            app:layout_constraintStart_toStartOf="@+id/work_time_invisible"
+            app:layout_constraintTop_toTopOf="@+id/button_color"
+            app:layout_constraintVertical_bias="0.78"
+            tools:visibility="visible" />
         <EditText
             android:id="@+id/long_rest_time_invisible"
             android:layout_width="100dp"
@@ -629,7 +802,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal|center"
-            android:layout_marginTop="100dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/graduate"
             android:gravity="center"
@@ -678,7 +850,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal|center"
-            android:layout_marginTop="100dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/graduate"
             android:gravity="center"
