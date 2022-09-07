@@ -4,6 +4,7 @@ package com.first_app.cattimer;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -47,7 +48,10 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ConstraintLayout mainConstraintLayout;
+
     private short iDone = 1;
+    private short iWell;
     private short whenStopCount = 8;
     private short untilEndCount = 4;
     private short countCircles = 0;
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private int minutes;
     private int height_phone; // экрана
     private int width_phone; // также экрана
+    private int whenspace;
     private long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
     private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
     private long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
@@ -165,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
         width_phone = displayMetrics.widthPixels;
 
 
+        mainConstraintLayout = findViewById(R.id.mainConstraintLayout);
+
         current_action = findViewById(R.id.current_action);
         openthemenu = findViewById(R.id.openthemenu);
 
@@ -206,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ((GifDrawable)cat_move.getDrawable()).stop(); // кот не бежит с самого начала, без нажатия на кнопку старт
+        ((GifDrawable)cat_move.getDrawable()).stop();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -215,8 +222,60 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 done += 1;
-                if (done == whenStopCount + 1)
-                    done -= 1;
+
+                for (; iWell < done; iWell++) {
+                    if (iWell == untilEndCount) {
+                        u();
+                    } else if (iWell == untilEndCount * 2) {
+                        u();
+                    } else if (iWell == untilEndCount * 3) {
+                        u();
+                    }else if (iWell == untilEndCount * 4) {
+                        u();
+                    }else if (iWell == untilEndCount * 5) {
+                        u();
+                    }else if (iWell == untilEndCount * 6) {
+                        u();
+                    }else if (iWell == untilEndCount * 7) {
+                        u();
+                    }else if (iWell == untilEndCount * 8) {
+                        u();
+                    }else if (iWell == untilEndCount * 9) {
+                        u();
+                    }else if (iWell == untilEndCount * 10) {
+                        u();
+                    }else if (iWell == untilEndCount * 11) {
+                        u();
+                    }else if (iWell == untilEndCount * 12) {
+                        u();
+                    }else if (iWell == untilEndCount * 13) {
+                        u();
+                    }else if (iWell == untilEndCount * 14) {
+                        u();
+                    }else if (iWell == untilEndCount * 15) {
+                        u();
+                    }else if (iWell == untilEndCount * 16) {
+                        u();
+                    }else if (iWell == untilEndCount * 17) {
+                        u();
+                    }else if (iWell == untilEndCount * 18) {
+                        u();
+                    }else if (iWell == untilEndCount * 19) {
+                        u();
+                    }else if (iWell == untilEndCount * 20) {
+                        u();
+                    }
+                    else {
+                        replaceCircles();
+                        countCircles += 1;
+                        countCircles();
+                    }
+
+
+                }
+
+                Toast.makeText(MainActivity.this, "iWell: " + iWell, Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -1055,6 +1114,7 @@ public class MainActivity extends AppCompatActivity {
         loadValueAutostart();
         loadValueWhenStop();
         loadValueUntilEnd();
+        loadValueVibration();
 
 
 
@@ -1129,7 +1189,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if (done == 4) {
+
+                if (done == untilEndCount) {
                     if (autostartIsOn == true) {
                         if (vibration == true)
                             vibrator.vibrate(500);
@@ -1141,6 +1202,7 @@ public class MainActivity extends AppCompatActivity {
                         mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
                         longRestUpdateCountDownText();
                         longRestTimer();
+
                     } else {
                         if (vibration == true)
                             vibrator.vibrate(500);
@@ -1153,6 +1215,7 @@ public class MainActivity extends AppCompatActivity {
                         longRestUpdateCountDownText();
                         longRestTimer();
                         pauseTimerLongRest();
+
                     }
                 } else {
                     if (autostartIsOn == true) {
@@ -1166,6 +1229,7 @@ public class MainActivity extends AppCompatActivity {
                         mRestLeftInMillis = REST_TIME_IN_MILLIS;
                         restUpdateCountDownText();
                         restTimer();
+                        Toast.makeText(MainActivity.this, "autostart: " + autostartIsOn, Toast.LENGTH_SHORT).show();
                     } else {
                         if (vibration == true)
                             vibrator.vibrate(500);
@@ -1180,9 +1244,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
-
-
-
 
             }
         }.start();
@@ -1624,6 +1685,8 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
+
+
     private void clickableAnimationChange(){
         edit_current_action.setClickable(false);
         new CountDownTimer(500, 1) {
@@ -1639,7 +1702,6 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-
     private void updateCountDownText() {
          minutes = (int) (mTimeLeftInMillis / 1000) / 60;
          seconds = (int) (mTimeLeftInMillis / 1000) % 60;
@@ -1648,7 +1710,58 @@ public class MainActivity extends AppCompatActivity {
 
 
             done += 1;
-            
+
+            for (; iWell < done; iWell++) {
+                if (iWell == untilEndCount) {
+                    u();
+                } else if (iWell == untilEndCount * 2) {
+                    u();
+                } else if (iWell == untilEndCount * 3) {
+                    u();
+                }else if (iWell == untilEndCount * 4) {
+                    u();
+                }else if (iWell == untilEndCount * 5) {
+                    u();
+                }else if (iWell == untilEndCount * 6) {
+                    u();
+                }else if (iWell == untilEndCount * 7) {
+                    u();
+                }else if (iWell == untilEndCount * 8) {
+                    u();
+                }else if (iWell == untilEndCount * 9) {
+                    u();
+                }else if (iWell == untilEndCount * 10) {
+                    u();
+                }else if (iWell == untilEndCount * 11) {
+                    u();
+                }else if (iWell == untilEndCount * 12) {
+                    u();
+                }else if (iWell == untilEndCount * 13) {
+                    u();
+                }else if (iWell == untilEndCount * 14) {
+                    u();
+                }else if (iWell == untilEndCount * 15) {
+                    u();
+                }else if (iWell == untilEndCount * 16) {
+                    u();
+                }else if (iWell == untilEndCount * 17) {
+                    u();
+                }else if (iWell == untilEndCount * 18) {
+                    u();
+                }else if (iWell == untilEndCount * 19) {
+                    u();
+                }else if (iWell == untilEndCount * 20) {
+                    u();
+                }
+                else {
+                    replaceCircles();
+                    countCircles += 1;
+                    countCircles();
+                }
+
+
+            }
+
 
             if (done == whenStopCount) {
 
@@ -1744,7 +1857,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
     }
-
 
 
 
@@ -2227,7 +2339,7 @@ public class MainActivity extends AppCompatActivity {
 
             for (int i = 5; i < 21; i++) {
                 if (untilEndCount == i)
-                    layoutParams.setMargins(170, 0, 10, 0);
+                    layoutParams.setMargins(120, 0, 10, 0);
                 if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
                     layoutParams.setMargins(50, 0, 10, 0);
                 }
@@ -2612,7 +2724,7 @@ public class MainActivity extends AppCompatActivity {
 
             for (int i = 5; i < 21; i++) {
                 if (untilEndCount == i)
-                    layoutParams.setMargins(170, 0, 10, 0);
+                    layoutParams.setMargins(120, 0, 10, 0);
                 if (whenStopCount > 8 && whenStopCount <= 12 && untilEndCount == i) {
                     layoutParams.setMargins(50, 0, 10, 0);
                 }
@@ -2896,6 +3008,10 @@ public class MainActivity extends AppCompatActivity {
         addStartCirclesSpaceReplace();
         countCircles += 1;
         countCircles();
+    }
+
+    private void c() {
+
     }
 
 
