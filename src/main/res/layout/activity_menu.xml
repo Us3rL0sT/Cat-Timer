@@ -555,6 +555,117 @@
             tools:visibility="visible" />
 
 
+        <Button
+            android:id="@+id/button_autostartrest_background"
+            android:layout_width="300dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/autostart_background"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center|center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_vibration_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+
+        <Button
+            android:id="@+id/button_autostartrest_done"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="170dp"
+            android:background="@drawable/make_done_border"
+            android:foregroundGravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_background"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="@+id/button_autostartrest_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostartrest_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <Button
+            android:id="@+id/button_autostartrest_notdone"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/make_done_border"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_background"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="@+id/button_autostartrest_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostartrest_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+
+        <ImageView
+            android:id="@+id/autostartrest_done"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_done"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_done"
+            app:layout_constraintStart_toStartOf="@+id/button_autostartrest_done"
+            app:layout_constraintTop_toTopOf="@+id/button_autostartrest_done"
+            app:srcCompat="@drawable/make_done"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/autostartrest_notdone"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_notdone"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_notdone"
+            app:layout_constraintStart_toStartOf="@+id/button_autostartrest_notdone"
+            app:layout_constraintTop_toTopOf="@+id/button_autostartrest_notdone"
+            app:srcCompat="@drawable/notdone"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/underline5"
+            android:layout_width="139dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="105dp"
+            android:layout_marginEnd="95dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_background"
+            app:layout_constraintStart_toStartOf="@+id/button_autostartrest_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostartrest_background"
+            app:srcCompat="@drawable/underline" />
+
+        <ImageView
+            android:id="@+id/underline6"
+            android:layout_width="139dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="105dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_background"
+            app:layout_constraintStart_toStartOf="@+id/button_autostartrest_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostartrest_background"
+            app:srcCompat="@drawable/underline"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/autostartrest_text"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="170dp"
+            android:fontFamily="@font/graduate"
+            android:text="Автостарт перерыва"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_background"
+            app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_background"
+            app:layout_constraintStart_toStartOf="@+id/button_autostartrest_background"
+            app:layout_constraintTop_toTopOf="@+id/button_autostartrest_background"
+            tools:visibility="visible" />
+
+
+
 
 
 
@@ -585,7 +696,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.975" />
+                app:layout_constraintVertical_bias="0.9" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

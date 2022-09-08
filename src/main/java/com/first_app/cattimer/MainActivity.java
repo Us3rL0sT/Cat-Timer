@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences save_exit;
     private SharedPreferences pref_vibration;
 
-    private float CurrentProgress = 96; // начинать с (-1)
-    private float CurrentProgressRest = 96; // начинать с (-1)
-    private float CurrentProgressLongRest = 96; // начинать с (-1)
+    private float CurrentProgress = 99; // начинать с (-1)
+    private float CurrentProgressRest = 99; // начинать с (-1)
+    private float CurrentProgressLongRest = 99; // начинать с (-1)
     private ProgressBar progressBar;
 
     private Animation inAnimation;
@@ -1175,7 +1175,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (START_TIME_IN_MILLIS > 0) {
                     START_TIME_IN_MILLIS -= 1000;
-                    CurrentProgress = (float) (CurrentProgress - (1.666666 / (nowTime / 1000 / 60)));
+                    CurrentProgress = (float) (CurrentProgress - (1.699996 / (nowTime / 1000 / 60)));
                 }
                 updateCountDownText();
                 current_action.setText("Работа");
@@ -1264,7 +1264,7 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setProgress((int)CurrentProgressRest,true);
                 if (REST_TIME_IN_MILLIS > 0) {
                     REST_TIME_IN_MILLIS -= 1000;
-                    CurrentProgressRest = (float) (CurrentProgressRest - (1.666666 / (nowTimeRest / 1000 / 60)));
+                    CurrentProgressRest = (float) (CurrentProgressRest - (1.699996 / (nowTimeRest / 1000 / 60)));
                 }
                 restUpdateCountDownText();
                 current_action.setText("Отдых");
@@ -1331,7 +1331,7 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setProgress((int)CurrentProgressLongRest,true); // установка значения
                 if (LONG_REST_TIME_IN_MILLIS > 0) {
                     LONG_REST_TIME_IN_MILLIS -= 1000;
-                    CurrentProgressLongRest = (float) (CurrentProgressLongRest - (1.666666 / (nowTimeLongRest / 1000 / 60)));
+                    CurrentProgressLongRest = (float) (CurrentProgressLongRest - (1.699996 / (nowTimeLongRest / 1000 / 60)));
                 }
                 longRestUpdateCountDownText();
                 current_action.setText("Долгий отдых");
@@ -1779,10 +1779,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         done = 0;
-                        openthemenu.setText("Открой меню," + "\n" + "чтобы обновить (* ^ ω ^)");
-                        openthemenu.startAnimation(inAnimation);
-                        openthemenu.setVisibility(View.VISIBLE);
-                        visibilityOpenTheMenuText();
+                        Intent intent = getIntent();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        finish();
+                        startActivity(intent);
                     }
                 });
                 builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
