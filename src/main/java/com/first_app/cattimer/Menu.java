@@ -42,6 +42,7 @@ public class Menu extends MainActivity {
         private SharedPreferences preflongrest;
         private SharedPreferences prefautostart;
         private SharedPreferences prefvibration;
+        private SharedPreferences prefautostartrest;
         private SharedPreferences whenstop;
         private SharedPreferences untilend;
 
@@ -54,6 +55,10 @@ public class Menu extends MainActivity {
         private TextView work_time_text;
         private TextView rest_time_text;
         private TextView long_rest_time_text;
+        private TextView whenstop_text;
+        private TextView untilend_text;
+        private TextView until_end_action_name;
+        private TextView when_stop_action_name;
 
         private TextView until_end_invisible;
         private TextView when_stop;
@@ -66,23 +71,30 @@ public class Menu extends MainActivity {
         private Button button_color;
         private Button button_autostart_done;
         private Button button_vibration_done;
+        private Button button_autostartrest_done;
         private Button button_autostart_notdone;
         private Button button_vibration_notdone;
+        private Button button_autostartrest_notdone;
         private Button button_whenstop;
         private Button button_until_end;
         private Button button_autostart_background;
         private Button button_vibration_background;
+        private Button button_autostartrest_background;
         private Button button_whenstop_background;
 
         private ImageView title;
         private ImageView autostart_done;
         private ImageView vibration_done;
+        private ImageView autostartrest_done;
         private ImageView autostart_notdone;
         private ImageView vibration_notdone;
+        private ImageView autostartrest_notdone;
         private ImageView underline1;
         private ImageView underline2;
         private ImageView underline3;
         private ImageView underline4;
+        private ImageView underline5;
+        private ImageView underline6;
         private ImageView plus;
         private ImageView minus;
         private ImageView plus_rest;
@@ -103,6 +115,7 @@ public class Menu extends MainActivity {
         private boolean isBlockedScrollView;
         private boolean autostartIsOn = true;
         private boolean vibration = true;
+        private boolean autostartrestIsON = true;
 
         private Animation inAnimation;
         private Animation outAnimation;
@@ -135,19 +148,26 @@ public class Menu extends MainActivity {
 
         button_autostart_done = findViewById(R.id.button_autostart_done);
         button_vibration_done = findViewById(R.id.button_vibration_done);
+        button_autostartrest_done = findViewById(R.id.button_autostartrest_done);
         button_whenstop_background = findViewById(R.id.button_whenstop_background);
         button_autostart_background = findViewById(R.id.button_autostart_background);
         button_vibration_background = findViewById(R.id.button_vibration_background);
+        button_autostartrest_background = findViewById(R.id.button_autostartrest_background);
         button_autostart_notdone = findViewById(R.id.button_autostart_notdone);
         button_vibration_notdone = findViewById(R.id.button_vibration_notdone);
+        button_autostartrest_notdone = findViewById(R.id.button_autostartrest_notdone);
         autostart_done = findViewById(R.id.autostart_done);
         vibration_done = findViewById(R.id.vibration_done);
+        autostartrest_done = findViewById(R.id.autostartrest_done);
         autostart_notdone = findViewById(R.id.autostart_notdone);
         vibration_notdone = findViewById(R.id.vibration_notdone);
+        autostartrest_notdone = findViewById(R.id.autostartrest_notdone);
         underline1 = findViewById(R.id.underline1);
         underline2 = findViewById(R.id.underline2);
         underline3 = findViewById(R.id.underline3);
         underline4 = findViewById(R.id.underline4);
+        underline5 = findViewById(R.id.underline5);
+        underline6 = findViewById(R.id.underline6);
         plus = findViewById(R.id.plus);
         minus = findViewById(R.id.minus);
         plus_rest = findViewById(R.id.plus_rest);
@@ -158,6 +178,8 @@ public class Menu extends MainActivity {
         plus_until_end = findViewById(R.id.plus_until_end);
         minus_whenstop = findViewById(R.id.minus_whenstop);
         minus_until_end = findViewById(R.id.minus_until_end);
+        until_end_action_name = findViewById(R.id.until_end_action_name);
+        when_stop_action_name = findViewById(R.id.when_stop_action_name);
 
         SW = findViewById(R.id.SW);
 
@@ -177,6 +199,8 @@ public class Menu extends MainActivity {
         work_time_text = findViewById(R.id.work_time_text);
         rest_time_text = findViewById(R.id.rest_time_text);
         long_rest_time_text = findViewById(R.id.long_rest_time_text);
+        whenstop_text = findViewById(R.id.whenstop_text);
+        untilend_text = findViewById(R.id.whenstop_text);
         when_stop = findViewById(R.id.when_stop);
         until_end = findViewById(R.id.until_end);
 
@@ -219,6 +243,7 @@ public class Menu extends MainActivity {
         loadValueVibration();
         loadValueWhenStop();
         loadValueUntilEnd();
+        loadValueAutostartRest();
 
 
         if (autostartIsOn == true) {
@@ -237,6 +262,14 @@ public class Menu extends MainActivity {
             underline3.setVisibility(View.INVISIBLE);
         }
 
+        if (autostartrestIsON == true) {
+            underline5.setVisibility(View.VISIBLE);
+            underline6.setVisibility(View.INVISIBLE);
+        } else {
+            underline6.setVisibility(View.VISIBLE);
+            underline5.setVisibility(View.INVISIBLE);
+        }
+
 
         work_time_invisible.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
         rest_time_invisible.setText(String.valueOf((REST_TIME_IN_MILLIS / 1000) / 60));
@@ -253,6 +286,7 @@ public class Menu extends MainActivity {
                 when_stop_invisible.setVisibility(View.VISIBLE);
                 plus_whenstop.setVisibility(View.VISIBLE);
                 minus_whenstop.setVisibility(View.VISIBLE);
+                whenstop_text.setVisibility(View.VISIBLE);
                 button_whenstop.setClickable(false);
                 button_until_end.setClickable(false);
                 button_color.setClickable(false);
@@ -264,6 +298,10 @@ public class Menu extends MainActivity {
                 button_vibration_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
+                button_whenstop.getBackground().setAlpha(10);
+                button_until_end.getBackground().setAlpha(10);
+                until_end_action_name.setAlpha(0.5f);
+                when_stop_action_name.setAlpha(0.5f);
                 SW.smoothScrollTo(0, 1400);
             }
         });
@@ -302,6 +340,7 @@ public class Menu extends MainActivity {
                 until_end_invisible.setVisibility(View.VISIBLE);
                 plus_until_end.setVisibility(View.VISIBLE);
                 minus_until_end.setVisibility(View.VISIBLE);
+                untilend_text.setVisibility(View.VISIBLE);
                 button_until_end.setClickable(false);
                 button_whenstop.setClickable(false);
                 button_color.setClickable(false);
@@ -312,6 +351,10 @@ public class Menu extends MainActivity {
                 button_vibration_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
+                button_until_end.getBackground().setAlpha(10);
+                button_whenstop.getBackground().setAlpha(10);
+                until_end_action_name.setAlpha(0.5f);
+                when_stop_action_name.setAlpha(0.5f);
                 SW.smoothScrollTo(0, 1400);
             }
         });
@@ -364,6 +407,7 @@ public class Menu extends MainActivity {
                 button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
+                button_color.getBackground().setAlpha(10);
             }
         });
 
@@ -417,6 +461,7 @@ public class Menu extends MainActivity {
                 button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
+                button_color.getBackground().setAlpha(10);
             }
         });
 
@@ -470,6 +515,7 @@ public class Menu extends MainActivity {
                 button_autostart_notdone.setClickable(false);
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
+                button_color.getBackground().setAlpha(10);
             }
         });
 
@@ -523,6 +569,8 @@ public class Menu extends MainActivity {
                 work_time_text.setVisibility(View.INVISIBLE);
                 rest_time_text.setVisibility(View.INVISIBLE);
                 long_rest_time_text.setVisibility(View.INVISIBLE);
+                whenstop_text.setVisibility(View.INVISIBLE);
+                untilend_text.setVisibility(View.INVISIBLE);
                 button_autostart_background.setClickable(true);
                 button_vibration_background.setClickable(true);
                 button_whenstop_background.setClickable(true);
@@ -535,6 +583,11 @@ public class Menu extends MainActivity {
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
                 button_color.setClickable(true);
+                button_whenstop.getBackground().setAlpha(128);
+                button_until_end.getBackground().setAlpha(128);
+                button_color.getBackground().setAlpha(128);
+                until_end_action_name.setAlpha(1.0f);
+                when_stop_action_name.setAlpha(1.0f);
                 if (Long.valueOf(work_time_invisible.getText().toString()) < 100) {
                     START_TIME_IN_MILLIS = Long.valueOf(work_time_invisible.getText().toString()) * 60 * 1000;
                     work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
@@ -582,6 +635,7 @@ public class Menu extends MainActivity {
                 sendValue();
                 saveValueAutostart();
                 saveValueVibration();
+                saveValueAutostartRest();
             }
         };
         title.setOnClickListener(goBack);
@@ -637,6 +691,31 @@ public class Menu extends MainActivity {
                 button_vibration_notdone.setClickable(false);
                 underline4.startAnimation(inAnimation);
                 vibrationAnimationFixNotDone();
+            }
+        });
+
+        // AUTOSTART REST
+        button_autostartrest_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autostartrestIsON = true;
+                underline5.startAnimation(inAnimation);
+                underline6.setVisibility(View.INVISIBLE);
+                button_autostartrest_done.setClickable(false);
+                button_autostartrest_notdone.setClickable(false);
+                autostartrestAnimationFixDone();
+            }
+        });
+
+        button_autostartrest_notdone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autostartrestIsON = false;
+                underline5.setVisibility(View.INVISIBLE);
+                button_autostartrest_done.setClickable(false);
+                button_autostartrest_notdone.setClickable(false);
+                underline6.startAnimation(inAnimation);
+                autostartrestAnimationFixNotDone();
             }
         });
 
@@ -717,6 +796,40 @@ public class Menu extends MainActivity {
         }.start();
     }
 
+    private void autostartrestAnimationFixDone(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+
+                button_autostartrest_notdone.setClickable(true);
+                underline5.setVisibility(View.VISIBLE);
+                underline6.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
+    private void autostartrestAnimationFixNotDone(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+
+                button_autostartrest_done.setClickable(true);
+                underline6.setVisibility(View.VISIBLE);
+                underline5.setVisibility(View.INVISIBLE);
+            }
+
+        }.start();
+    }
+
     private void sendValue() {
         Intent a = new Intent(Menu.this, MainActivity.class);
         a.putExtra("WORK_PERIOD", START_TIME_IN_MILLIS);
@@ -726,6 +839,7 @@ public class Menu extends MainActivity {
         a.putExtra("VIBRATION", vibration);
         a.putExtra("WHEN_STOP", whenStopCount);
         a.putExtra("UNTIL_END", untilEndCount);
+        a.putExtra("AUTOSTARTREST", autostartrestIsON);
         startActivity(a);
         this.finish();
     }
@@ -756,6 +870,20 @@ public class Menu extends MainActivity {
         prefvibration = getPreferences(MODE_PRIVATE);
         boolean savedTextVibration = pref.getBoolean("vibration_key", false);
         vibration = savedTextVibration;
+    }
+
+    private void saveValueAutostartRest() {
+        prefautostartrest = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edq = pref.edit();
+        edq.putBoolean("autostartrest_key", autostartrestIsON);
+
+        edq.apply();
+    }
+
+    private void loadValueAutostartRest() {
+        prefautostartrest = getPreferences(MODE_PRIVATE);
+        boolean savedTextAutostartRest = pref.getBoolean("autostartrest_key", false);
+        autostartrestIsON = savedTextAutostartRest;
     }
 
 

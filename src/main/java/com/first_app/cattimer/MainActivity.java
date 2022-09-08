@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences savei;
     private SharedPreferences save_exit;
     private SharedPreferences pref_vibration;
+    private SharedPreferences pref_autostartrest;
 
     private float CurrentProgress = 99; // начинать с (-1)
     private float CurrentProgressRest = 99; // начинать с (-1)
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean collapse = false;
     private boolean first_start = true;
     private boolean vibration = true;
+    private boolean autostartRestIsOn = true;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private long mRestLeftInMillis = REST_TIME_IN_MILLIS;
@@ -474,6 +476,17 @@ public class MainActivity extends AppCompatActivity {
             boolean returnLong = getIntent().getBooleanExtra("VIBRATION", vibration);
             vibration = returnLong;
             saveValueVibration();
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
+        Intent iCheckAutostartRest = getIntent();
+        if (iCheckAutostartRest != null) {
+
+            boolean returnLong = getIntent().getBooleanExtra("AUTOSTARTREST", autostartRestIsOn);
+            autostartRestIsOn = returnLong;
+            saveValueAutostartRest();
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
@@ -1115,6 +1128,7 @@ public class MainActivity extends AppCompatActivity {
         loadValueWhenStop();
         loadValueUntilEnd();
         loadValueVibration();
+        loadValueAutostartRest();
 
 
 
@@ -1191,7 +1205,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
 
                 if (done == untilEndCount) {
-                    if (autostartIsOn == true) {
+                    if (autostartRestIsOn == true) {
                         if (vibration == true)
                             vibrator.vibrate(500);
                         CurrentProgress = 99;
@@ -1218,7 +1232,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 } else {
-                    if (autostartIsOn == true) {
+                    if (autostartRestIsOn == true) {
                         if (vibration == true)
                             vibrator.vibrate(500);
                         CurrentProgress = 99;
@@ -1281,7 +1295,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if (autostartIsOn == true) {
+                if (autostartRestIsOn == true) {
                     if (vibration == true)
                         vibrator.vibrate(500);
                     CurrentProgress = 99;
@@ -2030,6 +2044,20 @@ public class MainActivity extends AppCompatActivity {
         pref_vibration = getPreferences(MODE_PRIVATE);
         String savedTextLongRest = pref_vibration.getString("save_vibration", String.valueOf(vibration));
         vibration = Boolean.valueOf(savedTextLongRest);
+    }
+
+    private void saveValueAutostartRest() {
+        pref_autostartrest = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = pref_autostartrest.edit();
+        edlongrest.putString("save_autostartrest", String.valueOf(autostartRestIsOn));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueAutostartRest() {
+        pref_autostartrest = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = pref_autostartrest.getString("save_autostartrest", String.valueOf(autostartRestIsOn));
+        autostartRestIsOn = Boolean.valueOf(savedTextLongRest);
     }
 
 
