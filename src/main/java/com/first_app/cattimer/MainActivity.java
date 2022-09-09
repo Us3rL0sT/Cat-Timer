@@ -213,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
 
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
+        deleteImage.setAlpha(0.7f);
+        menu.setAlpha(0.8f);
+
 
 
         ((GifDrawable)cat_move.getDrawable()).stop();
