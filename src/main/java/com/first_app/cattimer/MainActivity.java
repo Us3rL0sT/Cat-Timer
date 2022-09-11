@@ -23,6 +23,9 @@ import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.Image;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences save_exit;
     private SharedPreferences pref_vibration;
     private SharedPreferences pref_autostartrest;
+    private SharedPreferences pref_melody;
 
     private float CurrentProgress = 99; // начинать с (-1)
     private float CurrentProgressRest = 99; // начинать с (-1)
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     private GifImageView cat_question;
     private GifImageView cat_pause;
 
-
+    private String Melody;
 
     private ImageView arrows;
     private ImageView arrows_rest;
@@ -147,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int PRIMARY_FOREGROUND_NOTIF_SERVICE_ID = 122;
 
     private Vibrator vibrator;
+
+    Ringtone currentRingtone;
 
 
 
@@ -216,8 +222,6 @@ public class MainActivity extends AppCompatActivity {
         deleteImage.setAlpha(0.7f);
         menu.setAlpha(0.8f);
 
-
-
         ((GifDrawable)cat_move.getDrawable()).stop();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -279,7 +283,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                Toast.makeText(MainActivity.this, "iWell: " + iWell, Toast.LENGTH_SHORT).show();
 
 
             }
@@ -494,6 +497,18 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
         }
+
+        Intent iCheckMelody = getIntent();
+        if (iCheckMelody != null) {
+
+            String returnLong = getIntent().getStringExtra("MELODY");
+            Melody = returnLong;
+            saveMelody();
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
 
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
@@ -1124,7 +1139,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        Toast.makeText(MainActivity.this, "HEIGHT: " + height_phone + " WIDTH: " + width_phone, Toast.LENGTH_SHORT).show();
 
         loadCheckAction();
         loadValueAutostart();
@@ -1132,6 +1146,7 @@ public class MainActivity extends AppCompatActivity {
         loadValueUntilEnd();
         loadValueVibration();
         loadValueAutostartRest();
+        loadMelody();
 
 
 
@@ -1212,23 +1227,26 @@ public class MainActivity extends AppCompatActivity {
                         if (vibration == true)
                             vibrator.vibrate(500);
                         CurrentProgress = 99;
-                        REST_TIME_IN_MILLIS = nowTimeRest;
+                        LONG_REST_TIME_IN_MILLIS = nowTimeLongRest;
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                         mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+                        playRingtone();
                         longRestUpdateCountDownText();
                         longRestTimer();
+
 
                     } else {
                         if (vibration == true)
                             vibrator.vibrate(500);
                         CurrentProgress = 99;
-                        REST_TIME_IN_MILLIS = nowTimeRest;
+                        LONG_REST_TIME_IN_MILLIS = nowTimeLongRest;
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                         mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+                        playRingtone();
                         longRestUpdateCountDownText();
                         longRestTimer();
                         pauseTimerLongRest();
@@ -1244,9 +1262,9 @@ public class MainActivity extends AppCompatActivity {
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonStartPause.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                        playRingtone();
                         restUpdateCountDownText();
                         restTimer();
-                        Toast.makeText(MainActivity.this, "autostart: " + autostartIsOn, Toast.LENGTH_SHORT).show();
                     } else {
                         if (vibration == true)
                             vibrator.vibrate(500);
@@ -1256,8 +1274,10 @@ public class MainActivity extends AppCompatActivity {
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonStartPause.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = REST_TIME_IN_MILLIS;
+                        playRingtone();
                         restUpdateCountDownText();
                         pauseTimer();
+
 
                     }
                 }
@@ -1302,7 +1322,7 @@ public class MainActivity extends AppCompatActivity {
                     if (vibration == true)
                         vibrator.vibrate(500);
                     CurrentProgress = 99;
-                    LONG_REST_TIME_IN_MILLIS = nowTimeRest;
+                    REST_TIME_IN_MILLIS = nowTimeRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -1310,13 +1330,15 @@ public class MainActivity extends AppCompatActivity {
                     cat_move.setVisibility(View.VISIBLE);
                     mTimeLeftInMillis = nowTime;
                     ((GifDrawable)cat_move.getDrawable()).start();
+                    playRingtone();
                     updateCountDownText();
                     startTimer();
+
                 } else {
                     if (vibration == true)
                         vibrator.vibrate(500);
                     CurrentProgress = 99;
-                    LONG_REST_TIME_IN_MILLIS = nowTimeRest;
+                    REST_TIME_IN_MILLIS = nowTimeRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -1324,8 +1346,10 @@ public class MainActivity extends AppCompatActivity {
                     cat_move.setVisibility(View.VISIBLE);
                     mTimeLeftInMillis = nowTime;
                     ((GifDrawable)cat_move.getDrawable()).start();
+                    playRingtone();
                     updateCountDownText();
                     pauseTimerRest();
+
                 }
 
             }
@@ -1368,7 +1392,7 @@ public class MainActivity extends AppCompatActivity {
                     if (vibration == true)
                         vibrator.vibrate(500);
                     CurrentProgress = 99;
-                    LONG_REST_TIME_IN_MILLIS = nowTimeRest;
+                    LONG_REST_TIME_IN_MILLIS = nowTimeLongRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -1376,13 +1400,15 @@ public class MainActivity extends AppCompatActivity {
                     cat_move.setVisibility(View.VISIBLE);
                     mTimeLeftInMillis = nowTime;
                     ((GifDrawable)cat_move.getDrawable()).start();
+                    playRingtone();
                     updateCountDownText();
                     startTimer();
+
                 } else {
                     if (vibration == true)
                         vibrator.vibrate(500);
                     CurrentProgress = 99;
-                    LONG_REST_TIME_IN_MILLIS = nowTimeRest;
+                    LONG_REST_TIME_IN_MILLIS = nowTimeLongRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -1390,8 +1416,10 @@ public class MainActivity extends AppCompatActivity {
                     cat_move.setVisibility(View.VISIBLE);
                     mTimeLeftInMillis = nowTime;
                     ((GifDrawable)cat_move.getDrawable()).start();
+                    playRingtone();
                     updateCountDownText();
                     pauseTimerLongRest();
+
                 }
             }
         }.start();
@@ -2063,6 +2091,20 @@ public class MainActivity extends AppCompatActivity {
         autostartRestIsOn = Boolean.valueOf(savedTextLongRest);
     }
 
+    private void saveMelody() {
+        pref_melody = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = pref_melody.edit();
+        edlongrest.putString("save_melody", String.valueOf(Melody));
+        edlongrest.apply();
+
+    }
+
+    private void loadMelody() {
+        pref_melody = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = pref_melody.getString("save_melody", String.valueOf(Melody));
+        Melody = String.valueOf(savedTextLongRest);
+    }
+
 
 
 
@@ -2342,7 +2384,7 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(20, 0, 10, 0);
 
             if (untilEndCount == 3)
-                layoutParams.setMargins(250, 0, 10, 0);
+                layoutParams.setMargins(220, 0, 10, 0);
             if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
                 layoutParams.setMargins(60, 0, 10, 0);
             if (untilEndCount == 3 && whenStopCount >= 9 && whenStopCount <= 12)
@@ -2727,7 +2769,7 @@ public class MainActivity extends AppCompatActivity {
                 layoutParams.setMargins(20, 0, 10, 0);
 
             if (untilEndCount == 3)
-                layoutParams.setMargins(250, 0, 10, 0);
+                layoutParams.setMargins(220, 0, 10, 0);
             if (untilEndCount == 3 && whenStopCount > 6 && whenStopCount <= 8)
                 layoutParams.setMargins(60, 0, 10, 0);
             if (untilEndCount == 3 && whenStopCount >= 9 && whenStopCount <= 12)
@@ -3041,8 +3083,9 @@ public class MainActivity extends AppCompatActivity {
         countCircles();
     }
 
-    private void c() {
-
+    private void playRingtone() {
+        currentRingtone = RingtoneManager.getRingtone(getApplicationContext(), Uri.parse(Melody));
+        currentRingtone.play();
     }
 
 

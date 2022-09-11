@@ -1,15 +1,27 @@
 package com.first_app.cattimer;
 
 
+import static android.media.RingtoneManager.TYPE_RINGTONE;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -25,114 +37,125 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+
+import java.io.File;
+import java.net.URI;
+
 public class Menu extends MainActivity {
 
-        private long START_TIME_IN_MILLIS = 1500 * 1000;
-        private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
-        private long LONG_REST_TIME_IN_MILLIS = 900 * 1000;
+    private long START_TIME_IN_MILLIS = 1500 * 1000;
+    private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
+    private long LONG_REST_TIME_IN_MILLIS = 900 * 1000;
 
-        private int height_phone; // экрана
-        private int width_phone; // также экрана
+    private int height_phone; // экрана
+    private int width_phone; // также экрана
 
-        private short whenStopCount = 8;
-        private short untilEndCount = 4;
+    private short whenStopCount = 8;
+    private short untilEndCount = 4;
 
-        private SharedPreferences pref;
-        private SharedPreferences prefrest;
-        private SharedPreferences preflongrest;
-        private SharedPreferences prefautostart;
-        private SharedPreferences prefvibration;
-        private SharedPreferences prefautostartrest;
-        private SharedPreferences prefnotification;
-        private SharedPreferences whenstop;
-        private SharedPreferences untilend;
+    private SharedPreferences pref;
+    private SharedPreferences prefrest;
+    private SharedPreferences preflongrest;
+    private SharedPreferences prefautostart;
+    private SharedPreferences prefvibration;
+    private SharedPreferences prefautostartrest;
+    private SharedPreferences prefnotification;
+    private SharedPreferences prefmelody;
+    private SharedPreferences whenstop;
+    private SharedPreferences untilend;
 
-        private TextView work_time;
-        private TextView rest_time;
-        private TextView long_rest_time;
-        private EditText work_time_invisible;
-        private TextView rest_time_invisible;
-        private TextView long_rest_time_invisible;
-        private TextView work_time_text;
-        private TextView rest_time_text;
-        private TextView long_rest_time_text;
-        private TextView whenstop_text;
-        private TextView untilend_text;
-        private TextView until_end_action_name;
-        private TextView when_stop_action_name;
+    private TextView work_time;
+    private TextView rest_time;
+    private TextView long_rest_time;
+    private EditText work_time_invisible;
+    private TextView rest_time_invisible;
+    private TextView long_rest_time_invisible;
+    private TextView work_time_text;
+    private TextView rest_time_text;
+    private TextView long_rest_time_text;
+    private TextView whenstop_text;
+    private TextView untilend_text;
+    private TextView until_end_action_name;
+    private TextView when_stop_action_name;
+    private TextView melody_text;
 
-        private TextView until_end_invisible;
-        private TextView when_stop;
-        private TextView until_end;
-        private TextView when_stop_invisible;
+    private TextView until_end_invisible;
+    private TextView when_stop;
+    private TextView until_end;
+    private TextView when_stop_invisible;
 
-        private Button button_work_time;
-        private Button button_rest_time;
-        private Button button_long_rest_time;
-        private Button button_color;
-        private Button button_autostart_done;
-        private Button button_vibration_done;
-        private Button button_autostartrest_done;
-        private Button button_notification_done;
-        private Button button_autostart_notdone;
-        private Button button_vibration_notdone;
-        private Button button_autostartrest_notdone;
-        private Button button_notification_notdone;
-        private Button button_whenstop;
-        private Button button_until_end;
-        private Button button_autostart_background;
-        private Button button_vibration_background;
-        private Button button_autostartrest_background;
-        private Button button_whenstop_background;
+    private Button button_work_time;
+    private Button button_rest_time;
+    private Button button_long_rest_time;
+    private Button button_color;
+    private Button button_autostart_done;
+    private Button button_vibration_done;
+    private Button button_autostartrest_done;
+    private Button button_notification_done;
+    private Button button_autostart_notdone;
+    private Button button_vibration_notdone;
+    private Button button_autostartrest_notdone;
+    private Button button_notification_notdone;
+    private Button button_whenstop;
+    private Button button_until_end;
+    private Button button_autostart_background;
+    private Button button_vibration_background;
+    private Button button_autostartrest_background;
+    private Button button_whenstop_background;
+    private Button button_sounds;
 
-        private ImageView title;
-        private ImageView autostart_done;
-        private ImageView notification_done;
-        private ImageView vibration_done;
-        private ImageView autostartrest_done;
-        private ImageView autostart_notdone;
-        private ImageView vibration_notdone;
-        private ImageView autostartrest_notdone;
-        private ImageView notification_notdone;
-        private ImageView underline1;
-        private ImageView underline2;
-        private ImageView underline3;
-        private ImageView underline4;
-        private ImageView underline5;
-        private ImageView underline6;
-        private ImageView underline7;
-        private ImageView underline8;
-        private ImageView plus;
-        private ImageView minus;
-        private ImageView plus_rest;
-        private ImageView minus_rest;
-        private ImageView plus_long_rest;
-        private ImageView minus_long_rest;
-        private ImageView plus_whenstop;
-        private ImageView plus_until_end;
-        private ImageView minus_whenstop;
-        private ImageView minus_until_end;
+    private ImageView title;
+    private ImageView autostart_done;
+    private ImageView notification_done;
+    private ImageView vibration_done;
+    private ImageView autostartrest_done;
+    private ImageView autostart_notdone;
+    private ImageView vibration_notdone;
+    private ImageView autostartrest_notdone;
+    private ImageView notification_notdone;
+    private ImageView underline1;
+    private ImageView underline2;
+    private ImageView underline3;
+    private ImageView underline4;
+    private ImageView underline5;
+    private ImageView underline6;
+    private ImageView underline7;
+    private ImageView underline8;
+    private ImageView plus;
+    private ImageView minus;
+    private ImageView plus_rest;
+    private ImageView minus_rest;
+    private ImageView plus_long_rest;
+    private ImageView minus_long_rest;
+    private ImageView plus_whenstop;
+    private ImageView plus_until_end;
+    private ImageView minus_whenstop;
+    private ImageView minus_until_end;
 
-        private View shade;
+    private View shade;
 
-        private ConstraintLayout maximizedContainer;
+    private ConstraintLayout maximizedContainer;
 
-        private ScrollView SW;
+    private ScrollView SW;
 
-        private boolean isBlockedScrollView;
-        private boolean autostartIsOn = true;
-        private boolean vibration = true;
-        private boolean autostartrestIsON = true;
-        private boolean notificationIsOn = true;
+    private boolean isBlockedScrollView;
+    private boolean autostartIsOn = true;
+    private boolean vibration = true;
+    private boolean autostartrestIsON = true;
+    private boolean notificationIsOn = true;
 
-        private Animation inAnimation;
-        private Animation outAnimation;
-        private Animation nullAnimation;
-        private Animation fastAnimation;
+    private Animation inAnimation;
+    private Animation outAnimation;
+    private Animation nullAnimation;
+    private Animation fastAnimation;
 
-        private Vibrator vibrator;
+    private Vibrator vibrator;
 
-
+    private String Melody;
+    private Ringtone currentRingtone;
+    private Uri uri;
+    private String valueUri;
 
 
 
@@ -194,6 +217,7 @@ public class Menu extends MainActivity {
         minus_until_end = findViewById(R.id.minus_until_end);
         until_end_action_name = findViewById(R.id.until_end_action_name);
         when_stop_action_name = findViewById(R.id.when_stop_action_name);
+        button_sounds = findViewById(R.id.button_sounds);
 
         SW = findViewById(R.id.SW);
 
@@ -217,6 +241,7 @@ public class Menu extends MainActivity {
         untilend_text = findViewById(R.id.whenstop_text);
         when_stop = findViewById(R.id.when_stop);
         until_end = findViewById(R.id.until_end);
+        melody_text = findViewById(R.id.melody_text);
 
 
         button_work_time = findViewById(R.id.button_work_time);
@@ -226,7 +251,7 @@ public class Menu extends MainActivity {
         button_whenstop = findViewById(R.id.button_whenstop);
         button_until_end = findViewById(R.id.button_until_end);
 
-        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         button_whenstop.getBackground().setAlpha(128);
         button_until_end.getBackground().setAlpha(128);
@@ -258,13 +283,13 @@ public class Menu extends MainActivity {
         until_end.setText(String.valueOf(untilEndCount));
 
 
+
+
         work_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         long_rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         when_stop_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         until_end_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-
 
 
         loadValue();
@@ -276,6 +301,10 @@ public class Menu extends MainActivity {
         loadValueUntilEnd();
         loadValueAutostartRest();
         loadValueNotification();
+        loadMelody();
+        melody_text.setText(Melody);
+        Toast.makeText(this, "Melody: " + Melody, Toast.LENGTH_SHORT).show();
+
 
 
         if (autostartIsOn == true) {
@@ -317,6 +346,14 @@ public class Menu extends MainActivity {
         when_stop_invisible.setText(String.valueOf(whenStopCount));
         until_end_invisible.setText(String.valueOf(untilEndCount));
 
+        button_sounds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickRingtone();
+
+            }
+        });
+
 
         button_whenstop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -332,16 +369,19 @@ public class Menu extends MainActivity {
                 button_color.setClickable(false);
                 button_autostart_done.setClickable(false);
                 button_vibration_done.setClickable(false);
+                button_vibration_background.setClickable(false);
+                button_autostartrest_background.setClickable(false);
                 button_autostart_notdone.setClickable(false);
                 button_vibration_notdone.setClickable(false);
                 button_autostart_background.setClickable(false);
-                button_vibration_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
-                button_whenstop.getBackground().setAlpha(10);
-                button_until_end.getBackground().setAlpha(10);
-                until_end_action_name.setAlpha(0.5f);
-                when_stop_action_name.setAlpha(0.5f);
+                button_whenstop.getBackground().setAlpha(1);
+                button_until_end.getBackground().setAlpha(1);
+                until_end_action_name.setAlpha(0.2f);
+                when_stop_action_name.setAlpha(0.2f);
+                when_stop.setAlpha(0.2f);
+                until_end.setAlpha(0.2f);
                 SW.smoothScrollTo(0, 1400);
             }
         });
@@ -389,12 +429,15 @@ public class Menu extends MainActivity {
                 button_autostart_notdone.setClickable(false);
                 button_autostart_background.setClickable(false);
                 button_vibration_background.setClickable(false);
+                button_autostartrest_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
-                button_until_end.getBackground().setAlpha(10);
-                button_whenstop.getBackground().setAlpha(10);
-                until_end_action_name.setAlpha(0.5f);
-                when_stop_action_name.setAlpha(0.5f);
+                button_until_end.getBackground().setAlpha(1);
+                button_whenstop.getBackground().setAlpha(1);
+                until_end_action_name.setAlpha(0.2f);
+                when_stop_action_name.setAlpha(0.2f);
+                when_stop.setAlpha(0.2f);
+                until_end.setAlpha(0.2f);
                 SW.smoothScrollTo(0, 1400);
             }
         });
@@ -478,7 +521,6 @@ public class Menu extends MainActivity {
         });
 
 
-
         button_rest_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -530,7 +572,6 @@ public class Menu extends MainActivity {
                 saveValueRest();
             }
         });
-
 
 
         button_long_rest_time.setOnClickListener(new View.OnClickListener() {
@@ -612,6 +653,7 @@ public class Menu extends MainActivity {
                 whenstop_text.setVisibility(View.INVISIBLE);
                 untilend_text.setVisibility(View.INVISIBLE);
                 button_autostart_background.setClickable(true);
+                button_autostartrest_background.setClickable(true);
                 button_vibration_background.setClickable(true);
                 button_whenstop_background.setClickable(true);
                 button_autostart_done.setClickable(true);
@@ -628,6 +670,8 @@ public class Menu extends MainActivity {
                 button_color.getBackground().setAlpha(128);
                 until_end_action_name.setAlpha(1.0f);
                 when_stop_action_name.setAlpha(1.0f);
+                when_stop.setAlpha(1.0f);
+                until_end.setAlpha(1.0f);
                 if (Long.valueOf(work_time_invisible.getText().toString()) < 100) {
                     START_TIME_IN_MILLIS = Long.valueOf(work_time_invisible.getText().toString()) * 60 * 1000;
                     work_time.setText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
@@ -677,11 +721,10 @@ public class Menu extends MainActivity {
                 saveValueVibration();
                 saveValueAutostartRest();
                 saveValueNotification();
+                saveMelody();
             }
         };
         title.setOnClickListener(goBack);
-
-
 
 
         // AUTOSTART
@@ -804,15 +847,9 @@ public class Menu extends MainActivity {
         });
 
 
-
-
-
-
-
-
     }
 
-    private void autostartAnimationFixDone(){
+    private void autostartAnimationFixDone() {
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -829,7 +866,7 @@ public class Menu extends MainActivity {
         }.start();
     }
 
-    private void autostartAnimationFixNotDone(){
+    private void autostartAnimationFixNotDone() {
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -846,7 +883,7 @@ public class Menu extends MainActivity {
         }.start();
     }
 
-    private void vibrationAnimationFixDone(){
+    private void vibrationAnimationFixDone() {
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -863,7 +900,7 @@ public class Menu extends MainActivity {
         }.start();
     }
 
-    private void vibrationAnimationFixNotDone(){
+    private void vibrationAnimationFixNotDone() {
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -880,7 +917,7 @@ public class Menu extends MainActivity {
         }.start();
     }
 
-    private void autostartrestAnimationFixDone(){
+    private void autostartrestAnimationFixDone() {
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -897,7 +934,7 @@ public class Menu extends MainActivity {
         }.start();
     }
 
-    private void autostartrestAnimationFixNotDone(){
+    private void autostartrestAnimationFixNotDone() {
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -914,7 +951,7 @@ public class Menu extends MainActivity {
         }.start();
     }
 
-    private void notificationAnimationFixDone(){
+    private void notificationAnimationFixDone() {
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -931,7 +968,7 @@ public class Menu extends MainActivity {
         }.start();
     }
 
-    private void notificationAnimationFixNotDone(){
+    private void notificationAnimationFixNotDone() {
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -959,6 +996,7 @@ public class Menu extends MainActivity {
         a.putExtra("UNTIL_END", untilEndCount);
         a.putExtra("AUTOSTARTREST", autostartrestIsON);
         a.putExtra("NOTIFICATIONCHOICE", notificationIsOn);
+        a.putExtra("MELODY", valueUri);
         startActivity(a);
         this.finish();
     }
@@ -1017,6 +1055,20 @@ public class Menu extends MainActivity {
         prefnotification = getPreferences(MODE_PRIVATE);
         boolean savedTextNotification = pref.getBoolean("notification_key", false);
         notificationIsOn = savedTextNotification;
+    }
+
+    private void saveMelody() {
+        prefmelody = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edq = pref.edit();
+        edq.putString("melody_key", valueUri);
+
+        edq.apply();
+    }
+
+    private void loadMelody() {
+        prefmelody = getPreferences(MODE_PRIVATE);
+        String savedTextMelody = pref.getString("melody_key", "");
+        valueUri = savedTextMelody;
     }
 
 
@@ -1103,14 +1155,42 @@ public class Menu extends MainActivity {
         until_end_invisible.setText(String.valueOf(savedTextLongRest));
     }
 
-    public static void hideKeyboard( Activity activity ) {
-        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE );
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         View f = activity.getCurrentFocus();
-        if( null != f && null != f.getWindowToken() && EditText.class.isAssignableFrom( f.getClass() ) )
-            imm.hideSoftInputFromWindow( f.getWindowToken(), 0 );
+        if (null != f && null != f.getWindowToken() && EditText.class.isAssignableFrom(f.getClass()))
+            imm.hideSoftInputFromWindow(f.getWindowToken(), 0);
         else
-            activity.getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN );
+            activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    public void pickRingtone() {
+
+        Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Выбор мелодии");
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+
+        startActivityForResult(intent, 1);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode) {
+            case 1:
+                if(resultCode == RESULT_OK) {
+                    uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                    valueUri = uri.toString();
+                    if (uri != null) {
+                        currentRingtone = RingtoneManager.getRingtone(getApplicationContext(), uri);
+                        Melody = currentRingtone.getTitle(this);
+                        melody_text.setText(Melody);
+                    }
+                }
+                break;
+        }
+    }
 
 }

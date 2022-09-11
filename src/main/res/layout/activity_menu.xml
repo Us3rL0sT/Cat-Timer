@@ -449,7 +449,8 @@
         <Button
             android:id="@+id/button_vibration_background"
             android:layout_width="300dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="200dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
             android:gravity="center|center_horizontal"
@@ -463,7 +464,6 @@
             android:id="@+id/button_vibration_done"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
             android:layout_marginEnd="170dp"
             android:background="@drawable/make_done_border"
             android:foregroundGravity="center_horizontal"
@@ -474,11 +474,11 @@
             app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
             app:layout_constraintVertical_bias="0.119" />
 
+
         <Button
             android:id="@+id/button_vibration_notdone"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/make_done_border"
             app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
@@ -488,12 +488,10 @@
             app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
             app:layout_constraintVertical_bias="0.119" />
 
-
         <ImageView
             android:id="@+id/vibration_done"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/button_vibration_done"
             app:layout_constraintEnd_toEndOf="@+id/button_vibration_done"
             app:layout_constraintStart_toStartOf="@+id/button_vibration_done"
@@ -516,7 +514,7 @@
             android:id="@+id/underline3"
             android:layout_width="139dp"
             android:layout_height="95dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="95dp"
             app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
             app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
@@ -529,7 +527,7 @@
             android:layout_width="139dp"
             android:layout_height="95dp"
             android:layout_marginStart="120dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="60dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
             app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
@@ -539,16 +537,15 @@
             tools:visibility="visible" />
 
 
-
         <TextView
             android:id="@+id/vibration_text"
             android:layout_width="125dp"
             android:layout_height="36dp"
-            android:layout_marginBottom="170dp"
+            android:layout_marginTop="90dp"
             android:fontFamily="@font/graduate"
             android:text="Вибрация"
-            android:textAlignment="center"
 
+            android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
             app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
@@ -560,8 +557,8 @@
         <Button
             android:id="@+id/button_autostartrest_background"
             android:layout_width="300dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="75dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
             android:gravity="center|center_horizontal"
@@ -576,7 +573,6 @@
             android:id="@+id/button_autostartrest_done"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
             android:layout_marginEnd="170dp"
             android:background="@drawable/make_done_border"
             android:foregroundGravity="center_horizontal"
@@ -591,7 +587,6 @@
             android:id="@+id/button_autostartrest_notdone"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/make_done_border"
             app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_background"
@@ -629,7 +624,7 @@
             android:id="@+id/underline5"
             android:layout_width="139dp"
             android:layout_height="95dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="95dp"
             app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_background"
             app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_background"
@@ -642,7 +637,7 @@
             android:layout_width="139dp"
             android:layout_height="95dp"
             android:layout_marginStart="120dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="60dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/button_autostartrest_background"
             app:layout_constraintEnd_toEndOf="@+id/button_autostartrest_background"
@@ -655,7 +650,7 @@
             android:id="@+id/autostartrest_text"
             android:layout_width="200dp"
             android:layout_height="36dp"
-            android:layout_marginBottom="170dp"
+            android:layout_marginTop="90dp"
             android:fontFamily="@font/graduate"
             android:text="Автостарт перерыва"
             android:textAlignment="center"
@@ -670,8 +665,8 @@
         <Button
             android:id="@+id/button_notification_background"
             android:layout_width="300dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="40dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
             android:gravity="center|center_horizontal"
@@ -686,7 +681,6 @@
             android:id="@+id/button_notification_done"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
             android:layout_marginEnd="170dp"
             android:background="@drawable/make_done_border"
             android:foregroundGravity="center_horizontal"
@@ -701,7 +695,6 @@
             android:id="@+id/button_notification_notdone"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/make_done_border"
             app:layout_constraintBottom_toBottomOf="@+id/button_notification_background"
@@ -739,7 +732,7 @@
             android:id="@+id/underline7"
             android:layout_width="139dp"
             android:layout_height="95dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="95dp"
             app:layout_constraintBottom_toBottomOf="@+id/button_notification_background"
             app:layout_constraintEnd_toEndOf="@+id/button_notification_background"
@@ -752,7 +745,7 @@
             android:layout_width="139dp"
             android:layout_height="95dp"
             android:layout_marginStart="120dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="60dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/button_notification_background"
             app:layout_constraintEnd_toEndOf="@+id/button_notification_background"
@@ -765,7 +758,7 @@
             android:id="@+id/notification_text"
             android:layout_width="200dp"
             android:layout_height="36dp"
-            android:layout_marginBottom="170dp"
+            android:layout_marginTop="90dp"
             android:fontFamily="@font/graduate"
             android:text="Уведомления"
             android:textAlignment="center"
@@ -776,6 +769,62 @@
             app:layout_constraintTop_toTopOf="@+id/button_notification_background"
             tools:visibility="visible" />
 
+        <Button
+            android:id="@+id/button_sounds"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center|center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_notification_background"
+            app:layout_constraintVertical_bias="0.119" />
+
+        <ImageView
+            android:id="@+id/image_sounds"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="300dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_sounds"
+            app:layout_constraintEnd_toEndOf="@+id/button_sounds"
+            app:layout_constraintStart_toStartOf="@+id/button_sounds"
+            app:layout_constraintTop_toTopOf="@+id/button_sounds"
+            app:srcCompat="@drawable/notification"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/image_text"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/graduate"
+            android:text="Мелодия"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_sounds"
+            app:layout_constraintEnd_toEndOf="@+id/button_sounds"
+            app:layout_constraintStart_toStartOf="@+id/button_sounds"
+            app:layout_constraintTop_toTopOf="@+id/button_sounds"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/melody_text"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="43dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="casual"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_sounds"
+            app:layout_constraintEnd_toEndOf="@+id/button_sounds"
+            app:layout_constraintStart_toStartOf="@+id/button_sounds"
+            app:layout_constraintTop_toTopOf="@+id/button_sounds" />
 
 
 
@@ -1024,35 +1073,35 @@
             android:id="@+id/whenstop_text"
             android:layout_width="200dp"
             android:layout_height="36dp"
-            android:layout_marginBottom="250dp"
+            android:layout_marginBottom="100dp"
             android:fontFamily="@font/graduate"
             android:text="Ежедневная цель"
-            android:textAlignment="center"
 
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="22sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
-            app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
-            app:layout_constraintStart_toStartOf="@+id/button_vibration_background"
-            app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
+            app:layout_constraintBottom_toBottomOf="@+id/when_stop_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/when_stop_invisible"
+            app:layout_constraintStart_toStartOf="@+id/when_stop_invisible"
+            app:layout_constraintTop_toTopOf="@+id/when_stop_invisible"
             tools:visibility="visible" />
 
         <TextView
             android:id="@+id/untilend_text"
             android:layout_width="300dp"
             android:layout_height="36dp"
-            android:layout_marginBottom="250dp"
+            android:layout_marginBottom="100dp"
             android:fontFamily="@font/graduate"
             android:text="Работ до длинного перерыва"
             android:textAlignment="center"
 
             android:textSize="22sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/button_vibration_background"
-            app:layout_constraintEnd_toEndOf="@+id/button_vibration_background"
-            app:layout_constraintStart_toStartOf="@+id/button_vibration_background"
-            app:layout_constraintTop_toTopOf="@+id/button_vibration_background"
+            app:layout_constraintBottom_toBottomOf="@+id/until_end_invisible"
+            app:layout_constraintEnd_toEndOf="@+id/until_end_invisible"
+            app:layout_constraintStart_toStartOf="@+id/until_end_invisible"
+            app:layout_constraintTop_toTopOf="@+id/until_end_invisible"
             tools:visibility="visible" />
 
         <EditText
@@ -1062,6 +1111,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal|center"
+            android:layout_marginTop="-100dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/graduate"
             android:gravity="center"
@@ -1110,6 +1160,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal|center"
+            android:layout_marginTop="-100dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/graduate"
             android:gravity="center"
