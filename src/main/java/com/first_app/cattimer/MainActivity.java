@@ -1226,7 +1226,7 @@ public class MainActivity extends AppCompatActivity {
                     if (autostartRestIsOn == true) {
                         if (vibration == true)
                             vibrator.vibrate(500);
-                        CurrentProgress = 99;
+                        CurrentProgressLongRest = 99;
                         LONG_REST_TIME_IN_MILLIS = nowTimeLongRest;
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
@@ -1241,23 +1241,22 @@ public class MainActivity extends AppCompatActivity {
                         if (vibration == true)
                             vibrator.vibrate(500);
                         CurrentProgress = 99;
-                        LONG_REST_TIME_IN_MILLIS = nowTimeLongRest;
-                        mRestButtonReset.setVisibility(View.INVISIBLE);
-                        mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
-                        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
-                        mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
+                        START_TIME_IN_MILLIS = nowTime;
+                        mButtonReset.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.VISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                        mRestLeftInMillis = REST_TIME_IN_MILLIS;
                         playRingtone();
-                        longRestUpdateCountDownText();
-                        longRestTimer();
-                        pauseTimerLongRest();
+                        restUpdateCountDownText();
+                        pauseTimer();
 
                     }
                 } else {
                     if (autostartRestIsOn == true) {
                         if (vibration == true)
                             vibrator.vibrate(500);
-                        CurrentProgress = 99;
-                        START_TIME_IN_MILLIS = nowTime;
+                        CurrentProgressRest = 99;
+                        REST_TIME_IN_MILLIS = nowTimeRest;
                         mButtonReset.setVisibility(View.INVISIBLE);
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonStartPause.setVisibility(View.INVISIBLE);
@@ -1322,7 +1321,7 @@ public class MainActivity extends AppCompatActivity {
                     if (vibration == true)
                         vibrator.vibrate(500);
                     CurrentProgress = 99;
-                    REST_TIME_IN_MILLIS = nowTimeRest;
+                    START_TIME_IN_MILLIS = nowTime;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -1337,7 +1336,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     if (vibration == true)
                         vibrator.vibrate(500);
-                    CurrentProgress = 99;
+                    CurrentProgressRest = 99;
                     REST_TIME_IN_MILLIS = nowTimeRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
@@ -1392,7 +1391,7 @@ public class MainActivity extends AppCompatActivity {
                     if (vibration == true)
                         vibrator.vibrate(500);
                     CurrentProgress = 99;
-                    LONG_REST_TIME_IN_MILLIS = nowTimeLongRest;
+                    START_TIME_IN_MILLIS = nowTime;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -1407,7 +1406,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     if (vibration == true)
                         vibrator.vibrate(500);
-                    CurrentProgress = 99;
+                    CurrentProgressLongRest = 99;
                     LONG_REST_TIME_IN_MILLIS = nowTimeLongRest;
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
