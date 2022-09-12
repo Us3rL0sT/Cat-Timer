@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.TransitionDrawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -105,6 +107,7 @@ public class Menu extends MainActivity {
     private Button button_whenstop_background;
     private Button button_sounds;
 
+
     private ImageView title;
     private ImageView autostart_done;
     private ImageView notification_done;
@@ -162,6 +165,7 @@ public class Menu extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -281,6 +285,7 @@ public class Menu extends MainActivity {
         long_rest_time.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
         when_stop.setText(String.valueOf(whenStopCount));
         until_end.setText(String.valueOf(untilEndCount));
+        button_sounds.setStateListAnimator(null);
 
 
 
@@ -302,8 +307,9 @@ public class Menu extends MainActivity {
         loadValueAutostartRest();
         loadValueNotification();
         loadMelody();
-        melody_text.setText(Melody);
-        Toast.makeText(this, "Melody: " + Melody, Toast.LENGTH_SHORT).show();
+
+
+
 
 
 
@@ -350,6 +356,7 @@ public class Menu extends MainActivity {
             @Override
             public void onClick(View view) {
                 pickRingtone();
+
 
             }
         });
@@ -985,6 +992,21 @@ public class Menu extends MainActivity {
         }.start();
     }
 
+    private void buttonSoundStop() {
+        new CountDownTimer(200, 1) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+
+                button_sounds.setBackgroundColor(Color.WHITE);
+            }
+
+        }.start();
+    }
+
     private void sendValue() {
         Intent a = new Intent(Menu.this, MainActivity.class);
         a.putExtra("WORK_PERIOD", START_TIME_IN_MILLIS);
@@ -1060,7 +1082,7 @@ public class Menu extends MainActivity {
     private void saveMelody() {
         prefmelody = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor edq = pref.edit();
-        edq.putString("melody_key", valueUri);
+        edq.putString("melody_key", Melody);
 
         edq.apply();
     }
@@ -1068,7 +1090,10 @@ public class Menu extends MainActivity {
     private void loadMelody() {
         prefmelody = getPreferences(MODE_PRIVATE);
         String savedTextMelody = pref.getString("melody_key", "");
-        valueUri = savedTextMelody;
+        Melody = savedTextMelody;
+        melody_text.setText(Melody);
+        if (Melody == "")
+            melody_text.setText("Выберите мелодию!");
     }
 
 
@@ -1186,7 +1211,15 @@ public class Menu extends MainActivity {
                     if (uri != null) {
                         currentRingtone = RingtoneManager.getRingtone(getApplicationContext(), uri);
                         Melody = currentRingtone.getTitle(this);
-                        melody_text.setText(Melody);
+                        if (Melody == ""){
+
+                            melody_text.setText("");
+                        }
+                        else
+                            melody_text.setText(Melody);
+
+
+
                     }
                 }
                 break;
