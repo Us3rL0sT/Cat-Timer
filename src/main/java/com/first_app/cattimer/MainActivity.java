@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     private int minutes;
     private int height_phone; // экрана
     private int width_phone; // также экрана
-    private int whenspace;
     private long START_TIME_IN_MILLIS = 1500 * 1000; // 1500 сек
     private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
     private long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
@@ -227,6 +226,9 @@ public class MainActivity extends AppCompatActivity {
         ((GifDrawable)cat_move.getDrawable()).stop();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (displayIsOn) getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            else {}
 
         onStart();
         addImage.setOnClickListener(new View.OnClickListener() {
@@ -851,101 +853,34 @@ public class MainActivity extends AppCompatActivity {
                 loadI();
                 loadDone();
                 for (int i = 0; i < whenStopCount; i++) {
-                    if (i == untilEndCount)
-                        f();
-                    else if (i == untilEndCount * 2)
-                        f();
-                    else if (i == untilEndCount * 3)
-                        f();
-                    else if (i == untilEndCount * 4)
-                        f();
-                    else if (i == untilEndCount * 5)
-                        f();
-                    else if (i == untilEndCount * 6)
-                        f();
-                    else if (i == untilEndCount * 7)
-                        f();
-                    else if (i == untilEndCount * 8)
-                        f();
-                    else if (i == untilEndCount * 9)
-                        f();
-                    else if (i == untilEndCount * 10)
-                        f();
-                    else if (i == untilEndCount * 11)
-                        f();
-                    else if (i == untilEndCount * 12)
-                        f();
-                    else if (i == untilEndCount * 13)
-                        f();
-                    else if (i == untilEndCount * 14)
-                        f();
-                    else if (i == untilEndCount * 15)
-                        f();
-                    else if (i == untilEndCount * 16)
-                        f();
-                    else if (i == untilEndCount * 17)
-                        f();
-                    else if (i == untilEndCount * 18)
-                        f();
-                    else if (i == untilEndCount * 19)
-                        f();
-                    else if (i == untilEndCount * 20)
-                        f();
-
-                    else {
-                        addStartCircles();
-                        countCircles += 1;
-                        countCircles();
+                    for (int j = 1; j < 21; j++) {
+                        if (i == untilEndCount * j) {
+                            f();
+                            break;
+                        }
+                        else {
+                            addStartCircles();
+                            countCircles += 1;
+                            countCircles();
+                            break;
+                        }
                     }
                 }
                 for (iDone = 0; iDone < done; iDone++) {
                     saveI();
-                    if (iDone == untilEndCount) {
-                        u();
-                    } else if (iDone == untilEndCount * 2) {
-                        u();
-                    } else if (iDone == untilEndCount * 3) {
-                        u();
-                    }else if (iDone == untilEndCount * 4) {
-                        u();
-                    }else if (iDone == untilEndCount * 5) {
-                        u();
-                    }else if (iDone == untilEndCount * 6) {
-                        u();
-                    }else if (iDone == untilEndCount * 7) {
-                        u();
-                    }else if (iDone == untilEndCount * 8) {
-                        u();
-                    }else if (iDone == untilEndCount * 9) {
-                        u();
-                    }else if (iDone == untilEndCount * 10) {
-                        u();
-                    }else if (iDone == untilEndCount * 11) {
-                        u();
-                    }else if (iDone == untilEndCount * 12) {
-                        u();
-                    }else if (iDone == untilEndCount * 13) {
-                        u();
-                    }else if (iDone == untilEndCount * 14) {
-                        u();
-                    }else if (iDone == untilEndCount * 15) {
-                        u();
-                    }else if (iDone == untilEndCount * 16) {
-                        u();
-                    }else if (iDone == untilEndCount * 17) {
-                        u();
-                    }else if (iDone == untilEndCount * 18) {
-                        u();
-                    }else if (iDone == untilEndCount * 19) {
-                        u();
-                    }else if (iDone == untilEndCount * 20) {
-                        u();
+                    for (int i = 1; i < 21; i++) {
+                        if (iDone == untilEndCount * i) {
+                            u();
+                            break;
+                        }
+                        else {
+                            replaceCircles();
+                            countCircles += 1;
+                            countCircles();
+                            break;
+                        }
                     }
-                    else {
-                        replaceCircles();
-                        countCircles += 1;
-                        countCircles();
-                    }
+
 
                 }
             }
@@ -956,110 +891,36 @@ public class MainActivity extends AppCompatActivity {
 
                 loadI();
                 loadDone();
-                for (int i = 0; i < whenStopCount; i++) {
-                    if (i == untilEndCount)
+            for (int i = 0; i < whenStopCount; i++) {
+                for (int j = 1; j < 21; j++) {
+                    if (i == untilEndCount * j) {
                         f();
-                    else if (i == untilEndCount * 2)
-                        f();
-                    else if (i == untilEndCount * 3)
-                        f();
-                    else if (i == untilEndCount * 4)
-                        f();
-                    else if (i == untilEndCount * 5)
-                        f();
-                    else if (i == untilEndCount * 6)
-                        f();
-                    else if (i == untilEndCount * 7)
-                        f();
-                    else if (i == untilEndCount * 8)
-                        f();
-                    else if (i == untilEndCount * 9)
-                        f();
-                    else if (i == untilEndCount * 10)
-                        f();
-                    else if (i == untilEndCount * 11)
-                        f();
-                    else if (i == untilEndCount * 12)
-                        f();
-                    else if (i == untilEndCount * 13)
-                        f();
-                    else if (i == untilEndCount * 14)
-                        f();
-                    else if (i == untilEndCount * 15)
-                        f();
-                    else if (i == untilEndCount * 16)
-                        f();
-                    else if (i == untilEndCount * 17)
-                        f();
-                    else if (i == untilEndCount * 18)
-                        f();
-                    else if (i == untilEndCount * 19)
-                        f();
-                    else if (i == untilEndCount * 20)
-                        f();
-
+                        break;
+                    }
                     else {
                         addStartCircles();
                         countCircles += 1;
                         countCircles();
+                        break;
                     }
                 }
-                for (iDone = 0; iDone < done; iDone++) {
-                    saveI();
-                    if (iDone == untilEndCount) {
+            }
+            for (iDone = 0; iDone < done; iDone++) {
+                saveI();
+                for (int i = 1; i < 21; i++) {
+                    if (iDone == untilEndCount * i) {
                         u();
-                    } else if (iDone == untilEndCount * 2) {
-                        u();
-                    } else if (iDone == untilEndCount * 3) {
-                        u();
-                    }else if (iDone == untilEndCount * 4) {
-                        u();
-                    }else if (iDone == untilEndCount * 5) {
-                        u();
-                    }else if (iDone == untilEndCount * 6) {
-                        u();
-                    }else if (iDone == untilEndCount * 7) {
-                        u();
-                    }else if (iDone == untilEndCount * 8) {
-                        u();
-                    }else if (iDone == untilEndCount * 9) {
-                        u();
-                    }else if (iDone == untilEndCount * 10) {
-                        u();
-                    }else if (iDone == untilEndCount * 11) {
-                        u();
-                    }else if (iDone == untilEndCount * 12) {
-                        u();
-                    }else if (iDone == untilEndCount * 13) {
-                        u();
-                    }else if (iDone == untilEndCount * 14) {
-                        u();
-                    }else if (iDone == untilEndCount * 15) {
-                        u();
-                    }else if (iDone == untilEndCount * 16) {
-                        u();
-                    }else if (iDone == untilEndCount * 17) {
-                        u();
-                    }else if (iDone == untilEndCount * 18) {
-                        u();
-                    }else if (iDone == untilEndCount * 19) {
-                        u();
-                    }else if (iDone == untilEndCount * 20) {
-                        u();
+                        break;
                     }
                     else {
                         replaceCircles();
                         countCircles += 1;
                         countCircles();
+                        break;
+                        }
                     }
+                }
             }
-
-
-
-
-
-
-        }
         collapse = true;
 
         }
@@ -1331,7 +1192,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if (autostartRestIsOn == true) {
+                if (autostartIsOn == true) {
                     if (vibration == true)
                         vibrator.vibrate(500);
                     CurrentProgress = 99;
@@ -1770,51 +1631,17 @@ public class MainActivity extends AppCompatActivity {
             done += 1;
 
             for (; iWell < done; iWell++) {
-                if (iWell == untilEndCount) {
-                    u();
-                } else if (iWell == untilEndCount * 2) {
-                    u();
-                } else if (iWell == untilEndCount * 3) {
-                    u();
-                }else if (iWell == untilEndCount * 4) {
-                    u();
-                }else if (iWell == untilEndCount * 5) {
-                    u();
-                }else if (iWell == untilEndCount * 6) {
-                    u();
-                }else if (iWell == untilEndCount * 7) {
-                    u();
-                }else if (iWell == untilEndCount * 8) {
-                    u();
-                }else if (iWell == untilEndCount * 9) {
-                    u();
-                }else if (iWell == untilEndCount * 10) {
-                    u();
-                }else if (iWell == untilEndCount * 11) {
-                    u();
-                }else if (iWell == untilEndCount * 12) {
-                    u();
-                }else if (iWell == untilEndCount * 13) {
-                    u();
-                }else if (iWell == untilEndCount * 14) {
-                    u();
-                }else if (iWell == untilEndCount * 15) {
-                    u();
-                }else if (iWell == untilEndCount * 16) {
-                    u();
-                }else if (iWell == untilEndCount * 17) {
-                    u();
-                }else if (iWell == untilEndCount * 18) {
-                    u();
-                }else if (iWell == untilEndCount * 19) {
-                    u();
-                }else if (iWell == untilEndCount * 20) {
-                    u();
-                }
-                else {
-                    replaceCircles();
-                    countCircles += 1;
-                    countCircles();
+                for (int i = 1; i < 21; i++) {
+                    if (iWell == untilEndCount * i) {
+                        u();
+                        break;
+                    }
+                    else {
+                        replaceCircles();
+                        countCircles += 1;
+                        countCircles();
+                        break;
+                    }
                 }
 
 
@@ -2117,6 +1944,7 @@ public class MainActivity extends AppCompatActivity {
         String savedTextLongRest = pref_display.getString("save_display", String.valueOf(displayIsOn));
         displayIsOn = Boolean.valueOf(savedTextLongRest);
     }
+
 
     private void saveMelody() {
         pref_melody = getPreferences(MODE_PRIVATE);

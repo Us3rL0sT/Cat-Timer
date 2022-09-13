@@ -63,6 +63,7 @@ public class Menu extends MainActivity {
     private SharedPreferences prefvibration;
     private SharedPreferences prefautostartrest;
     private SharedPreferences prefnotification;
+    private SharedPreferences prefdisplay;
     private SharedPreferences prefmelody;
     private SharedPreferences whenstop;
     private SharedPreferences untilend;
@@ -147,7 +148,7 @@ public class Menu extends MainActivity {
     private ScrollView SW;
 
     private boolean isBlockedScrollView;
-    private boolean autostartIsOn = true;
+    private boolean autostartIsOn = false;
     private boolean vibration = true;
     private boolean autostartrestIsON = true;
     private boolean notificationIsOn = true;
@@ -266,12 +267,12 @@ public class Menu extends MainActivity {
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
-        button_whenstop.getBackground().setAlpha(128);
-        button_until_end.getBackground().setAlpha(128);
-        button_work_time.getBackground().setAlpha(128);
-        button_rest_time.getBackground().setAlpha(128);
-        button_long_rest_time.getBackground().setAlpha(128);
-        button_color.getBackground().setAlpha(128);
+        button_whenstop.getBackground().setAlpha(255);
+        button_until_end.getBackground().setAlpha(255);
+        button_work_time.getBackground().setAlpha(255);
+        button_rest_time.getBackground().setAlpha(255);
+        button_long_rest_time.getBackground().setAlpha(255);
+        button_color.getBackground().setAlpha(255);
         title.setAlpha(0.5f);
         autostart_done.setAlpha(0.85f);
         vibration_done.setAlpha(0.85f);
@@ -517,6 +518,7 @@ public class Menu extends MainActivity {
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
                 button_color.getBackground().setAlpha(10);
+                button_work_time.getBackground().setAlpha(255);
             }
         });
 
@@ -570,6 +572,7 @@ public class Menu extends MainActivity {
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
                 button_color.getBackground().setAlpha(10);
+                button_rest_time.getBackground().setAlpha(255);
             }
         });
 
@@ -623,6 +626,7 @@ public class Menu extends MainActivity {
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
                 button_color.getBackground().setAlpha(10);
+                button_long_rest_time.getBackground().setAlpha(255);
             }
         });
 
@@ -691,9 +695,12 @@ public class Menu extends MainActivity {
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
                 button_color.setClickable(true);
-                button_whenstop.getBackground().setAlpha(128);
-                button_until_end.getBackground().setAlpha(128);
-                button_color.getBackground().setAlpha(128);
+                button_whenstop.getBackground().setAlpha(255);
+                button_until_end.getBackground().setAlpha(255);
+                button_color.getBackground().setAlpha(255);
+                button_work_time.getBackground().setAlpha(255);
+                button_rest_time.getBackground().setAlpha(255);
+                button_long_rest_time.getBackground().setAlpha(255);
                 until_end_action_name.setAlpha(1.0f);
                 when_stop_action_name.setAlpha(1.0f);
                 when_stop.setAlpha(1.0f);
@@ -883,6 +890,7 @@ public class Menu extends MainActivity {
                 button_display_done.setClickable(false);
                 button_display_notdone.setClickable(false);
                 displayAnimationFixDone();
+                Toast.makeText(Menu.this, "display " + displayIsOn, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -895,6 +903,7 @@ public class Menu extends MainActivity {
                 button_display_notdone.setClickable(false);
                 underline10.startAnimation(inAnimation);
                 displayAnimationFixNotDone();
+                Toast.makeText(Menu.this, "display " + displayIsOn, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -1101,6 +1110,13 @@ public class Menu extends MainActivity {
         prefautostart = getPreferences(MODE_PRIVATE);
         boolean savedTextAutostart = pref.getBoolean("autostart_key", false);
         autostartIsOn = savedTextAutostart;
+        if (autostartIsOn) {
+            underline1.setVisibility(View.VISIBLE);
+            underline2.setVisibility(View.INVISIBLE);
+        } else {
+            underline2.setVisibility(View.VISIBLE);
+            underline1.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void saveValueVibration() {
@@ -1113,8 +1129,15 @@ public class Menu extends MainActivity {
 
     private void loadValueVibration() {
         prefvibration = getPreferences(MODE_PRIVATE);
-        boolean savedTextVibration = pref.getBoolean("vibration_key", false);
+        boolean savedTextVibration = pref.getBoolean("vibration_key", true);
         vibration = savedTextVibration;
+        if (vibration) {
+            underline3.setVisibility(View.VISIBLE);
+            underline4.setVisibility(View.INVISIBLE);
+        } else {
+            underline4.setVisibility(View.VISIBLE);
+            underline3.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void saveValueAutostartRest() {
@@ -1127,8 +1150,15 @@ public class Menu extends MainActivity {
 
     private void loadValueAutostartRest() {
         prefautostartrest = getPreferences(MODE_PRIVATE);
-        boolean savedTextAutostartRest = pref.getBoolean("autostartrest_key", false);
+        boolean savedTextAutostartRest = pref.getBoolean("autostartrest_key", true);
         autostartrestIsON = savedTextAutostartRest;
+        if (autostartrestIsON) {
+            underline5.setVisibility(View.VISIBLE);
+            underline6.setVisibility(View.INVISIBLE);
+        } else {
+            underline6.setVisibility(View.VISIBLE);
+            underline5.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void saveValueNotification() {
@@ -1141,8 +1171,15 @@ public class Menu extends MainActivity {
 
     private void loadValueNotification() {
         prefnotification = getPreferences(MODE_PRIVATE);
-        boolean savedTextNotification = pref.getBoolean("notification_key", false);
+        boolean savedTextNotification = pref.getBoolean("notification_key", true);
         notificationIsOn = savedTextNotification;
+        if (notificationIsOn) {
+            underline7.setVisibility(View.VISIBLE);
+            underline8.setVisibility(View.INVISIBLE);
+        } else {
+            underline8.setVisibility(View.VISIBLE);
+            underline7.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void saveMelody() {
@@ -1163,7 +1200,7 @@ public class Menu extends MainActivity {
     }
 
     private void saveValueDisplay() {
-        prefnotification = getPreferences(MODE_PRIVATE);
+        prefdisplay = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor edq = pref.edit();
         edq.putBoolean("display_key", displayIsOn);
 
@@ -1171,9 +1208,18 @@ public class Menu extends MainActivity {
     }
 
     private void loadValueDisplay() {
-        prefnotification = getPreferences(MODE_PRIVATE);
-        boolean savedTextNotification = pref.getBoolean("display_key", false);
+        prefdisplay = getPreferences(MODE_PRIVATE);
+        boolean savedTextNotification = pref.getBoolean("display_key", true);
         displayIsOn = savedTextNotification;
+        Toast.makeText(this, "displayison + " + displayIsOn, Toast.LENGTH_SHORT).show();
+        if (displayIsOn) {
+
+            underline9.setVisibility(View.VISIBLE);
+            underline10.setVisibility(View.INVISIBLE);
+        } else {
+            underline10.setVisibility(View.VISIBLE);
+            underline9.setVisibility(View.INVISIBLE);
+        }
     }
 
 
