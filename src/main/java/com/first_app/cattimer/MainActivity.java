@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences save_exit;
     private SharedPreferences pref_vibration;
     private SharedPreferences pref_autostartrest;
+    private SharedPreferences pref_display;
     private SharedPreferences pref_melody;
 
     private float CurrentProgress = 99; // начинать с (-1)
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean first_start = true;
     private boolean vibration = true;
     private boolean autostartRestIsOn = true;
+    private boolean displayIsOn = true;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private long mRestLeftInMillis = REST_TIME_IN_MILLIS;
@@ -504,6 +506,17 @@ public class MainActivity extends AppCompatActivity {
             String returnLong = getIntent().getStringExtra("MELODY");
             Melody = returnLong;
             saveMelody();
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
+        Intent iCheckDisplay = getIntent();
+        if (iCheckDisplay != null) {
+
+            boolean returnLong = getIntent().getBooleanExtra("DISPLAYON", displayIsOn);
+            displayIsOn = returnLong;
+            saveValueDisplay();
 
         } else {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
@@ -1147,6 +1160,7 @@ public class MainActivity extends AppCompatActivity {
         loadValueVibration();
         loadValueAutostartRest();
         loadMelody();
+        loadValueDisplay();
 
 
 
@@ -2088,6 +2102,20 @@ public class MainActivity extends AppCompatActivity {
         pref_autostartrest = getPreferences(MODE_PRIVATE);
         String savedTextLongRest = pref_autostartrest.getString("save_autostartrest", String.valueOf(autostartRestIsOn));
         autostartRestIsOn = Boolean.valueOf(savedTextLongRest);
+    }
+
+    private void saveValueDisplay() {
+        pref_display = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = pref_display.edit();
+        edlongrest.putString("save_display", String.valueOf(displayIsOn));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueDisplay() {
+        pref_display = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = pref_display.getString("save_display", String.valueOf(displayIsOn));
+        displayIsOn = Boolean.valueOf(savedTextLongRest);
     }
 
     private void saveMelody() {
