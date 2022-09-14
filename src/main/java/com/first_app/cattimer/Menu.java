@@ -4,6 +4,7 @@ package com.first_app.cattimer;
 import static android.media.RingtoneManager.TYPE_RINGTONE;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -39,12 +40,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaredrummler.android.colorpicker.ColorPickerDialog;
+import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
+import com.jaredrummler.android.colorpicker.ColorShape;
+
 import java.io.File;
 
 import java.io.File;
 import java.net.URI;
 
-public class Menu extends MainActivity {
+
+
+public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     private long START_TIME_IN_MILLIS = 1500 * 1000;
     private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
@@ -52,6 +59,7 @@ public class Menu extends MainActivity {
 
     private int height_phone; // экрана
     private int width_phone; // также экрана
+    private static final int firstId = 1,secondId = 2;
 
     private short whenStopCount = 8;
     private short untilEndCount = 4;
@@ -144,6 +152,7 @@ public class Menu extends MainActivity {
     private View shade;
 
     private ConstraintLayout maximizedContainer;
+    private ConstraintLayout screen;
 
     private ScrollView SW;
 
@@ -165,7 +174,6 @@ public class Menu extends MainActivity {
     private Ringtone currentRingtone;
     private Uri uri;
     private String valueUri;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,10 +243,13 @@ public class Menu extends MainActivity {
 
         SW = findViewById(R.id.SW);
 
+
+
         title = findViewById(R.id.goBack);
 
         shade = findViewById(R.id.shade);
         maximizedContainer = findViewById(R.id.maximized_container);
+        screen = findViewById(R.id.screen);
 
         work_time = (findViewById(R.id.work_time));
         rest_time = (findViewById(R.id.rest_time));
@@ -299,8 +310,6 @@ public class Menu extends MainActivity {
         button_sounds.setStateListAnimator(null);
 
 
-
-
         work_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         long_rest_time_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -319,10 +328,6 @@ public class Menu extends MainActivity {
         loadValueNotification();
         loadMelody();
         loadValueDisplay();
-
-
-
-
 
 
         if (autostartIsOn == true) {
@@ -378,6 +383,13 @@ public class Menu extends MainActivity {
                 pickRingtone();
 
 
+            }
+        });
+
+        button_color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createColorPickerDialog(firstId);
             }
         });
 
@@ -518,7 +530,9 @@ public class Menu extends MainActivity {
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
                 button_color.getBackground().setAlpha(10);
-                button_work_time.getBackground().setAlpha(255);
+                button_work_time.getBackground().setAlpha(254);
+                button_rest_time.getBackground().setAlpha(254);
+                button_long_rest_time.getBackground().setAlpha(254);
             }
         });
 
@@ -572,7 +586,9 @@ public class Menu extends MainActivity {
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
                 button_color.getBackground().setAlpha(10);
-                button_rest_time.getBackground().setAlpha(255);
+                button_work_time.getBackground().setAlpha(254);
+                button_rest_time.getBackground().setAlpha(254);
+                button_long_rest_time.getBackground().setAlpha(254);
             }
         });
 
@@ -626,7 +642,9 @@ public class Menu extends MainActivity {
                 isBlockedScrollView = true;
                 SW.smoothScrollTo(0, 0);
                 button_color.getBackground().setAlpha(10);
-                button_long_rest_time.getBackground().setAlpha(255);
+                button_work_time.getBackground().setAlpha(254);
+                button_rest_time.getBackground().setAlpha(254);
+                button_long_rest_time.getBackground().setAlpha(254);
             }
         });
 
@@ -660,6 +678,9 @@ public class Menu extends MainActivity {
             @Override
             public void onClick(View view) {
                 hideKeyboard(Menu.this);
+                button_rest_time.getBackground().setAlpha(255);
+                button_long_rest_time.getBackground().setAlpha(255);
+                button_work_time.getBackground().setAlpha(255);
                 isBlockedScrollView = false;
                 shade.setVisibility(View.INVISIBLE);
                 work_time_invisible.setVisibility(View.INVISIBLE);
@@ -697,10 +718,10 @@ public class Menu extends MainActivity {
                 button_color.setClickable(true);
                 button_whenstop.getBackground().setAlpha(255);
                 button_until_end.getBackground().setAlpha(255);
+
                 button_color.getBackground().setAlpha(255);
-                button_work_time.getBackground().setAlpha(255);
-                button_rest_time.getBackground().setAlpha(255);
-                button_long_rest_time.getBackground().setAlpha(255);
+
+
                 until_end_action_name.setAlpha(1.0f);
                 when_stop_action_name.setAlpha(1.0f);
                 when_stop.setAlpha(1.0f);
@@ -890,7 +911,6 @@ public class Menu extends MainActivity {
                 button_display_done.setClickable(false);
                 button_display_notdone.setClickable(false);
                 displayAnimationFixDone();
-                Toast.makeText(Menu.this, "display " + displayIsOn, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -903,7 +923,6 @@ public class Menu extends MainActivity {
                 button_display_notdone.setClickable(false);
                 underline10.startAnimation(inAnimation);
                 displayAnimationFixNotDone();
-                Toast.makeText(Menu.this, "display " + displayIsOn, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -1197,6 +1216,8 @@ public class Menu extends MainActivity {
         melody_text.setText(Melody);
         if (Melody == "")
             melody_text.setText("Выберите мелодию!");
+
+        Toast.makeText(this, "Melody " + Melody, Toast.LENGTH_SHORT).show();
     }
 
     private void saveValueDisplay() {
@@ -1211,7 +1232,6 @@ public class Menu extends MainActivity {
         prefdisplay = getPreferences(MODE_PRIVATE);
         boolean savedTextNotification = pref.getBoolean("display_key", true);
         displayIsOn = savedTextNotification;
-        Toast.makeText(this, "displayison + " + displayIsOn, Toast.LENGTH_SHORT).show();
         if (displayIsOn) {
 
             underline9.setVisibility(View.VISIBLE);
@@ -1325,7 +1345,6 @@ public class Menu extends MainActivity {
         startActivityForResult(intent, 1);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -1351,5 +1370,60 @@ public class Menu extends MainActivity {
                 break;
         }
     }
+
+
+    @Override
+    public void onColorSelected(int dialogId, int color) {
+        Toast.makeText(this, "asdadasd", Toast.LENGTH_SHORT).show();
+        button_color.setBackgroundColor(color);
+        button_work_time.setBackgroundColor(color);
+        button_rest_time.setBackgroundColor(color);
+        button_long_rest_time.setBackgroundColor(color);
+        button_whenstop.setBackgroundColor(color);
+        button_until_end.setBackgroundColor(color);
+        button_work_time.setAlpha(0.3f);
+        button_rest_time.setAlpha(0.3f);
+        button_long_rest_time.setAlpha(0.3f);
+        button_whenstop.setAlpha(0.3f);
+        button_until_end.setAlpha(0.3f);
+
+    }
+
+    @Override
+    public void onDialogDismissed(int dialogId) {
+        Toast.makeText(this, "Dialog dismissed", Toast.LENGTH_SHORT).show();
+    }
+
+    private void createColorPickerDialog(int id) {
+        ColorPickerDialog.newBuilder()
+                .setColor(Color.RED)
+                .setDialogType(ColorPickerDialog.TYPE_PRESETS)
+                .setAllowCustom(true)
+                .setAllowPresets(true)
+                .setColorShape(ColorShape.SQUARE)
+                .setDialogId(id)
+                .show(this);
+// полный список атрибутов класса ColorPickerDialog смотрите ниже
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
