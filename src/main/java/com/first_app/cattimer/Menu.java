@@ -128,6 +128,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     private ImageView vibration_notdone;
     private ImageView autostartrest_notdone;
     private ImageView notification_notdone;
+    private ImageView display_done;
+    private ImageView display_notdone;
     private ImageView underline1;
     private ImageView underline2;
     private ImageView underline3;
@@ -194,29 +196,46 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
         nullAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_null);
         fastAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fast);
+        final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.anim_translate);
+        final Animation animTranslateToLeft = AnimationUtils.loadAnimation(this, R.anim.anim_translate_to_left);
+
 
         button_autostart_done = findViewById(R.id.button_autostart_done);
+        button_autostart_notdone = findViewById(R.id.button_autostart_notdone);
+
         button_vibration_done = findViewById(R.id.button_vibration_done);
+        button_vibration_notdone = findViewById(R.id.button_vibration_notdone);
+
         button_autostartrest_done = findViewById(R.id.button_autostartrest_done);
+        button_autostartrest_notdone = findViewById(R.id.button_autostartrest_notdone);
+
         button_notification_done = findViewById(R.id.button_notification_done);
+        button_notification_notdone = findViewById(R.id.button_notification_notdone);
+
         button_display_done = findViewById(R.id.button_display_done);
+        button_display_notdone = findViewById(R.id.button_display_notdone);
+
         button_whenstop_background = findViewById(R.id.button_whenstop_background);
         button_autostart_background = findViewById(R.id.button_autostart_background);
         button_vibration_background = findViewById(R.id.button_vibration_background);
         button_autostartrest_background = findViewById(R.id.button_autostartrest_background);
-        button_autostart_notdone = findViewById(R.id.button_autostart_notdone);
-        button_vibration_notdone = findViewById(R.id.button_vibration_notdone);
-        button_autostartrest_notdone = findViewById(R.id.button_autostartrest_notdone);
-        button_notification_notdone = findViewById(R.id.button_notification_notdone);
-        button_display_notdone = findViewById(R.id.button_display_notdone);
+
         autostart_done = findViewById(R.id.autostart_done);
-        notification_done = findViewById(R.id.notification_done);
-        vibration_done = findViewById(R.id.vibration_done);
-        autostartrest_done = findViewById(R.id.autostartrest_done);
         autostart_notdone = findViewById(R.id.autostart_notdone);
-        vibration_notdone = findViewById(R.id.vibration_notdone);
-        autostartrest_notdone = findViewById(R.id.autostartrest_notdone);
+
+        notification_done = findViewById(R.id.notification_done);
         notification_notdone = findViewById(R.id.notification_notdone);
+
+        vibration_done = findViewById(R.id.vibration_done);
+        vibration_notdone = findViewById(R.id.vibration_notdone);
+
+        autostartrest_done = findViewById(R.id.autostartrest_done);
+        autostartrest_notdone = findViewById(R.id.autostartrest_notdone);
+
+
+        display_done = findViewById(R.id.display_done);
+        display_notdone = findViewById(R.id.display_notdone);
+
         underline1 = findViewById(R.id.underline1);
         underline2 = findViewById(R.id.underline2);
         underline3 = findViewById(R.id.underline3);
@@ -786,6 +805,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_autostart_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslateToLeft);
+                autostart_done.startAnimation(animTranslateToLeft);
                 autostartIsOn = true;
                 underline1.startAnimation(inAnimation);
                 underline2.setVisibility(View.INVISIBLE);
@@ -798,6 +819,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_autostart_notdone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslate);
+                autostart_notdone.startAnimation(animTranslate);
                 autostartIsOn = false;
                 underline1.setVisibility(View.INVISIBLE);
                 button_autostart_done.setClickable(false);
@@ -811,6 +834,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_vibration_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslateToLeft);
+                vibration_done.startAnimation(animTranslateToLeft);
                 vibrator.vibrate(300);
                 vibration = true;
                 underline3.startAnimation(inAnimation);
@@ -824,6 +849,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_vibration_notdone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslate);
+                vibration_notdone.startAnimation(animTranslate);
                 vibration = false;
                 underline3.setVisibility(View.INVISIBLE);
                 button_vibration_done.setClickable(false);
@@ -837,6 +864,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_autostartrest_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslateToLeft);
+                autostartrest_done.startAnimation(animTranslateToLeft);
                 autostartrestIsON = true;
                 underline5.startAnimation(inAnimation);
                 underline6.setVisibility(View.INVISIBLE);
@@ -849,6 +878,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_autostartrest_notdone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslate);
+                autostartrest_notdone.startAnimation(animTranslate);
                 autostartrestIsON = false;
                 underline5.setVisibility(View.INVISIBLE);
                 button_autostartrest_done.setClickable(false);
@@ -862,6 +893,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_notification_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslateToLeft);
+                notification_done.startAnimation(animTranslateToLeft);
                 notificationIsOn = true;
                 underline7.startAnimation(inAnimation);
                 underline8.setVisibility(View.INVISIBLE);
@@ -883,6 +916,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_notification_notdone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslate);
+                notification_notdone.startAnimation(animTranslate);
                 notificationIsOn = false;
                 underline7.setVisibility(View.INVISIBLE);
                 button_notification_done.setClickable(false);
@@ -905,6 +940,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_display_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslateToLeft);
+                display_done.startAnimation(animTranslateToLeft);
                 displayIsOn = true;
                 underline9.startAnimation(inAnimation);
                 underline10.setVisibility(View.INVISIBLE);
@@ -917,6 +954,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_display_notdone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(animTranslate);
+                display_notdone.startAnimation(animTranslate);
                 displayIsOn = false;
                 underline9.setVisibility(View.INVISIBLE);
                 button_display_done.setClickable(false);
@@ -1217,7 +1256,6 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         if (Melody == "")
             melody_text.setText("Выберите мелодию!");
 
-        Toast.makeText(this, "Melody " + Melody, Toast.LENGTH_SHORT).show();
     }
 
     private void saveValueDisplay() {
@@ -1357,15 +1395,12 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                         currentRingtone = RingtoneManager.getRingtone(getApplicationContext(), uri);
                         Melody = currentRingtone.getTitle(this);
                         if (Melody == ""){
-
                             melody_text.setText("");
                         }
                         else
                             melody_text.setText(Melody);
-
-
-
                     }
+
                 }
                 break;
         }
@@ -1374,24 +1409,25 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     @Override
     public void onColorSelected(int dialogId, int color) {
-        Toast.makeText(this, "asdadasd", Toast.LENGTH_SHORT).show();
         button_color.setBackgroundColor(color);
         button_work_time.setBackgroundColor(color);
         button_rest_time.setBackgroundColor(color);
         button_long_rest_time.setBackgroundColor(color);
         button_whenstop.setBackgroundColor(color);
         button_until_end.setBackgroundColor(color);
+
         button_work_time.setAlpha(0.3f);
         button_rest_time.setAlpha(0.3f);
         button_long_rest_time.setAlpha(0.3f);
         button_whenstop.setAlpha(0.3f);
         button_until_end.setAlpha(0.3f);
 
+
     }
 
     @Override
     public void onDialogDismissed(int dialogId) {
-        Toast.makeText(this, "Dialog dismissed", Toast.LENGTH_SHORT).show();
+
     }
 
     private void createColorPickerDialog(int id) {
