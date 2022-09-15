@@ -257,7 +257,58 @@ public class MainActivity extends AppCompatActivity {
         button_check_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Start " + START_TIME_IN_MILLIS , Toast.LENGTH_SHORT).show();
+                done += 1;
+
+                for (; iWell < done; iWell++) {
+                    for (int i = 1; i < 21; i++) {
+                        if (iWell == untilEndCount * i) {
+                            u();
+                            break;
+                        }
+                        else {
+                            replaceCircles();
+                            countCircles += 1;
+                            countCircles();
+                            break;
+                        }
+                    }
+
+
+                }
+
+
+                if (done == whenStopCount) {
+
+                    pauseTimer();
+                    ((GifDrawable)cat_move.getDrawable()).stop();
+                    cat_question.setVisibility(View.VISIBLE);
+                    menu.setVisibility(View.VISIBLE);
+                    visibilityCatMove();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
+                    builder.setTitle("Конец");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            done = 0;
+                            Intent intent = getIntent();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            finish();
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            System.exit(0);
+                        }
+                    });
+                    builder.show();
+
+                }
             }
         });
 
@@ -507,7 +558,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     ((GifDrawable)cat_move.getDrawable()).start();
-                    CurrentProgress = (float) (CurrentProgress + (1.666666 / (nowTime / 1000 / 60)));
+                    CurrentProgress = (float) (CurrentProgress - (1.75 / (nowTime / 1000 / 60)));
                     startTimer();
 
 
@@ -541,7 +592,7 @@ public class MainActivity extends AppCompatActivity {
                     menu.startAnimation(nullAnimation);
 
                     ((GifDrawable)cat_sleep.getDrawable()).start();
-                    CurrentProgressRest = (float) (CurrentProgressRest + (1.666666 / (nowTimeRest / 1000 / 60)));
+                    CurrentProgressRest = (float) (CurrentProgressRest - (2.05 / (nowTimeRest / 1000 / 60)));
                     restTimer();
 
 
@@ -574,7 +625,7 @@ public class MainActivity extends AppCompatActivity {
                     cat_question.setVisibility(View.INVISIBLE);
 
                     ((GifDrawable)cat_sleep.getDrawable()).start();
-                    CurrentProgressLongRest = (float) (CurrentProgressLongRest + (1.666666 / (nowTimeLongRest / 1000 / 60)));
+                    CurrentProgressLongRest = (float) (CurrentProgressLongRest - (2.05 / (nowTimeLongRest / 1000 / 60)));
                     longRestTimer();
 
 
@@ -1009,18 +1060,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         onStart();
+        done -= 1;
+
+        Intent intent = getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        startActivity(intent);
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         collapse = true;
+
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         saveDone();
+
     }
 
     @Override
@@ -1220,7 +1281,7 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setProgress((int)CurrentProgressLongRest,true); // установка значения
                 if (LONG_REST_TIME_IN_MILLIS > 0) {
                     LONG_REST_TIME_IN_MILLIS -= 103;
-                    CurrentProgressLongRest = (float) (CurrentProgressLongRest - (2.05 / (nowTimeLongRest / 1000 / 60)));
+                    CurrentProgressLongRest = (float) (CurrentProgressLongRest - (1.9 / (nowTimeLongRest / 1000 / 60)));
                 }
                 longRestUpdateCountDownText();
                 current_action.setText("Долгий отдых");
