@@ -128,7 +128,7 @@
         android:layout_height="464dp"
         android:indeterminateDuration="100"
         android:indeterminateOnly="false"
-        android:max="100"
+        android:max="1000"
         android:progress="0"
         android:progressDrawable="@drawable/custom_progress"
         android:rotation="-90"
@@ -343,6 +343,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.682"
         tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/button_check_condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Button"
+        app:layout_constraintEnd_toStartOf="@+id/deleteImage"
+        app:layout_constraintStart_toEndOf="@+id/menu_icon"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

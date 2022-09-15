@@ -372,7 +372,6 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         loadMelody();
         loadValueDisplay();
         loadValueColor();
-        Toast.makeText(this, "COLOR " + color_value, Toast.LENGTH_SHORT).show();
         if (color_value != 123)
             onColorSelected(firstId, color_value);
 
@@ -581,7 +580,6 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_work_time.getBackground().setAlpha(254);
                 button_rest_time.getBackground().setAlpha(254);
                 button_long_rest_time.getBackground().setAlpha(254);
-                Toast.makeText(Menu.this, "AAAAA " + color_value, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -1473,7 +1471,6 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     @Override
     public void onColorSelected(int dialogId, int color) {
-        Toast.makeText(this, "CSADA " + color_value, Toast.LENGTH_SHORT).show();
         color_value = color;
         saveValueColor();
         button_color.setBackgroundColor(color);
