@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.content.ClipDescription;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,12 +22,15 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Message;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.se.omapi.Session;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -47,8 +51,9 @@ import com.jaredrummler.android.colorpicker.ColorShape;
 import java.io.File;
 
 import java.io.File;
+import java.net.PasswordAuthentication;
 import java.net.URI;
-
+import java.util.Properties;
 
 
 public class Menu extends MainActivity implements ColorPickerDialogListener {
@@ -121,6 +126,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     private Button button_display_background;
     private Button button_sounds;
     private Button button_how_to_use;
+    private Button button_rate_us;
+    private Button button_contact_us;
 
 
     private ImageView title;
@@ -225,6 +232,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_autostartrest_background = findViewById(R.id.button_autostartrest_background);
         button_display_background = findViewById(R.id.button_display_background);
         button_how_to_use = findViewById(R.id.button_how_to_use);
+        button_rate_us = findViewById(R.id.button_rate_us);
+        button_contact_us = findViewById(R.id.button_contact_us);
 
         autostart_done = findViewById(R.id.autostart_done);
         autostart_notdone = findViewById(R.id.autostart_notdone);
@@ -979,8 +988,16 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             }
         });
 
+        button_contact_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
 
     }
+    // ONCREATE
 
     private void autostartAnimationFixDone() {
         new CountDownTimer(1000, 1000) {
@@ -1450,12 +1467,20 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_long_rest_time.setBackgroundColor(color);
         button_whenstop.setBackgroundColor(color);
         button_until_end.setBackgroundColor(color);
+        button_how_to_use.setBackgroundColor(color);
+        button_rate_us.setBackgroundColor(color);
+        button_contact_us.setBackgroundColor(color);
+
 
         button_work_time.setAlpha(0.3f);
         button_rest_time.setAlpha(0.3f);
         button_long_rest_time.setAlpha(0.3f);
         button_whenstop.setAlpha(0.3f);
         button_until_end.setAlpha(0.3f);
+        button_how_to_use.setAlpha(0.3f);
+        button_rate_us.setAlpha(0.3f);
+        button_contact_us.setAlpha(0.3f);
+
 
 
     }
@@ -1477,6 +1502,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         saveValueColor();
 // полный список атрибутов класса ColorPickerDialog смотрите ниже
     }
+
 
 
 

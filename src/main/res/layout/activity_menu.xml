@@ -937,7 +937,7 @@
 
         <Button
             android:id="@+id/button_how_to_use"
-            android:layout_width="76dp"
+            android:layout_width="80dp"
             android:layout_height="102dp"
             android:layout_marginTop="20dp"
             android:background="#997A7A7A"
@@ -951,7 +951,7 @@
 
         <Button
             android:id="@+id/button_rate_us"
-            android:layout_width="76dp"
+            android:layout_width="80dp"
             android:layout_height="102dp"
             android:layout_marginTop="20dp"
             android:background="#997A7A7A"
@@ -964,7 +964,7 @@
 
         <Button
             android:id="@+id/button_contact_us"
-            android:layout_width="76dp"
+            android:layout_width="80dp"
             android:layout_height="102dp"
             android:layout_marginTop="20dp"
             android:background="#997A7A7A"
@@ -974,6 +974,101 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_sounds"
             app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/action4"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graduate"
+            android:text="Инструкция"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/button_how_to_use"
+            app:layout_constraintEnd_toEndOf="@+id/button_how_to_use"
+            app:layout_constraintStart_toStartOf="@+id/button_how_to_use"
+            app:layout_constraintTop_toTopOf="@+id/button_how_to_use"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <TextView
+            android:id="@+id/action5"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graduate"
+            android:text="Оцените нас"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/button_rate_us"
+            app:layout_constraintEnd_toEndOf="@+id/button_rate_us"
+            app:layout_constraintStart_toStartOf="@+id/button_rate_us"
+            app:layout_constraintTop_toTopOf="@+id/button_rate_us"
+            app:layout_constraintVertical_bias="0.9" />
+
+        <TextView
+            android:id="@+id/action6"
+            android:layout_width="80dp"
+            android:layout_height="38dp"
+            android:fontFamily="@font/graduate"
+            android:text="Связаться с нами"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/button_contact_us"
+            app:layout_constraintEnd_toEndOf="@+id/button_contact_us"
+            app:layout_constraintHorizontal_bias="0.588"
+            app:layout_constraintStart_toStartOf="@+id/button_contact_us"
+            app:layout_constraintTop_toTopOf="@+id/button_contact_us"
+            app:layout_constraintVertical_bias="0.98" />
+
+        <ImageView
+            android:id="@+id/how_to_use_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_how_to_use"
+            app:layout_constraintEnd_toEndOf="@+id/button_how_to_use"
+            app:layout_constraintStart_toStartOf="@+id/button_how_to_use"
+            app:layout_constraintTop_toTopOf="@+id/button_how_to_use"
+            app:layout_constraintVertical_bias="0.22000003"
+            app:srcCompat="@drawable/info"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/rate_us_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_rate_us"
+            app:layout_constraintEnd_toEndOf="@+id/button_rate_us"
+            app:layout_constraintStart_toStartOf="@+id/button_rate_us"
+            app:layout_constraintTop_toTopOf="@+id/button_rate_us"
+            app:layout_constraintVertical_bias="0.19999999"
+            app:srcCompat="@drawable/star"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/contact_us_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_contact_us"
+            app:layout_constraintEnd_toEndOf="@+id/button_contact_us"
+            app:layout_constraintStart_toStartOf="@+id/button_contact_us"
+            app:layout_constraintTop_toTopOf="@+id/button_contact_us"
+            app:layout_constraintVertical_bias="0.22000003"
+            app:srcCompat="@drawable/email"
+            tools:visibility="visible" />
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -996,7 +1091,7 @@
                 android:elevation="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
