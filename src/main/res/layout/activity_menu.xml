@@ -13,7 +13,7 @@
         android:id="@+id/screen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="400px"
+        android:layout_marginBottom="200dp"
         tools:context=".Menu">
 
 
@@ -21,7 +21,7 @@
             android:id="@+id/button_work_time"
             android:layout_width="76dp"
             android:layout_height="102dp"
-            android:layout_marginBottom="1100dp"
+            android:layout_marginTop="50dp"
             android:background="#997A7A7A"
             android:radius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,45 +29,45 @@
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_info"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button_rest_time"
             android:layout_width="76dp"
             android:layout_height="102dp"
-            android:layout_marginBottom="1100dp"
+            android:layout_marginTop="50dp"
             android:background="#997A7A7A"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_info"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button_long_rest_time"
             android:layout_width="76dp"
             android:layout_height="102dp"
-            android:layout_marginBottom="1100dp"
+            android:layout_marginTop="50dp"
             android:background="#997A7A7A"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_info"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button_color"
             android:layout_width="350dp"
             android:layout_height="200dp"
-            android:layout_marginBottom="800dp"
+            android:layout_marginTop="50dp"
             android:background="#997A7A7A"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_color"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <TextView
@@ -179,7 +179,8 @@
             android:id="@+id/text_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="1400dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="1700dp"
             android:fontFamily="@font/graduate"
             android:text="Длительность"
             android:textSize="18sp"
@@ -187,14 +188,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.119"
+            app:layout_constraintVertical_bias="0.0"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="1000dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/graduate"
             android:foregroundGravity="center_vertical|center|center_horizontal"
             android:text="Цвет темы"
@@ -203,7 +204,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_rest_time"
-            app:layout_constraintVertical_bias="0.119"
+            app:layout_constraintVertical_bias="0.0"
             tools:ignore="MissingConstraints" />
 
 
@@ -211,7 +212,6 @@
             android:id="@+id/text_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="800dp"
             android:fontFamily="@font/graduate"
             android:foregroundGravity="center|center_horizontal"
             android:text="Основные настройки"
@@ -220,14 +220,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_color"
-            app:layout_constraintVertical_bias="0.119"
+            app:layout_constraintVertical_bias="0.050000012"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/text_autoplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="800dp"
             android:fontFamily="@font/graduate"
             android:foregroundGravity="center_vertical|center|center_horizontal"
             android:text="Автостарт таймера"
@@ -236,14 +235,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_setting"
-            app:layout_constraintVertical_bias="0.119"
+            app:layout_constraintVertical_bias="0.029999971"
             tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/button_autostart_background"
             android:layout_width="300dp"
             android:layout_height="110dp"
-            android:layout_marginBottom="600dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
             android:gravity="center|center_horizontal"
@@ -251,7 +249,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_autoplay"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.029999971" />
 
 
         <Button
@@ -338,14 +336,14 @@
             android:id="@+id/button_whenstop_background"
             android:layout_width="300dp"
             android:layout_height="110dp"
-            android:layout_marginBottom="600dp"
             android:background="@android:color/transparent"
             android:foregroundGravity="center_horizontal"
             android:gravity="center|center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_autostart_background" />
+            app:layout_constraintTop_toBottomOf="@+id/button_autostart_background"
+            app:layout_constraintVertical_bias="0.04000002" />
 
         <Button
             android:id="@+id/button_whenstop"
@@ -451,6 +449,7 @@
             android:id="@+id/button_vibration_background"
             android:layout_width="300dp"
             android:layout_height="120dp"
+            android:layout_marginTop="25dp"
             android:layout_marginBottom="200dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
@@ -459,7 +458,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_whenstop_background"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button_vibration_done"
@@ -559,6 +558,7 @@
             android:id="@+id/button_autostartrest_background"
             android:layout_width="300dp"
             android:layout_height="120dp"
+            android:layout_marginTop="25dp"
             android:layout_marginBottom="75dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
@@ -567,7 +567,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_vibration_background"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <Button
@@ -667,7 +667,7 @@
             android:id="@+id/button_notification_background"
             android:layout_width="300dp"
             android:layout_height="120dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
             android:gravity="center|center_horizontal"
@@ -675,7 +675,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_autostartrest_background"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <Button
@@ -775,7 +775,7 @@
             android:id="@+id/button_display_background"
             android:layout_width="300dp"
             android:layout_height="120dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/autostart_background"
             android:foregroundGravity="center_horizontal"
             android:gravity="center|center_horizontal"
@@ -783,7 +783,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_notification_background"
-            app:layout_constraintVertical_bias="0.119" />
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <Button
@@ -934,6 +934,46 @@
             app:layout_constraintEnd_toEndOf="@+id/button_sounds"
             app:layout_constraintStart_toStartOf="@+id/button_sounds"
             app:layout_constraintTop_toTopOf="@+id/button_sounds" />
+
+        <Button
+            android:id="@+id/button_how_to_use"
+            android:layout_width="76dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="20dp"
+            android:background="#997A7A7A"
+            android:radius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_sounds"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/button_rate_us"
+            android:layout_width="76dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="20dp"
+            android:background="#997A7A7A"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_sounds"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/button_contact_us"
+            android:layout_width="76dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="20dp"
+            android:background="#997A7A7A"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_sounds"
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

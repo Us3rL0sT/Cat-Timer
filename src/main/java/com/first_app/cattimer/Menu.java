@@ -59,7 +59,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     private int height_phone; // экрана
     private int width_phone; // также экрана
-    private static final int firstId = 1,secondId = 2;
+    private int color_value;
+    private static final int firstId = 1;
 
     private short whenStopCount = 8;
     private short untilEndCount = 4;
@@ -75,6 +76,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     private SharedPreferences prefmelody;
     private SharedPreferences whenstop;
     private SharedPreferences untilend;
+    private SharedPreferences prefcolor;
 
     private TextView work_time;
     private TextView rest_time;
@@ -116,7 +118,9 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     private Button button_vibration_background;
     private Button button_autostartrest_background;
     private Button button_whenstop_background;
+    private Button button_display_background;
     private Button button_sounds;
+    private Button button_how_to_use;
 
 
     private ImageView title;
@@ -219,6 +223,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_autostart_background = findViewById(R.id.button_autostart_background);
         button_vibration_background = findViewById(R.id.button_vibration_background);
         button_autostartrest_background = findViewById(R.id.button_autostartrest_background);
+        button_display_background = findViewById(R.id.button_display_background);
+        button_how_to_use = findViewById(R.id.button_how_to_use);
 
         autostart_done = findViewById(R.id.autostart_done);
         autostart_notdone = findViewById(R.id.autostart_notdone);
@@ -303,6 +309,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_rest_time.getBackground().setAlpha(255);
         button_long_rest_time.getBackground().setAlpha(255);
         button_color.getBackground().setAlpha(255);
+        button_how_to_use.getBackground().setAlpha(255);
         title.setAlpha(0.5f);
         autostart_done.setAlpha(0.85f);
         vibration_done.setAlpha(0.85f);
@@ -347,6 +354,11 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         loadValueNotification();
         loadMelody();
         loadValueDisplay();
+        loadValueColor();
+        Toast.makeText(this, "COLOR " + color_value, Toast.LENGTH_SHORT).show();
+        if (color_value != 123)
+            onColorSelected(firstId, color_value);
+
 
 
         if (autostartIsOn == true) {
@@ -552,6 +564,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_work_time.getBackground().setAlpha(254);
                 button_rest_time.getBackground().setAlpha(254);
                 button_long_rest_time.getBackground().setAlpha(254);
+                Toast.makeText(Menu.this, "AAAAA " + color_value, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -796,6 +809,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 saveValueNotification();
                 saveMelody();
                 saveValueDisplay();
+                saveValueColor();
             }
         };
         title.setOnClickListener(goBack);
@@ -1280,10 +1294,24 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         }
     }
 
+    private void saveValueColor() {
+        prefcolor = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edq = pref.edit();
+        edq.putInt("color_key", color_value);
+
+        edq.apply();
+    }
+
+    private void loadValueColor() {
+        prefcolor = getPreferences(MODE_PRIVATE);
+        int savedTextNotification = prefcolor.getInt("color_key",  123);
+        color_value = savedTextNotification;
+    }
+
 
     private void saveValue() {
         pref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = pref.edit();
+        SharedPreferences.Editor ed = prefcolor.edit();
         ed.putString("save_key", String.valueOf((START_TIME_IN_MILLIS / 1000) / 60));
 
         ed.apply();
@@ -1364,6 +1392,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         until_end_invisible.setText(String.valueOf(savedTextLongRest));
     }
 
+
+
+
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         View f = activity.getCurrentFocus();
@@ -1409,6 +1441,9 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     @Override
     public void onColorSelected(int dialogId, int color) {
+        Toast.makeText(this, "CSADA " + color_value, Toast.LENGTH_SHORT).show();
+        color_value = color;
+        saveValueColor();
         button_color.setBackgroundColor(color);
         button_work_time.setBackgroundColor(color);
         button_rest_time.setBackgroundColor(color);
@@ -1439,6 +1474,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 .setColorShape(ColorShape.SQUARE)
                 .setDialogId(id)
                 .show(this);
+        saveValueColor();
 // полный список атрибутов класса ColorPickerDialog смотрите ниже
     }
 
