@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
     private Button mRestButtonReset;
     private Button mLongRestButtonReset;
     private Button edit_current_action;
-    private Button addImage;
 
 
     private CountDownTimer mCountDownTimer;
@@ -196,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
         mRestButtonReset = findViewById(R.id.button_rest_restart);
         mLongRestButtonReset = findViewById(R.id.button_long_rest_restart);
         edit_current_action = findViewById(R.id.edit_current_action);
-        addImage = findViewById(R.id.addImage);
         deleteImage = findViewById(R.id.deleteImage);
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
@@ -241,66 +239,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         onStart();
-        addImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                done += 1;
 
-                for (; iWell < done; iWell++) {
-                    if (iWell == untilEndCount) {
-                        u();
-                    } else if (iWell == untilEndCount * 2) {
-                        u();
-                    } else if (iWell == untilEndCount * 3) {
-                        u();
-                    }else if (iWell == untilEndCount * 4) {
-                        u();
-                    }else if (iWell == untilEndCount * 5) {
-                        u();
-                    }else if (iWell == untilEndCount * 6) {
-                        u();
-                    }else if (iWell == untilEndCount * 7) {
-                        u();
-                    }else if (iWell == untilEndCount * 8) {
-                        u();
-                    }else if (iWell == untilEndCount * 9) {
-                        u();
-                    }else if (iWell == untilEndCount * 10) {
-                        u();
-                    }else if (iWell == untilEndCount * 11) {
-                        u();
-                    }else if (iWell == untilEndCount * 12) {
-                        u();
-                    }else if (iWell == untilEndCount * 13) {
-                        u();
-                    }else if (iWell == untilEndCount * 14) {
-                        u();
-                    }else if (iWell == untilEndCount * 15) {
-                        u();
-                    }else if (iWell == untilEndCount * 16) {
-                        u();
-                    }else if (iWell == untilEndCount * 17) {
-                        u();
-                    }else if (iWell == untilEndCount * 18) {
-                        u();
-                    }else if (iWell == untilEndCount * 19) {
-                        u();
-                    }else if (iWell == untilEndCount * 20) {
-                        u();
-                    }
-                    else {
-                        replaceCircles();
-                        countCircles += 1;
-                        countCircles();
-                    }
-
-
-                }
-
-
-
-            }
-        });
 
         deleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -670,7 +609,7 @@ public class MainActivity extends AppCompatActivity {
                         arrows_rest.setVisibility(View.VISIBLE);
                         arrows_long_rest.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = nowTimeRest;
-                        CurrentProgress = 99;
+                        CurrentProgressRest = 99;
                         cat_pause.startAnimation(fastAnimation);
                         restUpdateCountDownText();
                     }
@@ -701,7 +640,7 @@ public class MainActivity extends AppCompatActivity {
                         arrows_rest.setVisibility(View.INVISIBLE);
                         arrows_long_rest.setVisibility(View.VISIBLE);
                         mLongRestLeftInMillis = nowTimeLongRest;
-                        CurrentProgress = 99;
+                        CurrentProgressLongRest = 99;
                         cat_pause.startAnimation(fastAnimation);
                         longRestUpdateCountDownText();
                     }
@@ -1519,19 +1458,6 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
-    private void visibilityOpenTheMenuText(){
-        new CountDownTimer(10000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                // You don't need to use this.
-            }
-
-            public void onFinish() {
-                openthemenu.setVisibility(View.INVISIBLE);
-            }
-
-        }.start();
-    }
 
     private void visibilityCatMove(){
         new CountDownTimer(1000, 1000) {

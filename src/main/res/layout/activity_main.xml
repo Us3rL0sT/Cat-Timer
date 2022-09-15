@@ -315,19 +315,6 @@
         app:layout_constraintTop_toTopOf="@+id/progressBar"
         app:layout_constraintVertical_bias="0.691"></LinearLayout>
 
-    <Button
-        android:id="@+id/addImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/cat_sleep"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/progressBar"
-        app:layout_constraintVertical_bias="0.0" />
-
     <ImageView
         android:id="@+id/deleteImage"
         android:layout_width="35dp"

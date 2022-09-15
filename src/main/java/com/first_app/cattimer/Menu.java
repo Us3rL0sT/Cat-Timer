@@ -351,6 +351,14 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         when_stop_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
         until_end_invisible.setInputType(InputType.TYPE_CLASS_NUMBER);
 
+        String debugInfo = "\nSystem-info:";
+        debugInfo += "\n OS Version: " + System.getProperty("os.version") + "(" + android.os.Build.VERSION.INCREMENTAL + ")";
+        debugInfo += "\n OS API Level: " + android.os.Build.VERSION.RELEASE + "(" + android.os.Build.VERSION.SDK_INT + ")";
+        debugInfo += "\n Device: " + android.os.Build.DEVICE;
+        debugInfo += "\n Model (and Product): " + android.os.Build.MODEL + " (" + android.os.Build.PRODUCT + ")";
+
+
+
 
         loadValue();
         loadValueRest();
@@ -461,7 +469,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
                 until_end.setAlpha(0.2f);
-                SW.smoothScrollTo(0, 1400);
+                SW.smoothScrollTo(0, 1700);
             }
         });
 
@@ -517,7 +525,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
                 until_end.setAlpha(0.2f);
-                SW.smoothScrollTo(0, 1400);
+                SW.smoothScrollTo(0, 1700);
             }
         });
 
@@ -988,10 +996,17 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             }
         });
 
+
+        String finalDebugInfo = debugInfo;
         button_contact_us.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType(ClipDescription.MIMETYPE_TEXT_PLAIN);
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mr.goldman.co@gmail.com"});
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT,"What do you want to report?");
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, finalDebugInfo);
+                startActivity(Intent.createChooser(intent,"Send Email"));
             }
         });
 
