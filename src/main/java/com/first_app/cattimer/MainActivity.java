@@ -14,6 +14,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private int minutes;
     private int height_phone; // экрана
     private int width_phone; // также экрана
+    private int color_value; // также экрана
     private long START_TIME_IN_MILLIS = (long) (1500 * 1000); // 1500 сек
     private long REST_TIME_IN_MILLIS = 300 * 1000; // 300 сек
     private long LONG_REST_TIME_IN_MILLIS = 900 * 1000; // 900 сек
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences pref_vibration;
     private SharedPreferences pref_autostartrest;
     private SharedPreferences pref_display;
+    private SharedPreferences pref_color;
     private SharedPreferences pref_melody;
 
     private float CurrentProgress = 100 * 10; // начинать с (-1)
@@ -168,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         nullAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_null);
         fastAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fast);
 
+
         progressBar = findViewById(R.id.progressBar);
 
         cat_move = (GifImageView) findViewById(R.id.cat_move);
@@ -224,6 +231,22 @@ public class MainActivity extends AppCompatActivity {
 
         deleteImage.setAlpha(0.7f);
         menu.setAlpha(0.8f);
+
+
+        progressBar.setBackgroundColor(color_value);
+
+        if (color_value == 0) {
+
+
+
+            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_not_white);
+
+            progressDrawable.setBounds(progressBar.getProgressDrawable().getBounds());
+
+            progressBar.setProgressDrawable(progressDrawable);
+        }
+
+
 
         ((GifDrawable)cat_move.getDrawable()).stop();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -561,6 +584,18 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
         }
 
+        Intent iCheckColor = getIntent();
+        if (iCheckColor != null) {
+
+            int returnLong = getIntent().getIntExtra("COLOR_VALUE", color_value);
+            color_value = returnLong;
+            Toast.makeText(this, "color " + color_value, Toast.LENGTH_SHORT).show();
+            saveValueColor();
+
+        } else {
+            Toast.makeText(MainActivity.this, "Intent is null", Toast.LENGTH_SHORT).show();
+        }
+
 
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
@@ -578,16 +613,35 @@ public class MainActivity extends AppCompatActivity {
                     visibilityNo();
                     pauseTimer();
                 } else {
-                    clickableAnimation();
-                    cat_move.startAnimation(fastAnimation);
-                    cat_sleep.setVisibility(View.INVISIBLE);
-                    menu.setVisibility(View.INVISIBLE);
-                    menu.startAnimation(nullAnimation);
+                    if (mButtonReset.getVisibility() == View.INVISIBLE) {
+                        clickableAnimation();
+                        cat_move.startAnimation(fastAnimation);
+                        cat_sleep.setVisibility(View.INVISIBLE);
+                        menu.setVisibility(View.INVISIBLE);
+                        menu.startAnimation(nullAnimation);
 
 
-                    ((GifDrawable)cat_move.getDrawable()).start();
+                        ((GifDrawable)cat_move.getDrawable()).start();
+                        CurrentProgress = 0;
+                        animationProgressBarStart();
 
-                    startTimer();
+                        startTimer();
+                    } else {
+                        clickableAnimation();
+                        cat_move.startAnimation(fastAnimation);
+                        cat_sleep.setVisibility(View.INVISIBLE);
+                        menu.setVisibility(View.INVISIBLE);
+                        menu.startAnimation(nullAnimation);
+
+                        if (nowTime < 120001)
+                        CurrentProgress += 17.3;
+                        START_TIME_IN_MILLIS -= 103;
+                        mTimeLeftInMillis += 1200;
+                        Toast.makeText(MainActivity.this, "Current " + nowTime, Toast.LENGTH_SHORT).show();
+                        ((GifDrawable)cat_move.getDrawable()).start();
+                        startTimer();
+                    }
+
 
 
                 }
@@ -613,17 +667,34 @@ public class MainActivity extends AppCompatActivity {
                     ((GifDrawable)cat_sleep.getDrawable()).stop();
                     pauseTimerRest();
                 } else {
-                    clickableAnimationRest();
-                    cat_sleep.startAnimation(fastAnimation);
-                    cat_question.setVisibility(View.INVISIBLE);
-                    menu.setVisibility(View.INVISIBLE);
-                    menu.startAnimation(nullAnimation);
+                    if (mRestButtonReset.getVisibility() == View.INVISIBLE) {
+                        clickableAnimationRest();
+                        cat_sleep.startAnimation(fastAnimation);
+                        cat_question.setVisibility(View.INVISIBLE);
+                        menu.setVisibility(View.INVISIBLE);
+                        menu.startAnimation(nullAnimation);
 
-                    ((GifDrawable)cat_sleep.getDrawable()).start();
+                        ((GifDrawable)cat_sleep.getDrawable()).start();
+                        CurrentProgressRest = 0;
+                        animationProgressBarStartRest();
+                        restTimer();
 
-                    restTimer();
 
+                    } else {
+                        clickableAnimationRest();
+                        cat_sleep.startAnimation(fastAnimation);
+                        cat_question.setVisibility(View.INVISIBLE);
+                        menu.setVisibility(View.INVISIBLE);
+                        menu.startAnimation(nullAnimation);
 
+                        if (nowTime < 120001)
+                            CurrentProgressRest += 17.3;
+                        REST_TIME_IN_MILLIS -= 103;
+                        mTimeLeftInMillis += 1200;
+                        Toast.makeText(MainActivity.this, "Current " + nowTime, Toast.LENGTH_SHORT).show();
+                        ((GifDrawable)cat_move.getDrawable()).start();
+                        restTimer();
+                    }
                 }
             }
         });
@@ -646,15 +717,37 @@ public class MainActivity extends AppCompatActivity {
                     ((GifDrawable)cat_sleep.getDrawable()).stop();
                     pauseTimerLongRest();
                 } else {
-                    clickableAnimationLongRest();
-                    menu.setVisibility(View.INVISIBLE);
-                    menu.startAnimation(nullAnimation);
-                    cat_sleep.startAnimation(fastAnimation);
-                    cat_question.setVisibility(View.INVISIBLE);
 
-                    ((GifDrawable)cat_sleep.getDrawable()).start();
 
-                    longRestTimer();
+
+                    if (mButtonReset.getVisibility() == View.INVISIBLE) {
+                        clickableAnimationLongRest();
+                        menu.setVisibility(View.INVISIBLE);
+                        menu.startAnimation(nullAnimation);
+                        cat_sleep.startAnimation(fastAnimation);
+                        cat_question.setVisibility(View.INVISIBLE);
+
+                        ((GifDrawable)cat_sleep.getDrawable()).start();
+                        CurrentProgressLongRest = 0;
+                        animationProgressBarStartLongRest();
+                        longRestTimer();
+
+
+                    } else {
+                        clickableAnimationLongRest();
+                        menu.setVisibility(View.INVISIBLE);
+                        menu.startAnimation(nullAnimation);
+                        cat_sleep.startAnimation(fastAnimation);
+                        cat_question.setVisibility(View.INVISIBLE);
+
+                        if (nowTimeLongRest < 120001)
+                            CurrentProgressLongRest += 17.3;
+                        LONG_REST_TIME_IN_MILLIS -= 103;
+                        mTimeLeftInMillis += 1200;
+                        Toast.makeText(MainActivity.this, "Current " + nowTime, Toast.LENGTH_SHORT).show();
+                        ((GifDrawable)cat_move.getDrawable()).start();
+                        longRestTimer();
+                    }
 
 
                 }
@@ -1062,6 +1155,8 @@ public class MainActivity extends AppCompatActivity {
         loadValueAutostartRest();
         loadMelody();
         loadValueDisplay();
+        loadValueColor();
+        mainConstraintLayout.setBackgroundColor(color_value);
 
 
 
@@ -1130,11 +1225,9 @@ public class MainActivity extends AppCompatActivity {
                 mTimeLeftInMillis = millisUntilFinished;
                 progressBar.setProgress((int)CurrentProgress, true); // установка значения
 
-                if (START_TIME_IN_MILLIS > 0) {
-                    START_TIME_IN_MILLIS -= 103;
-                    CurrentProgress = (float) (CurrentProgress - (1.725 / (nowTime / 1000 / 60)));
-                }
-                updateCountDownText();
+                waitForStart();
+
+
                 current_action.setText("Работа");
                 cat_sleep.setVisibility(View.INVISIBLE);
                 cat_move.setVisibility(View.VISIBLE);
@@ -1444,7 +1537,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void resetTimer() {
         clickableAnimationReset();
-        CurrentProgress = 100 * 10; // начинать с (-1)
+        CurrentProgress = 1000; // начинать с (-1)
         mTimeLeftInMillis = nowTime;
         START_TIME_IN_MILLIS = nowTime;
         updateCountDownText();
@@ -1456,7 +1549,6 @@ public class MainActivity extends AppCompatActivity {
         deleteImage.startAnimation(inAnimation);
         arrows.startAnimation(inAnimation);
         edit_current_action.setVisibility(View.VISIBLE);
-        progressBar.setProgress(0);
         menu.startAnimation(inAnimation);
         visibilityYes();
         ((GifDrawable)cat_fall.getDrawable()).reset();
@@ -1465,6 +1557,7 @@ public class MainActivity extends AppCompatActivity {
         arrows_rest.setVisibility(View.INVISIBLE);
         arrows_long_rest.setVisibility(View.INVISIBLE);
         cat_fall.startAnimation(fastAnimation);
+        animationProgressBarClose();
     }
 
     private void resetRestTimer() {
@@ -1491,6 +1584,7 @@ public class MainActivity extends AppCompatActivity {
         arrows_rest.setVisibility(View.VISIBLE);
         arrows_long_rest.setVisibility(View.INVISIBLE);
         cat_pause.startAnimation(fastAnimation);
+        animationProgressBarClose();
     }
 
     private void resetLongRestTimer() {
@@ -1517,6 +1611,7 @@ public class MainActivity extends AppCompatActivity {
         arrows_rest.setVisibility(View.INVISIBLE);
         arrows_long_rest.setVisibility(View.VISIBLE);
         cat_pause.startAnimation(fastAnimation);
+        animationProgressBarClose();
     }
 
     private void gifTimer() {
@@ -1720,7 +1815,7 @@ public class MainActivity extends AppCompatActivity {
     private void timerEnd() {
 
             done += 1;
-        Toast.makeText(this, "done " + done, Toast.LENGTH_SHORT).show();
+
 
             for (; iWell < done; iWell++) {
                 for (int i = 1; i < 21; i++) {
@@ -2020,6 +2115,20 @@ public class MainActivity extends AppCompatActivity {
         pref_display = getPreferences(MODE_PRIVATE);
         String savedTextLongRest = pref_display.getString("save_display", String.valueOf(displayIsOn));
         displayIsOn = Boolean.valueOf(savedTextLongRest);
+    }
+
+    private void saveValueColor() {
+        pref_color = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = pref_color.edit();
+        edlongrest.putString("save_color", String.valueOf(color_value));
+        edlongrest.apply();
+
+    }
+
+    private void loadValueColor() {
+        pref_color = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = pref_color.getString("save_color", String.valueOf(color_value));
+        color_value = Integer.valueOf(savedTextLongRest);
     }
 
 
@@ -3018,6 +3127,109 @@ public class MainActivity extends AppCompatActivity {
     private void playRingtone() {
         currentRingtone = RingtoneManager.getRingtone(getApplicationContext(), Uri.parse(Melody));
         currentRingtone.play();
+    }
+
+    private void animationProgressBarClose() {
+        mCountDownTimer = new CountDownTimer(1000, 1) {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onTick(long restMillisUntilFinished) {
+                for (int i = 0; CurrentProgress >= i;) {
+                    CurrentProgress -= 40;
+                    CurrentProgressRest -= 40;
+                    CurrentProgressLongRest -= 40;
+                    progressBar.setProgress((int) CurrentProgress);
+                    break;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                progressBar.setProgress(0);
+                CurrentProgress = 1000;
+                CurrentProgressRest = 1000;
+                CurrentProgressLongRest = 1000;
+
+            }
+        }.start();
+    }
+
+    private void animationProgressBarStart() {
+        mCountDownTimer = new CountDownTimer(1000, 1) {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onTick(long restMillisUntilFinished) {
+                for (int i = 1000; CurrentProgress <= i;) {
+                    CurrentProgress += 40;
+                    progressBar.setProgress((int) CurrentProgress);
+                    break;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                CurrentProgress = 1000;
+
+            }
+        }.start();
+    }
+
+    private void animationProgressBarStartRest() {
+        mCountDownTimer = new CountDownTimer(1500, 1) {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onTick(long restMillisUntilFinished) {
+                for (int i = 1000; CurrentProgressRest <= i;) {
+                    CurrentProgressRest += 40;
+                    progressBar.setProgress((int) CurrentProgressRest);
+                    break;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                CurrentProgressRest = 1000;
+
+            }
+        }.start();
+    }
+
+    private void animationProgressBarStartLongRest() {
+        mCountDownTimer = new CountDownTimer(1500, 1) {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onTick(long longRestMillisUntilFinished) {
+                for (int i = 0; CurrentProgressLongRest <= i;) {
+                    CurrentProgressLongRest += 40;
+                    progressBar.setProgress((int) CurrentProgressLongRest);
+                    break;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                CurrentProgressLongRest = 1000;
+
+            }
+        }.start();
+    }
+
+    private void waitForStart(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                if ((seconds > 0 && minutes == 0) || (minutes > 0 && seconds == 0) || (minutes > 0 && seconds > 0)) {
+                    START_TIME_IN_MILLIS -= 103;
+                    CurrentProgress = (float) (CurrentProgress - (1.725 / (nowTime / 1000 / 60)));
+                    updateCountDownText();
+                }
+            }
+
+        }.start();
     }
 
 

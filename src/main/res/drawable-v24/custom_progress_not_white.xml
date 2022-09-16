@@ -20,7 +20,7 @@
             android:thickness="24dp"
             android:useLevel="true">
 
-            <solid android:color="@color/white"/>
+            <solid android:color="@color/gray_button"/>
 
 
         </shape>

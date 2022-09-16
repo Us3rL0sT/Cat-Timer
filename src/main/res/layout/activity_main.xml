@@ -52,7 +52,7 @@
         android:layout_width="430dp"
         android:layout_height="339dp"
         android:layout_marginTop="60dp"
-        android:src="@drawable/cat_running"
+        android:src="@drawable/cat_run"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"

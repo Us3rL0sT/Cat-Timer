@@ -825,6 +825,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 saveMelody();
                 saveValueDisplay();
                 saveValueColor();
+
             }
         };
         title.setOnClickListener(goBack);
@@ -1196,6 +1197,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         a.putExtra("NOTIFICATIONCHOICE", notificationIsOn);
         a.putExtra("MELODY", valueUri);
         a.putExtra("DISPLAYON", displayIsOn);
+        a.putExtra("COLOR_VALUE", color_value);
         startActivity(a);
         this.finish();
     }
@@ -1473,15 +1475,16 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     public void onColorSelected(int dialogId, int color) {
         color_value = color;
         saveValueColor();
-        button_color.setBackgroundColor(color);
-        button_work_time.setBackgroundColor(color);
-        button_rest_time.setBackgroundColor(color);
-        button_long_rest_time.setBackgroundColor(color);
-        button_whenstop.setBackgroundColor(color);
-        button_until_end.setBackgroundColor(color);
-        button_how_to_use.setBackgroundColor(color);
-        button_rate_us.setBackgroundColor(color);
-        button_contact_us.setBackgroundColor(color);
+
+//        button_work_time.setBackgroundColor(color);
+//        button_rest_time.setBackgroundColor(color);
+//        button_long_rest_time.setBackgroundColor(color);
+//        button_whenstop.setBackgroundColor(color);
+//        button_until_end.setBackgroundColor(color);
+//        button_how_to_use.setBackgroundColor(color);
+//        button_rate_us.setBackgroundColor(color);
+//        button_contact_us.setBackgroundColor(color);
+        screen.setBackgroundColor(color);
 
 
         button_work_time.setAlpha(0.3f);
@@ -1495,6 +1498,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
 
 
+
     }
 
     @Override
@@ -1503,14 +1507,14 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     }
 
     private void createColorPickerDialog(int id) {
-        ColorPickerDialog.newBuilder()
-                .setColor(Color.RED)
-                .setDialogType(ColorPickerDialog.TYPE_PRESETS)
-                .setAllowCustom(true)
-                .setAllowPresets(true)
-                .setColorShape(ColorShape.SQUARE)
-                .setDialogId(id)
-                .show(this);
+        ColorPickerDialog.Builder builder = ColorPickerDialog.newBuilder();
+        builder.setColor(Color.RED);
+        builder.setDialogType(ColorPickerDialog.TYPE_PRESETS);
+        builder.setAllowCustom(true);
+        builder.setAllowPresets(true);
+        builder.setColorShape(ColorShape.CIRCLE);
+        builder.setDialogId(id);
+        builder.show(this);
         saveValueColor();
 // полный список атрибутов класса ColorPickerDialog смотрите ниже
     }
