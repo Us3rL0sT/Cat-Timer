@@ -428,10 +428,16 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             @Override
             public void onClick(View view) {
                 pickRingtone();
-
+                if (Melody == ""){
+                    melody_text.setText("");
+                }
+                else {
+                    melody_text.setText(Melody);
+                }
 
             }
         });
+
 
         button_color.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -462,8 +468,9 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_autostart_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
-                button_whenstop.getBackground().setAlpha(1);
-                button_until_end.getBackground().setAlpha(1);
+                button_whenstop.getBackground().setAlpha(125);
+
+                button_until_end.getBackground().setAlpha(125);
                 until_end_action_name.setAlpha(0.2f);
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
@@ -518,8 +525,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_autostartrest_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
-                button_until_end.getBackground().setAlpha(1);
-                button_whenstop.getBackground().setAlpha(1);
+
+
+                button_until_end.getBackground().setAlpha(125);
+                button_whenstop.getBackground().setAlpha(125);
                 until_end_action_name.setAlpha(0.2f);
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
@@ -725,9 +734,13 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             @Override
             public void onClick(View view) {
                 hideKeyboard(Menu.this);
+
+
+                button_whenstop.getBackground().setAlpha(255);
                 button_rest_time.getBackground().setAlpha(255);
                 button_long_rest_time.getBackground().setAlpha(255);
                 button_work_time.getBackground().setAlpha(255);
+                button_until_end.getBackground().setAlpha(255);
                 isBlockedScrollView = false;
                 shade.setVisibility(View.INVISIBLE);
                 work_time_invisible.setVisibility(View.INVISIBLE);
@@ -763,14 +776,14 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
                 button_color.setClickable(true);
-                button_whenstop.getBackground().setAlpha(255);
-                button_until_end.getBackground().setAlpha(255);
+
 
                 button_color.getBackground().setAlpha(255);
 
 
                 until_end_action_name.setAlpha(1.0f);
                 when_stop_action_name.setAlpha(1.0f);
+
                 when_stop.setAlpha(1.0f);
                 until_end.setAlpha(1.0f);
                 if (Long.valueOf(work_time_invisible.getText().toString()) < 100) {
@@ -825,6 +838,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 saveMelody();
                 saveValueDisplay();
                 saveValueColor();
+                overridePendingTransition(R.anim.go_back_out, R.anim.go_back_in);
 
             }
         };
@@ -1298,9 +1312,11 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         prefmelody = getPreferences(MODE_PRIVATE);
         String savedTextMelody = pref.getString("melody_key", "");
         Melody = savedTextMelody;
-        melody_text.setText(Melody);
+
         if (Melody == "")
             melody_text.setText("Выберите мелодию!");
+        else
+            melody_text.setText(Melody);
 
     }
 
@@ -1443,8 +1459,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Выбор мелодии");
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-
+        saveMelody();
         startActivityForResult(intent, 1);
+        saveMelody();
+
     }
 
     @Override
@@ -1454,15 +1472,22 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             case 1:
                 if(resultCode == RESULT_OK) {
                     uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                    saveMelody();
                     valueUri = uri.toString();
+                    saveMelody();
                     if (uri != null) {
                         currentRingtone = RingtoneManager.getRingtone(getApplicationContext(), uri);
+                        saveMelody();
                         Melody = currentRingtone.getTitle(this);
+                        saveMelody();
                         if (Melody == ""){
                             melody_text.setText("");
+                            Toast.makeText(this, "нет звука", Toast.LENGTH_SHORT).show();
                         }
-                        else
+                        else {
                             melody_text.setText(Melody);
+                            Toast.makeText(this, "звук " + Melody, Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 }
@@ -1476,14 +1501,6 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         color_value = color;
         saveValueColor();
 
-//        button_work_time.setBackgroundColor(color);
-//        button_rest_time.setBackgroundColor(color);
-//        button_long_rest_time.setBackgroundColor(color);
-//        button_whenstop.setBackgroundColor(color);
-//        button_until_end.setBackgroundColor(color);
-//        button_how_to_use.setBackgroundColor(color);
-//        button_rate_us.setBackgroundColor(color);
-//        button_contact_us.setBackgroundColor(color);
         screen.setBackgroundColor(color);
 
 

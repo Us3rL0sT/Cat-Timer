@@ -227,8 +227,8 @@ public class MainActivity extends AppCompatActivity {
 
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
-        deleteImage.setAlpha(0.7f);
-        menu.setAlpha(0.8f);
+        deleteImage.setAlpha(0.6f);
+        menu.setAlpha(0.6f);
 
 
         progressBar.setBackgroundColor(color_value);
@@ -296,9 +296,7 @@ public class MainActivity extends AppCompatActivity {
         button_check_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mButtonStartPauseLongRest.getVisibility() == View.VISIBLE) {
-                    Toast.makeText(MainActivity.this, "ВИДНО", Toast.LENGTH_SHORT).show();
-                }
+                playRingtone();
             }
         });
 
@@ -534,7 +532,6 @@ public class MainActivity extends AppCompatActivity {
 
             int returnLong = getIntent().getIntExtra("COLOR_VALUE", color_value);
             color_value = returnLong;
-            Toast.makeText(this, "color " + color_value, Toast.LENGTH_SHORT).show();
             saveValueColor();
 
         } else {
@@ -1543,7 +1540,7 @@ public class MainActivity extends AppCompatActivity {
         arrows.setVisibility(View.INVISIBLE);
         arrows_rest.setVisibility(View.VISIBLE);
         arrows_long_rest.setVisibility(View.INVISIBLE);
-        cat_pause.startAnimation(fastAnimation);
+        cat_pause.startAnimation(inAnimation);
         animationProgressBarClose();
     }
 
@@ -1572,7 +1569,7 @@ public class MainActivity extends AppCompatActivity {
         arrows.setVisibility(View.INVISIBLE);
         arrows_rest.setVisibility(View.INVISIBLE);
         arrows_long_rest.setVisibility(View.VISIBLE);
-        cat_pause.startAnimation(fastAnimation);
+        cat_pause.startAnimation(inAnimation);
         animationProgressBarClose();
     }
 
@@ -1874,6 +1871,7 @@ public class MainActivity extends AppCompatActivity {
         saveCheckAction();
         Intent intent = new Intent(MainActivity.this, Menu.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slidein, R.anim.slideout);
         this.finish();
     }
 
@@ -3087,7 +3085,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void playRingtone() {
-        currentRingtone = RingtoneManager.getRingtone(getApplicationContext(), Uri.parse(Melody));
+        loadMelody();
+        currentRingtone = RingtoneManager.getRingtone(MainActivity.this, Uri.parse(Melody));
         currentRingtone.play();
     }
 
