@@ -1,36 +1,24 @@
 package com.first_app.cattimer;
 
 
-import static android.media.RingtoneManager.TYPE_RINGTONE;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.content.ClipDescription;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.TransitionDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Message;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.provider.Settings;
-import android.se.omapi.Session;
 import android.text.InputType;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -48,13 +36,6 @@ import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 import com.jaredrummler.android.colorpicker.ColorShape;
 
-import java.io.File;
-
-import java.io.File;
-import java.net.PasswordAuthentication;
-import java.net.URI;
-import java.util.Properties;
-
 
 public class Menu extends MainActivity implements ColorPickerDialogListener {
 
@@ -65,6 +46,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     private int height_phone; // экрана
     private int width_phone; // также экрана
     private int color_value;
+    private ColorDrawable button_color_value_drawable;
+    private int button_color_value;
     private static final int firstId = 1;
 
     private short whenStopCount = 8;
@@ -312,8 +295,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
-        button_whenstop.getBackground().setAlpha(255);
-        button_until_end.getBackground().setAlpha(255);
+
+
         button_work_time.getBackground().setAlpha(255);
         button_rest_time.getBackground().setAlpha(255);
         button_long_rest_time.getBackground().setAlpha(255);
@@ -450,6 +433,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_whenstop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                button_whenstop_background.getBackground().setAlpha(1);
                 maximizedContainer.setVisibility(View.VISIBLE);
                 shade.setVisibility(View.VISIBLE);
                 when_stop_invisible.setVisibility(View.VISIBLE);
@@ -468,9 +452,14 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_autostart_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
-                button_whenstop.getBackground().setAlpha(125);
 
-                button_until_end.getBackground().setAlpha(125);
+
+
+                button_color_value_drawable = (ColorDrawable) button_whenstop.getBackground();
+                button_color_value = button_color_value_drawable.getColor();
+                button_whenstop.setBackgroundColor(0);
+                button_until_end.setBackgroundColor(0);
+
                 until_end_action_name.setAlpha(0.2f);
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
@@ -526,9 +515,12 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_whenstop_background.setClickable(false);
                 isBlockedScrollView = true;
 
+                button_color_value_drawable = (ColorDrawable) button_whenstop.getBackground();
+                button_color_value = button_color_value_drawable.getColor();
+                button_whenstop.setBackgroundColor(0);
+                button_until_end.setBackgroundColor(0);
 
-                button_until_end.getBackground().setAlpha(125);
-                button_whenstop.getBackground().setAlpha(125);
+                button_whenstop_background.getBackground().setAlpha(1);
                 until_end_action_name.setAlpha(0.2f);
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
@@ -736,11 +728,12 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 hideKeyboard(Menu.this);
 
 
-                button_whenstop.getBackground().setAlpha(255);
+                button_whenstop_background.getBackground().setAlpha(255);
+
                 button_rest_time.getBackground().setAlpha(255);
                 button_long_rest_time.getBackground().setAlpha(255);
                 button_work_time.getBackground().setAlpha(255);
-                button_until_end.getBackground().setAlpha(255);
+
                 isBlockedScrollView = false;
                 shade.setVisibility(View.INVISIBLE);
                 work_time_invisible.setVisibility(View.INVISIBLE);
@@ -778,6 +771,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_color.setClickable(true);
 
 
+                button_whenstop.setBackgroundColor(button_color_value);
+                button_until_end.setBackgroundColor(button_color_value);
                 button_color.getBackground().setAlpha(255);
 
 
