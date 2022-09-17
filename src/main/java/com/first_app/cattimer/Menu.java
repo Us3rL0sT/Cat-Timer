@@ -468,7 +468,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
                 until_end.setAlpha(0.2f);
-                SW.smoothScrollTo(0, 1700);
+                SW.smoothScrollTo(0, 1400);
             }
         });
 
@@ -524,7 +524,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
                 until_end.setAlpha(0.2f);
-                SW.smoothScrollTo(0, 1700);
+                SW.smoothScrollTo(0, 1400);
             }
         });
 

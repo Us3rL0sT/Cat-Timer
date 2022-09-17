@@ -329,21 +329,6 @@
         app:layout_constraintVertical_bias="0.319"
         app:srcCompat="@drawable/reload" />
 
-    <TextView
-        android:id="@+id/openthemenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="TextView"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/cat_move"
-        app:layout_constraintEnd_toStartOf="@+id/deleteImage"
-        app:layout_constraintHorizontal_bias="0.032"
-        app:layout_constraintStart_toEndOf="@+id/menu_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.682"
-        tools:visibility="visible" />
-
     <Button
         android:id="@+id/button_check_condition"
         android:layout_width="wrap_content"
@@ -351,17 +336,6 @@
         android:layout_marginTop="16dp"
         android:text="Button"
         app:layout_constraintEnd_toStartOf="@+id/deleteImage"
-        app:layout_constraintStart_toEndOf="@+id/menu_icon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_check_asd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Button"
-        app:layout_constraintEnd_toStartOf="@+id/deleteImage"
-        app:layout_constraintHorizontal_bias="0.963"
         app:layout_constraintStart_toEndOf="@+id/menu_icon"
         app:layout_constraintTop_toTopOf="parent" />
 

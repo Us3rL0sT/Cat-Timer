@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextViewCountDown;
     private TextView current_action;
-    private TextView openthemenu;
 
     private Button mButtonStartPause;
     private Button mButtonStartPauseRest;
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mLongRestButtonReset;
     private Button edit_current_action;
     private Button button_check_condition;
-    private Button button_check_asd;
+
 
 
     private CountDownTimer mCountDownTimer;
@@ -189,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
         mainConstraintLayout = findViewById(R.id.mainConstraintLayout);
 
         current_action = findViewById(R.id.current_action);
-        openthemenu = findViewById(R.id.openthemenu);
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
 
@@ -205,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         edit_current_action = findViewById(R.id.edit_current_action);
         deleteImage = findViewById(R.id.deleteImage);
         button_check_condition = findViewById(R.id.button_check_condition);
-        button_check_asd = findViewById(R.id.button_check_asd);
+
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
@@ -271,100 +269,42 @@ public class MainActivity extends AppCompatActivity {
         deleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                done = 0;
-                Intent intent = getIntent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                finish();
-                startActivity(intent);
-            }
-        });
-
-        button_check_asd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                done += 1;
-
-
-                for (; iWell < done; iWell++) {
-                    for (int i = 1; i < 21; i++) {
-                        if (iWell == untilEndCount * i) {
-                            u();
-                            break;
-                        }
-                        else {
-                            replaceCircles();
-                            countCircles += 1;
-                            countCircles();
-                            break;
-                        }
-                    }
-                    break;
-
+                if (cat_fall.getVisibility() == View.VISIBLE) {
+                    done = 0;
+                    Intent intent = getIntent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    finish();
+                    startActivity(intent);
+                    cat_sleep.setVisibility(View.INVISIBLE);
+                    cat_fall.setVisibility(View.VISIBLE);
 
                 }
+                else {
+                    done = 0;
+                    Intent intent = getIntent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    finish();
+                    startActivity(intent);
+                }
+
+
             }
         });
+
+
 
         button_check_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                done += 1;
-
-                for (; iWell < done; iWell++) {
-                    for (int i = 1; i < 21; i++) {
-                        if (iWell == untilEndCount * i) {
-                            u();
-                            break;
-                        }
-                        else {
-                            replaceCircles();
-                            countCircles += 1;
-                            countCircles();
-                            break;
-                        }
-                    }
-
-
-                }
-
-
-                if (done == whenStopCount) {
-
-                    pauseTimer();
-                    ((GifDrawable)cat_move.getDrawable()).stop();
-                    cat_question.setVisibility(View.VISIBLE);
-                    menu.setVisibility(View.VISIBLE);
-                    visibilityCatMove();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
-                    builder.setTitle("Конец");
-                    builder.setCancelable(false);
-                    builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                            done = 0;
-                            Intent intent = getIntent();
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            finish();
-                            startActivity(intent);
-                        }
-                    });
-                    builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                            System.exit(0);
-                        }
-                    });
-                    builder.show();
-
+                if (mButtonStartPauseLongRest.getVisibility() == View.VISIBLE) {
+                    Toast.makeText(MainActivity.this, "ВИДНО", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
     if (checkAction == 1) {
             mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+            mButtonStartPauseRest.setVisibility(View.INVISIBLE);
             mButtonStartPause.setVisibility(View.VISIBLE);
             mLongRestButtonReset.setVisibility(View.INVISIBLE);
             cat_move.setVisibility(View.INVISIBLE);
@@ -380,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (checkAction == 2) {
             mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+            mButtonStartPauseRest.setVisibility(View.INVISIBLE);
             mButtonStartPause.setVisibility(View.VISIBLE);
             mLongRestButtonReset.setVisibility(View.INVISIBLE);
             mButtonReset.setVisibility(View.VISIBLE);
@@ -396,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (checkAction == 3) {
             mButtonStartPause.setVisibility(View.INVISIBLE);
+            mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
             mButtonStartPauseRest.setVisibility(View.VISIBLE);
             mButtonReset.setVisibility(View.INVISIBLE);
             cat_move.setVisibility(View.INVISIBLE);
@@ -410,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
             restUpdateCountDownText();
         } else if (checkAction == 4) {
             mButtonStartPause.setVisibility(View.INVISIBLE);
+            mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
             mButtonStartPauseRest.setVisibility(View.VISIBLE);
             mButtonReset.setVisibility(View.INVISIBLE);
             mRestButtonReset.setVisibility(View.VISIBLE);
@@ -425,6 +368,7 @@ public class MainActivity extends AppCompatActivity {
             restUpdateCountDownText();
         }
         else if (checkAction == 5) {
+            mButtonStartPause.setVisibility(View.INVISIBLE);
             mButtonStartPauseRest.setVisibility(View.INVISIBLE);
             mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
             mRestButtonReset.setVisibility(View.INVISIBLE);
@@ -437,6 +381,7 @@ public class MainActivity extends AppCompatActivity {
             updateCountDownText();
         }
         else if (checkAction == 6) {
+            mButtonStartPause.setVisibility(View.INVISIBLE);
             mButtonStartPauseRest.setVisibility(View.INVISIBLE);
             mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
             mRestButtonReset.setVisibility(View.INVISIBLE);
@@ -633,11 +578,14 @@ public class MainActivity extends AppCompatActivity {
                         menu.setVisibility(View.INVISIBLE);
                         menu.startAnimation(nullAnimation);
 
-                        if (nowTime < 120001)
-                        CurrentProgress += 17.3;
+                        if (nowTime < 120001) {
+                            CurrentProgress += 17.3;
+
+                        }
                         START_TIME_IN_MILLIS -= 103;
-                        mTimeLeftInMillis += 1200;
-                        Toast.makeText(MainActivity.this, "Current " + nowTime, Toast.LENGTH_SHORT).show();
+                        mTimeLeftInMillis += 894;
+
+
                         ((GifDrawable)cat_move.getDrawable()).start();
                         startTimer();
                     }
@@ -687,11 +635,11 @@ public class MainActivity extends AppCompatActivity {
                         menu.setVisibility(View.INVISIBLE);
                         menu.startAnimation(nullAnimation);
 
-                        if (nowTime < 120001)
+                        if (nowTimeRest < 120001)
                             CurrentProgressRest += 17.3;
                         REST_TIME_IN_MILLIS -= 103;
-                        mTimeLeftInMillis += 1200;
-                        Toast.makeText(MainActivity.this, "Current " + nowTime, Toast.LENGTH_SHORT).show();
+                        mRestLeftInMillis += 1200;
+
                         ((GifDrawable)cat_move.getDrawable()).start();
                         restTimer();
                     }
@@ -720,7 +668,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                    if (mButtonReset.getVisibility() == View.INVISIBLE) {
+                    if (mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationLongRest();
                         menu.setVisibility(View.INVISIBLE);
                         menu.startAnimation(nullAnimation);
@@ -743,8 +691,8 @@ public class MainActivity extends AppCompatActivity {
                         if (nowTimeLongRest < 120001)
                             CurrentProgressLongRest += 17.3;
                         LONG_REST_TIME_IN_MILLIS -= 103;
-                        mTimeLeftInMillis += 1200;
-                        Toast.makeText(MainActivity.this, "Current " + nowTime, Toast.LENGTH_SHORT).show();
+                        mLongRestLeftInMillis += 1200;
+                        Toast.makeText(MainActivity.this, "Current " + CurrentProgressLongRest, Toast.LENGTH_SHORT).show();
                         ((GifDrawable)cat_move.getDrawable()).start();
                         longRestTimer();
                     }
@@ -762,6 +710,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPause.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonReset.setVisibility(View.INVISIBLE);
                         cat_move.setVisibility(View.INVISIBLE);
@@ -780,6 +729,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mButtonReset.getVisibility() == View.VISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPause.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonReset.setVisibility(View.INVISIBLE);
                         mRestButtonReset.setVisibility(View.VISIBLE);
@@ -801,6 +751,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mRestButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPause.setVisibility(View.INVISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         current_action.setText("Долгий отдых");
@@ -815,6 +766,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mRestButtonReset.getVisibility() == View.VISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPause.setVisibility(View.INVISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         mLongRestButtonReset.setVisibility(View.VISIBLE);
@@ -832,6 +784,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                         mButtonStartPause.setVisibility(View.VISIBLE);
                         mLongRestButtonReset.setVisibility(View.INVISIBLE);
                         cat_move.setVisibility(View.INVISIBLE);
@@ -850,6 +803,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mLongRestButtonReset.getVisibility() == View.VISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                         mButtonStartPause.setVisibility(View.VISIBLE);
                         mLongRestButtonReset.setVisibility(View.INVISIBLE);
                         mButtonReset.setVisibility(View.VISIBLE);
@@ -1251,6 +1205,7 @@ public class MainActivity extends AppCompatActivity {
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPause.setVisibility(View.INVISIBLE);
                         mLongRestLeftInMillis = LONG_REST_TIME_IN_MILLIS;
                         playRingtone();
                         longRestUpdateCountDownText();
@@ -1270,6 +1225,7 @@ public class MainActivity extends AppCompatActivity {
                         mButtonReset.setVisibility(View.INVISIBLE);
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                        mButtonStartPause.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = REST_TIME_IN_MILLIS;
                         playRingtone();
                         restUpdateCountDownText();
@@ -1290,6 +1246,7 @@ public class MainActivity extends AppCompatActivity {
                         mButtonReset.setVisibility(View.INVISIBLE);
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonStartPause.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = REST_TIME_IN_MILLIS;
                         playRingtone();
                         restUpdateCountDownText();
@@ -1307,6 +1264,7 @@ public class MainActivity extends AppCompatActivity {
                         mButtonReset.setVisibility(View.INVISIBLE);
                         mButtonStartPauseRest.setVisibility(View.VISIBLE);
                         mButtonStartPause.setVisibility(View.INVISIBLE);
+                        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
                         mRestLeftInMillis = REST_TIME_IN_MILLIS;
                         playRingtone();
                         restUpdateCountDownText();
@@ -1334,10 +1292,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTick(long restMillisUntilFinished) {
                 mRestLeftInMillis = restMillisUntilFinished;
                 progressBar.setProgress((int)CurrentProgressRest,true);
-                if (REST_TIME_IN_MILLIS > 0) {
-                    REST_TIME_IN_MILLIS -= 103;
-                    CurrentProgressRest = (float) (CurrentProgressRest - (2.05 / (nowTimeRest / 1000 / 60)));
-                }
+                waitForStartRest();
                 restUpdateCountDownText();
                 current_action.setText("Отдых");
                 cat_question.startAnimation(nullAnimation);
@@ -1365,6 +1320,7 @@ public class MainActivity extends AppCompatActivity {
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                     cat_sleep.setVisibility(View.INVISIBLE);
                     cat_move.setVisibility(View.VISIBLE);
                     mTimeLeftInMillis = nowTime;
@@ -1385,6 +1341,7 @@ public class MainActivity extends AppCompatActivity {
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                     cat_sleep.setVisibility(View.INVISIBLE);
                     cat_move.setVisibility(View.VISIBLE);
                     mTimeLeftInMillis = nowTime;
@@ -1413,10 +1370,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTick(long longRestMillisUntilFinished) {
                 mLongRestLeftInMillis = longRestMillisUntilFinished;
                 progressBar.setProgress((int)CurrentProgressLongRest,true); // установка значения
-                if (LONG_REST_TIME_IN_MILLIS > 0) {
-                    LONG_REST_TIME_IN_MILLIS -= 103;
-                    CurrentProgressLongRest = (float) (CurrentProgressLongRest - (1.9 / (nowTimeLongRest / 1000 / 60)));
-                }
+                waitForStartLongRest();
                 longRestUpdateCountDownText();
                 current_action.setText("Долгий отдых");
                 cat_sleep.setVisibility(View.VISIBLE);
@@ -1443,6 +1397,7 @@ public class MainActivity extends AppCompatActivity {
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                     cat_sleep.setVisibility(View.INVISIBLE);
                     cat_move.setVisibility(View.VISIBLE);
                     mTimeLeftInMillis = nowTime;
@@ -1463,6 +1418,7 @@ public class MainActivity extends AppCompatActivity {
                     mLongRestButtonReset.setVisibility(View.INVISIBLE);
                     mButtonStartPause.setVisibility(View.VISIBLE);
                     mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
+                    mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                     cat_sleep.setVisibility(View.INVISIBLE);
                     cat_move.setVisibility(View.VISIBLE);
                     mTimeLeftInMillis = nowTime;
@@ -1546,6 +1502,8 @@ public class MainActivity extends AppCompatActivity {
         cat_fall.setVisibility(View.VISIBLE);
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
+        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
         deleteImage.startAnimation(inAnimation);
         arrows.startAnimation(inAnimation);
         edit_current_action.setVisibility(View.VISIBLE);
@@ -1572,6 +1530,8 @@ public class MainActivity extends AppCompatActivity {
         cat_pause.setAnimation(fastAnimation);
         mRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseRest.setVisibility(View.VISIBLE);
+        mButtonStartPause.setVisibility(View.INVISIBLE);
+        mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
         deleteImage.startAnimation(inAnimation);
         arrows_rest.startAnimation(inAnimation);
         menu.startAnimation(inAnimation);
@@ -1599,6 +1559,8 @@ public class MainActivity extends AppCompatActivity {
         cat_pause.setAnimation(fastAnimation);
         mLongRestButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
+        mButtonStartPauseRest.setVisibility(View.INVISIBLE);
+        mButtonStartPause.setVisibility(View.INVISIBLE);
         deleteImage.startAnimation(inAnimation);
         arrows_long_rest.startAnimation(inAnimation);
         menu.startAnimation(inAnimation);
@@ -3130,7 +3092,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animationProgressBarClose() {
-        mCountDownTimer = new CountDownTimer(1000, 1) {
+        mCountDownTimer = new CountDownTimer(1500, 1) {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onTick(long restMillisUntilFinished) {
@@ -3199,7 +3161,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onTick(long longRestMillisUntilFinished) {
-                for (int i = 0; CurrentProgressLongRest <= i;) {
+                for (int i = 1000; CurrentProgressLongRest <= i;) {
                     CurrentProgressLongRest += 40;
                     progressBar.setProgress((int) CurrentProgressLongRest);
                     break;
@@ -3224,8 +3186,44 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 if ((seconds > 0 && minutes == 0) || (minutes > 0 && seconds == 0) || (minutes > 0 && seconds > 0)) {
                     START_TIME_IN_MILLIS -= 103;
-                    CurrentProgress = (float) (CurrentProgress - (1.725 / (nowTime / 1000 / 60)));
+                    CurrentProgress = (float) (CurrentProgress - (1.79 / (nowTime / 1000 / 60)));
                     updateCountDownText();
+                }
+            }
+
+        }.start();
+    }
+
+    private void waitForStartRest(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                if ((seconds > 0 && minutes == 0) || (minutes > 0 && seconds == 0) || (minutes > 0 && seconds > 0)) {
+                    REST_TIME_IN_MILLIS -= 103;
+                    CurrentProgressRest = (float) (CurrentProgressRest - (2.1 / (nowTimeRest / 1000 / 60)));
+                    restUpdateCountDownText();
+                }
+            }
+
+        }.start();
+    }
+
+    private void waitForStartLongRest(){
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // You don't need to use this.
+            }
+
+            public void onFinish() {
+                if ((seconds > 0 && minutes == 0) || (minutes > 0 && seconds == 0) || (minutes > 0 && seconds > 0)) {
+                    LONG_REST_TIME_IN_MILLIS -= 103;
+                    CurrentProgressLongRest = (float) (CurrentProgressLongRest - (1.79 / (nowTimeLongRest / 1000 / 60))); // 1.9
+                    longRestUpdateCountDownText();
                 }
             }
 
