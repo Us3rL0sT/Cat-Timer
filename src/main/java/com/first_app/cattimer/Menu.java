@@ -111,6 +111,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     private Button button_how_to_use;
     private Button button_rate_us;
     private Button button_contact_us;
+    private Button button_check_cond;
 
 
     private ImageView title;
@@ -208,6 +209,9 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
         button_display_done = findViewById(R.id.button_display_done);
         button_display_notdone = findViewById(R.id.button_display_notdone);
+
+        button_check_cond = findViewById(R.id.button_check_cond);
+
 
         button_whenstop_background = findViewById(R.id.button_whenstop_background);
         button_autostart_background = findViewById(R.id.button_autostart_background);
@@ -406,6 +410,14 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         long_rest_time_invisible.setText(String.valueOf((LONG_REST_TIME_IN_MILLIS / 1000) / 60));
         when_stop_invisible.setText(String.valueOf(whenStopCount));
         until_end_invisible.setText(String.valueOf(untilEndCount));
+
+        button_check_cond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Menu.this, "qazwsx " + Melody, Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         button_sounds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1297,7 +1309,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     private void saveMelody() {
         prefmelody = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edq = pref.edit();
+        SharedPreferences.Editor edq = prefmelody.edit();
         edq.putString("melody_key", Melody);
 
         edq.apply();
@@ -1305,7 +1317,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     private void loadMelody() {
         prefmelody = getPreferences(MODE_PRIVATE);
-        String savedTextMelody = pref.getString("melody_key", "");
+        String savedTextMelody = prefmelody.getString("melody_key", "");
         Melody = savedTextMelody;
 
         if (Melody == "")

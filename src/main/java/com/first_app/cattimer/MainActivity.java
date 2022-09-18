@@ -25,6 +25,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences pref_display;
     private SharedPreferences pref_color;
     private SharedPreferences pref_melody;
+    private SharedPreferences pref_ringtone;
 
     private float CurrentProgress = 100 * 10; // начинать с (-1)
     private float CurrentProgressRest = 100 * 10; // начинать с (-1)
@@ -139,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     private GifImageView cat_question;
     private GifImageView cat_pause;
 
-    private String Melody;
+    private String valueUri;
 
     private ImageView arrows;
     private ImageView arrows_rest;
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Vibrator vibrator;
 
-    Ringtone currentRingtone;
+//    Ringtone currentRingtone;
 
 
 
@@ -296,7 +298,8 @@ public class MainActivity extends AppCompatActivity {
         button_check_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playRingtone();
+                loadMelody();
+                Toast.makeText(MainActivity.this, "melody " + valueUri, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -508,8 +511,8 @@ public class MainActivity extends AppCompatActivity {
         Intent iCheckMelody = getIntent();
         if (iCheckMelody != null) {
 
-            String returnLong = getIntent().getStringExtra("MELODY");
-            Melody = returnLong;
+            valueUri = getIntent().getStringExtra("MELODY");
+            Toast.makeText(this, "NOW "  + valueUri, Toast.LENGTH_SHORT).show();
             saveMelody();
 
         } else {
@@ -689,7 +692,6 @@ public class MainActivity extends AppCompatActivity {
                             CurrentProgressLongRest += 17.3;
                         LONG_REST_TIME_IN_MILLIS -= 103;
                         mLongRestLeftInMillis += 1200;
-                        Toast.makeText(MainActivity.this, "Current " + CurrentProgressLongRest, Toast.LENGTH_SHORT).show();
                         ((GifDrawable)cat_move.getDrawable()).start();
                         longRestTimer();
                     }
@@ -825,11 +827,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               isExit = true;
-               saveExit();
-               saveI();
-               sendValue();
-               onPause();
+                isExit = true;
+                saveMelody();
+                saveExit();
+                saveI();
+                sendValue();
+                onPause();
+
 
 
 
@@ -964,8 +968,6 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         }
                     }
-
-
                 }
             }
         }
@@ -1005,6 +1007,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+        loadMelody();
         collapse = true;
 
         }
@@ -1035,8 +1038,6 @@ public class MainActivity extends AppCompatActivity {
                                 countCircles();
                             }
                         }
-
-
                     }
                     for (iDone = 0; iDone < done; iDone++) {
                         saveI();
@@ -1050,7 +1051,6 @@ public class MainActivity extends AppCompatActivity {
                                 countCircles();
                             }
                         }
-
                     }
                 }
             }
@@ -1084,17 +1084,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-
-
-
-
-
-
             }
             collapse = true;
             first_start = false;
-
-
         }
 
 
@@ -2093,18 +2085,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void saveMelody() {
-        pref_melody = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edlongrest = pref_melody.edit();
-        edlongrest.putString("save_melody", String.valueOf(Melody));
-        edlongrest.apply();
+        final SharedPreferences prefs = MainActivity.this.getSharedPreferences("PREFERENCE_NAME",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("save_melody", valueUri);
+        editor.apply();
 
     }
 
     private void loadMelody() {
-        pref_melody = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = pref_melody.getString("save_melody", String.valueOf(Melody));
-        Melody = String.valueOf(savedTextLongRest);
+        pref_color = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = pref_color.getString("save_melody", valueUri);
+        valueUri = savedTextLongRest;
     }
+
+
 
 
 
@@ -3085,9 +3080,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void playRingtone() {
-        loadMelody();
-        currentRingtone = RingtoneManager.getRingtone(MainActivity.this, Uri.parse(Melody));
-        currentRingtone.play();
+//        loadMelody();
+////        currentRingtone = RingtoneManager.getRingtone(MainActivity.this, Uri.parse(Melody));
+//        Uri currentRingtone = Uri.parse(valueUri);
+//        MediaPlayer mp = MediaPlayer.create(MainActivity.this, currentRingtone);
+//        mp.start();
+
+//        new CountDownTimer(3000, 1000) {
+//
+//            public void onTick(long millisUntilFinished) {
+//                // You don't need to use this.
+//            }
+//
+//            public void onFinish() {
+//                currentRingtone.stop();
+//            }
+//
+//        }.start();
     }
 
     private void animationProgressBarClose() {

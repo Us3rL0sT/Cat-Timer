@@ -16,6 +16,20 @@
         android:layout_marginBottom="200dp"
         tools:context=".Menu">
 
+        <Button
+            android:id="@+id/button_check_cond"
+            android:layout_width="76dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="50dp"
+            android:background="#997A7A7A"
+            android:radius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_work_time"
+            app:layout_constraintVertical_bias="0.0" />
+
 
         <Button
             android:id="@+id/button_work_time"
