@@ -28,6 +28,11 @@ android {
     lint {
         baseline = file("lint-baseline.xml")
     }
+    lintOptions {
+
+        checkReleaseBuilds false
+
+    }
 }
 
 dependencies {

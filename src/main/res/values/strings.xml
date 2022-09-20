@@ -7,6 +7,7 @@
     <string name="theme_color">Цвет темы</string>
     <string name="main_settings">Основные настройки</string>
     <string name="autostart_timer">Автостарт таймера</string>
+    <string name="autostart_rest">Автостарт отдыха</string>
     <string name="whenstop">Работ до длинного перерыва</string>
     <string name="until_end">Ежедневная цель</string>
     <string name="vibration">Вибрация</string>

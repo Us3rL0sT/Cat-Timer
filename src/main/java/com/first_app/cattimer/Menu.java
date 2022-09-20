@@ -439,6 +439,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 when_stop_invisible.setVisibility(View.VISIBLE);
                 plus_whenstop.setVisibility(View.VISIBLE);
                 minus_whenstop.setVisibility(View.VISIBLE);
+                whenstop_text.setText(R.string.whenstop);
                 whenstop_text.setVisibility(View.VISIBLE);
                 button_whenstop.setClickable(false);
                 button_until_end.setClickable(false);
@@ -502,6 +503,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 until_end_invisible.setVisibility(View.VISIBLE);
                 plus_until_end.setVisibility(View.VISIBLE);
                 minus_until_end.setVisibility(View.VISIBLE);
+                whenstop_text.setText(R.string.until_end);
                 untilend_text.setVisibility(View.VISIBLE);
                 button_until_end.setClickable(false);
                 button_whenstop.setClickable(false);
@@ -559,6 +561,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             @Override
             public void onClick(View view) {
                 maximizedContainer.setVisibility(View.VISIBLE);
+                work_time_invisible.startAnimation(fastAnimation);
+                plus.startAnimation(fastAnimation);
+                minus.startAnimation(fastAnimation);
+                work_time_text.startAnimation(fastAnimation);
                 work_time_invisible.setVisibility(View.VISIBLE);
                 shade.setVisibility(View.VISIBLE);
                 rest_time_invisible.setVisibility(View.INVISIBLE);
@@ -616,6 +622,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             @Override
             public void onClick(View view) {
                 maximizedContainer.setVisibility(View.VISIBLE);
+                rest_time_invisible.startAnimation(fastAnimation);
+                plus_rest.startAnimation(fastAnimation);
+                minus_rest.startAnimation(fastAnimation);
+                rest_time_text.startAnimation(fastAnimation);
                 rest_time_invisible.setVisibility(View.VISIBLE);
                 shade.setVisibility(View.VISIBLE);
                 work_time_invisible.setVisibility(View.INVISIBLE);
@@ -673,6 +683,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             @Override
             public void onClick(View view) {
                 maximizedContainer.setVisibility(View.VISIBLE);
+                long_rest_time_invisible.startAnimation(fastAnimation);
+                plus_long_rest.startAnimation(fastAnimation);
+                minus_long_rest.startAnimation(fastAnimation);
+                long_rest_time_text.startAnimation(fastAnimation);
                 long_rest_time_invisible.setVisibility(View.VISIBLE);
                 work_time_invisible.setVisibility(View.INVISIBLE);
                 rest_time_invisible.setVisibility(View.INVISIBLE);

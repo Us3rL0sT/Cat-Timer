@@ -7,6 +7,7 @@
     <string name="theme_color">Color theme</string>
     <string name="main_settings">Main settings</string>
     <string name="autostart_timer">Auto-start timer</string>
+    <string name="autostart_rest">Auto-start rest</string>
     <string name="whenstop">Works before a long break</string>
     <string name="until_end">Daily goal</string>
     <string name="vibration">Vibration</string>

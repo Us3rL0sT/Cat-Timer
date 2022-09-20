@@ -199,7 +199,7 @@
         android:layout_width="164dp"
         android:layout_height="36dp"
         android:fontFamily="@font/graduate"
-        android:text="Работа"
+        android:text="@string/work"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
