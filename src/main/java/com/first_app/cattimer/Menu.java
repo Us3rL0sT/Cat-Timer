@@ -111,7 +111,6 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
     private Button button_how_to_use;
     private Button button_rate_us;
     private Button button_contact_us;
-    private Button button_check_cond;
 
 
     private ImageView title;
@@ -209,9 +208,6 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
         button_display_done = findViewById(R.id.button_display_done);
         button_display_notdone = findViewById(R.id.button_display_notdone);
-
-        button_check_cond = findViewById(R.id.button_check_cond);
-
 
         button_whenstop_background = findViewById(R.id.button_whenstop_background);
         button_autostart_background = findViewById(R.id.button_autostart_background);
@@ -411,14 +407,6 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         when_stop_invisible.setText(String.valueOf(whenStopCount));
         until_end_invisible.setText(String.valueOf(untilEndCount));
 
-        button_check_cond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(Menu.this, "qazwsx " + Melody, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
         button_sounds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -469,7 +457,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
                 button_color_value_drawable = (ColorDrawable) button_whenstop.getBackground();
                 button_color_value = button_color_value_drawable.getColor();
-                button_whenstop.setBackgroundColor(0);
+
                 button_until_end.setBackgroundColor(0);
 
                 until_end_action_name.setAlpha(0.2f);
@@ -577,6 +565,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
                 plus.setVisibility(View.VISIBLE);
                 minus.setVisibility(View.VISIBLE);
+                work_time_text.setText(R.string.work);
                 work_time_text.setVisibility(View.VISIBLE);
                 button_autostart_background.setClickable(false);
                 button_vibration_background.setClickable(false);
@@ -633,6 +622,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 long_rest_time_invisible.setVisibility(View.INVISIBLE);
                 plus_rest.setVisibility(View.VISIBLE);
                 minus_rest.setVisibility(View.VISIBLE);
+                rest_time_text.setText(R.string.rest);
                 rest_time_text.setVisibility(View.VISIBLE);
                 button_autostart_background.setClickable(false);
                 button_vibration_background.setClickable(false);
@@ -689,6 +679,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 shade.setVisibility(View.VISIBLE);
                 plus_long_rest.setVisibility(View.VISIBLE);
                 minus_long_rest.setVisibility(View.VISIBLE);
+                long_rest_time_text.setText(R.string.longrest);
                 long_rest_time_text.setVisibility(View.VISIBLE);
                 button_autostart_background.setClickable(false);
                 button_vibration_background.setClickable(false);
@@ -783,8 +774,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_color.setClickable(true);
 
 
-                button_whenstop.setBackgroundColor(button_color_value);
-                button_until_end.setBackgroundColor(button_color_value);
+                button_whenstop_background.getBackground().setAlpha(255);
                 button_color.getBackground().setAlpha(255);
 
 
@@ -1309,7 +1299,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     private void saveMelody() {
         prefmelody = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor edq = prefmelody.edit();
+        SharedPreferences.Editor edq = pref.edit();
         edq.putString("melody_key", Melody);
 
         edq.apply();
@@ -1317,7 +1307,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     private void loadMelody() {
         prefmelody = getPreferences(MODE_PRIVATE);
-        String savedTextMelody = prefmelody.getString("melody_key", "");
+        String savedTextMelody = pref.getString("melody_key", "");
         Melody = savedTextMelody;
 
         if (Melody == "")

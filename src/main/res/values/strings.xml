@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Cat Timer</string>
+    <string name="work">Работа</string>
+    <string name="rest">Отдых</string>
+    <string name="longrest">Долгий отдых</string>
+    <string name="duration">Длительность</string>
+    <string name="theme_color">Цвет темы</string>
+    <string name="main_settings">Основные настройки</string>
+    <string name="autostart_timer">Автостарт таймера</string>
+    <string name="whenstop">Работ до длинного перерыва</string>
+    <string name="until_end">Ежедневная цель</string>
+    <string name="vibration">Вибрация</string>
+    <string name="notification">Уведомления</string>
+    <string name="display">Не отключать экран</string>
+    <string name="melody">Мелодия</string>
+    <string name="instruction">Инструкция</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="contact_us">Связаться с нами</string>
+    <string name="timer_end">Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?</string>
+    <string name="yes">Да</string>
+    <string name="no">Отмена</string>
+
+
 </resources>

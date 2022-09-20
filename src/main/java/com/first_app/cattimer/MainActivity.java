@@ -25,7 +25,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
-import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences pref_display;
     private SharedPreferences pref_color;
     private SharedPreferences pref_melody;
-    private SharedPreferences pref_ringtone;
 
     private float CurrentProgress = 100 * 10; // начинать с (-1)
     private float CurrentProgressRest = 100 * 10; // начинать с (-1)
@@ -141,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     private GifImageView cat_question;
     private GifImageView cat_pause;
 
-    private String valueUri;
+    private String Melody;
 
     private ImageView arrows;
     private ImageView arrows_rest;
@@ -159,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Vibrator vibrator;
 
-//    Ringtone currentRingtone;
+    Ringtone currentRingtone;
 
 
 
@@ -298,8 +296,7 @@ public class MainActivity extends AppCompatActivity {
         button_check_condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadMelody();
-                Toast.makeText(MainActivity.this, "melody " + valueUri, Toast.LENGTH_SHORT).show();
+                playRingtone();
             }
         });
 
@@ -312,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
             cat_sleep.setVisibility(View.VISIBLE);
             cat_question.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.INVISIBLE);
-            current_action.setText("Работа");
+            current_action.setText(R.string.work);
             arrows.setVisibility(View.VISIBLE);
             arrows_rest.setVisibility(View.INVISIBLE);
             arrows_long_rest.setVisibility(View.INVISIBLE);
@@ -328,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
             cat_sleep.setVisibility(View.VISIBLE);
             cat_question.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.INVISIBLE);
-            current_action.setText("Работа");
+            current_action.setText(R.string.work);
             arrows.setVisibility(View.VISIBLE);
             arrows_rest.setVisibility(View.INVISIBLE);
             arrows_long_rest.setVisibility(View.INVISIBLE);
@@ -345,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
             cat_pause.setVisibility(View.VISIBLE);
             cat_fall.setVisibility(View.INVISIBLE);
             cat_sleep.setVisibility(View.INVISIBLE);
-            current_action.setText("Отдых");
+            current_action.setText(R.string.rest);
             arrows.setVisibility(View.INVISIBLE);
             arrows_rest.setVisibility(View.VISIBLE);
             arrows_long_rest.setVisibility(View.INVISIBLE);
@@ -360,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
             cat_sleep.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.VISIBLE);
             cat_fall.setVisibility(View.INVISIBLE);
-            current_action.setText("Отдых");
+            current_action.setText(R.string.rest);
             arrows.setVisibility(View.INVISIBLE);
             arrows_rest.setVisibility(View.VISIBLE);
             arrows_long_rest.setVisibility(View.INVISIBLE);
@@ -373,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
             mButtonStartPauseRest.setVisibility(View.INVISIBLE);
             mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
             mRestButtonReset.setVisibility(View.INVISIBLE);
-            current_action.setText("Долгий отдых");
+            current_action.setText(R.string.longrest);
             arrows.setVisibility(View.INVISIBLE);
             arrows_rest.setVisibility(View.INVISIBLE);
             arrows_long_rest.setVisibility(View.VISIBLE);
@@ -387,7 +384,7 @@ public class MainActivity extends AppCompatActivity {
             mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
             mRestButtonReset.setVisibility(View.INVISIBLE);
             mLongRestButtonReset.setVisibility(View.VISIBLE);
-            current_action.setText("Долгий отдых");
+            current_action.setText(R.string.longrest);
             arrows.setVisibility(View.INVISIBLE);
             arrows_rest.setVisibility(View.INVISIBLE);
             arrows_long_rest.setVisibility(View.VISIBLE);
@@ -511,8 +508,8 @@ public class MainActivity extends AppCompatActivity {
         Intent iCheckMelody = getIntent();
         if (iCheckMelody != null) {
 
-            valueUri = getIntent().getStringExtra("MELODY");
-            Toast.makeText(this, "NOW "  + valueUri, Toast.LENGTH_SHORT).show();
+            String returnLong = getIntent().getStringExtra("MELODY");
+            Melody = returnLong;
             saveMelody();
 
         } else {
@@ -692,6 +689,7 @@ public class MainActivity extends AppCompatActivity {
                             CurrentProgressLongRest += 17.3;
                         LONG_REST_TIME_IN_MILLIS -= 103;
                         mLongRestLeftInMillis += 1200;
+                        Toast.makeText(MainActivity.this, "Current " + CurrentProgressLongRest, Toast.LENGTH_SHORT).show();
                         ((GifDrawable)cat_move.getDrawable()).start();
                         longRestTimer();
                     }
@@ -705,7 +703,7 @@ public class MainActivity extends AppCompatActivity {
         edit_current_action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (current_action.getText().toString().matches("Работа")) {
+                if (current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work")) {
                     if (mButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPause.setVisibility(View.INVISIBLE);
@@ -716,7 +714,7 @@ public class MainActivity extends AppCompatActivity {
                         cat_pause.setVisibility(View.VISIBLE);
                         cat_fall.setVisibility(View.INVISIBLE);
                         cat_sleep.setVisibility(View.INVISIBLE);
-                        current_action.setText("Отдых");
+                        current_action.setText(R.string.rest);
                         arrows.setVisibility(View.INVISIBLE);
                         arrows_rest.setVisibility(View.VISIBLE);
                         arrows_long_rest.setVisibility(View.INVISIBLE);
@@ -735,7 +733,7 @@ public class MainActivity extends AppCompatActivity {
                         cat_sleep.setVisibility(View.INVISIBLE);
                         cat_pause.setVisibility(View.VISIBLE);
                         cat_fall.setVisibility(View.INVISIBLE);
-                        current_action.setText("Отдых");
+                        current_action.setText(R.string.rest);
                         arrows.setVisibility(View.INVISIBLE);
                         arrows_rest.setVisibility(View.VISIBLE);
                         arrows_long_rest.setVisibility(View.INVISIBLE);
@@ -746,14 +744,14 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } else
-                if (current_action.getText().toString().matches("Отдых")) {
+                if (current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest")) {
                     if (mRestButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPauseRest.setVisibility(View.INVISIBLE);
                         mButtonStartPause.setVisibility(View.INVISIBLE);
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mRestButtonReset.setVisibility(View.INVISIBLE);
-                        current_action.setText("Долгий отдых");
+                        current_action.setText(R.string.longrest);
                         arrows.setVisibility(View.INVISIBLE);
                         arrows_rest.setVisibility(View.INVISIBLE);
                         arrows_long_rest.setVisibility(View.VISIBLE);
@@ -769,7 +767,7 @@ public class MainActivity extends AppCompatActivity {
                         mButtonStartPauseLongRest.setVisibility(View.VISIBLE);
                         mRestButtonReset.setVisibility(View.INVISIBLE);
                         mLongRestButtonReset.setVisibility(View.VISIBLE);
-                        current_action.setText("Долгий отдых");
+                        current_action.setText(R.string.longrest);
                         arrows.setVisibility(View.INVISIBLE);
                         arrows_rest.setVisibility(View.INVISIBLE);
                         arrows_long_rest.setVisibility(View.VISIBLE);
@@ -779,7 +777,7 @@ public class MainActivity extends AppCompatActivity {
                         longRestUpdateCountDownText();
                     }
 
-                } else if (current_action.getText().toString().matches("Долгий отдых")){
+                } else if (current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest")){
                     if (mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -790,7 +788,7 @@ public class MainActivity extends AppCompatActivity {
                         cat_sleep.setVisibility(View.VISIBLE);
                         cat_question.setVisibility(View.INVISIBLE);
                         cat_pause.setVisibility(View.INVISIBLE);
-                        current_action.setText("Работа");
+                        current_action.setText(R.string.work);
                         arrows.setVisibility(View.VISIBLE);
                         arrows_rest.setVisibility(View.INVISIBLE);
                         arrows_long_rest.setVisibility(View.INVISIBLE);
@@ -809,7 +807,7 @@ public class MainActivity extends AppCompatActivity {
                         cat_sleep.setVisibility(View.VISIBLE);
                         cat_question.setVisibility(View.INVISIBLE);
                         cat_pause.setVisibility(View.INVISIBLE);
-                        current_action.setText("Работа");
+                        current_action.setText(R.string.work);
                         arrows.setVisibility(View.VISIBLE);
                         arrows_rest.setVisibility(View.INVISIBLE);
                         arrows_long_rest.setVisibility(View.INVISIBLE);
@@ -827,13 +825,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                isExit = true;
-                saveMelody();
-                saveExit();
-                saveI();
-                sendValue();
-                onPause();
-
+               isExit = true;
+               saveExit();
+               saveI();
+               sendValue();
+               onPause();
 
 
 
@@ -968,6 +964,8 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         }
                     }
+
+
                 }
             }
         }
@@ -1007,7 +1005,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        loadMelody();
         collapse = true;
 
         }
@@ -1038,6 +1035,8 @@ public class MainActivity extends AppCompatActivity {
                                 countCircles();
                             }
                         }
+
+
                     }
                     for (iDone = 0; iDone < done; iDone++) {
                         saveI();
@@ -1051,6 +1050,7 @@ public class MainActivity extends AppCompatActivity {
                                 countCircles();
                             }
                         }
+
                     }
                 }
             }
@@ -1084,9 +1084,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+
+
+
+
+
             }
             collapse = true;
             first_start = false;
+
+
         }
 
 
@@ -1109,15 +1117,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if (current_action.getText().toString().matches("Работа")) {
+        if (current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work")) {
             updateCountDownText();
         }
-        if (current_action.getText().toString().matches("Отдых")) {
+        if (current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest")) {
             restUpdateCountDownText();
             cat_sleep.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.VISIBLE);
         }
-        if (current_action.getText().toString().matches("Долгий отдых")) {
+        if (current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest")) {
             longRestUpdateCountDownText();
             cat_sleep.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.VISIBLE);
@@ -1171,7 +1179,7 @@ public class MainActivity extends AppCompatActivity {
                 waitForStart();
 
 
-                current_action.setText("Работа");
+                current_action.setText(R.string.work);
                 cat_sleep.setVisibility(View.INVISIBLE);
                 cat_move.setVisibility(View.VISIBLE);
                 arrows.setVisibility(View.INVISIBLE);
@@ -1283,7 +1291,7 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setProgress((int)CurrentProgressRest,true);
                 waitForStartRest();
                 restUpdateCountDownText();
-                current_action.setText("Отдых");
+                current_action.setText(R.string.rest);
                 cat_question.startAnimation(nullAnimation);
                 cat_sleep.setVisibility(View.VISIBLE);
                 cat_move.setVisibility(View.INVISIBLE);
@@ -1361,7 +1369,7 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setProgress((int)CurrentProgressLongRest,true); // установка значения
                 waitForStartLongRest();
                 longRestUpdateCountDownText();
-                current_action.setText("Долгий отдых");
+                current_action.setText(R.string.longrest);
                 cat_sleep.setVisibility(View.VISIBLE);
                 cat_move.setVisibility(View.INVISIBLE);
                 cat_question.setVisibility(View.INVISIBLE);
@@ -1795,10 +1803,10 @@ public class MainActivity extends AppCompatActivity {
                 menu.setVisibility(View.VISIBLE);
                 visibilityCatMove();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?");
+                builder.setMessage(R.string.timer_end);
                 builder.setTitle("Конец");
                 builder.setCancelable(false);
-                builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
@@ -1809,7 +1817,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
@@ -1842,21 +1850,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendValue(){
-        if (current_action.getText().toString().matches("Работа") && mButtonReset.getVisibility() == View.INVISIBLE) {
+        if ((current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work")) && mButtonReset.getVisibility() == View.INVISIBLE) {
             checkAction = 1;
-        } else if (current_action.getText().toString().matches("Работа") && mButtonReset.getVisibility() == View.VISIBLE) {
+        } else if ((current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work")) && mButtonReset.getVisibility() == View.VISIBLE) {
             checkAction = 2;
         }
-        else if (current_action.getText().toString().matches("Отдых") && mRestButtonReset.getVisibility() == View.INVISIBLE) {
+        else if ((current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest")) && mRestButtonReset.getVisibility() == View.INVISIBLE) {
             checkAction = 3;
         }
-        else if (current_action.getText().toString().matches("Отдых") && mRestButtonReset.getVisibility() == View.VISIBLE) {
+        else if ((current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest")) && mRestButtonReset.getVisibility() == View.VISIBLE) {
             checkAction = 4;
         }
-        else if (current_action.getText().toString().matches("Долгий отдых") && mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
+        else if ((current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest")) && mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
             checkAction = 5;
         }
-        else if (current_action.getText().toString().matches("Долгий отдых") && mLongRestButtonReset.getVisibility() == View.VISIBLE) {
+        else if ((current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest")) && mLongRestButtonReset.getVisibility() == View.VISIBLE) {
             checkAction = 6;
         }
 
@@ -2085,21 +2093,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void saveMelody() {
-        final SharedPreferences prefs = MainActivity.this.getSharedPreferences("PREFERENCE_NAME",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("save_melody", valueUri);
-        editor.apply();
+        pref_melody = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor edlongrest = pref_melody.edit();
+        edlongrest.putString("save_melody", String.valueOf(Melody));
+        edlongrest.apply();
 
     }
 
     private void loadMelody() {
-        pref_color = getPreferences(MODE_PRIVATE);
-        String savedTextLongRest = pref_color.getString("save_melody", valueUri);
-        valueUri = savedTextLongRest;
+        pref_melody = getPreferences(MODE_PRIVATE);
+        String savedTextLongRest = pref_melody.getString("save_melody", String.valueOf(Melody));
+        Melody = String.valueOf(savedTextLongRest);
     }
-
-
 
 
 
@@ -3080,23 +3085,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void playRingtone() {
-//        loadMelody();
-////        currentRingtone = RingtoneManager.getRingtone(MainActivity.this, Uri.parse(Melody));
-//        Uri currentRingtone = Uri.parse(valueUri);
-//        MediaPlayer mp = MediaPlayer.create(MainActivity.this, currentRingtone);
-//        mp.start();
-
-//        new CountDownTimer(3000, 1000) {
-//
-//            public void onTick(long millisUntilFinished) {
-//                // You don't need to use this.
-//            }
-//
-//            public void onFinish() {
-//                currentRingtone.stop();
-//            }
-//
-//        }.start();
+        loadMelody();
+        currentRingtone = RingtoneManager.getRingtone(MainActivity.this, Uri.parse(Melody));
+        currentRingtone.play();
     }
 
     private void animationProgressBarClose() {

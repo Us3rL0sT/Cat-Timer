@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Cat Timer</string>
+    <string name="work">Work</string>
+    <string name="rest">Rest</string>
+    <string name="longrest">Long rest</string>
+    <string name="duration">Duration</string>
+    <string name="theme_color">Color theme</string>
+    <string name="main_settings">Main settings</string>
+    <string name="autostart_timer">Auto-start timer</string>
+    <string name="whenstop">Works before a long break</string>
+    <string name="until_end">Daily goal</string>
+    <string name="vibration">Vibration</string>
+    <string name="notification">Notification</string>
+    <string name="display">Do not turn off the screen</string>
+    <string name="melody">Melody</string>
+    <string name="instruction">Instruction</string>
+    <string name="rate_us">Rate us</string>
+    <string name="contact_us">Contact us</string>
+    <string name="timer_end">You did a good job today. Congratulations! Would you like to start over?</string>
+    <string name="yes">Yes</string>
+    <string name="no">Cancel</string>
+
+</resources>
