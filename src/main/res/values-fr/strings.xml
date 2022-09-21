@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Cat Timer</string>
+    <string name="work">Travail</string>
+    <string name="rest">Détente</string>
+    <string name="longrest">Long repos</string>
+    <string name="duration">Durée</string>
+    <string name="theme_color">Thème de couleur</string>
+    <string name="main_settings">Paramètres principaux</string>
+    <string name="autostart_timer">Minuterie de démarrage automatique</string>
+    <string name="autostart_rest">Repos de démarrage automatique</string>
+    <string name="whenstop">Travaux avant une longue pause</string>
+    <string name="until_end">Objectif quotidien</string>
+    <string name="vibration">Vibration</string>
+    <string name="notification">Notification</string>
+    <string name="display">N\'éteignez pas l\'écran</string>
+    <string name="melody">Mélodie</string>
+    <string name="instruction">Instruction</string>
+    <string name="rate_us">Évaluez-nous</string>
+    <string name="contact_us">Contacter</string>
+    <string name="timer_end">Tu as fait du bon travail aujourd\'hui. Bravo! Voulez-vous recommencer?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Annuler</string>
+
+</resources>

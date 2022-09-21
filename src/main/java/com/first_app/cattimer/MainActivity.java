@@ -5,26 +5,17 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.BroadcastReceiver;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -35,7 +26,6 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -110,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
     private Button mRestButtonReset;
     private Button mLongRestButtonReset;
     private Button edit_current_action;
-    private Button button_check_condition;
 
 
 
@@ -202,7 +191,6 @@ public class MainActivity extends AppCompatActivity {
         mLongRestButtonReset = findViewById(R.id.button_long_rest_restart);
         edit_current_action = findViewById(R.id.edit_current_action);
         deleteImage = findViewById(R.id.deleteImage);
-        button_check_condition = findViewById(R.id.button_check_condition);
 
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
@@ -293,12 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        button_check_condition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playRingtone();
-            }
-        });
+
 
     if (checkAction == 1) {
             mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -703,7 +686,9 @@ public class MainActivity extends AppCompatActivity {
         edit_current_action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work")) {
+                if (current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work") || current_action.getText().toString().matches("工作")
+                        || current_action.getText().toString().matches("Arbeit") || current_action.getText().toString().matches("Посао") || current_action.getText().toString().matches("Робота")
+                        || current_action.getText().toString().matches("Travail") || current_action.getText().toString().matches("仕事") || current_action.getText().toString().matches("Trabajo")) {
                     if (mButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPause.setVisibility(View.INVISIBLE);
@@ -744,7 +729,9 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } else
-                if (current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest")) {
+                if (current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest") || current_action.getText().toString().matches("休息")
+                        || current_action.getText().toString().matches("Erholung") || current_action.getText().toString().matches("Одмор") || current_action.getText().toString().matches("Відпочинок")
+                        || current_action.getText().toString().matches("Détente") || current_action.getText().toString().matches("休息") || current_action.getText().toString().matches("Descanso")) {
                     if (mRestButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPauseRest.setVisibility(View.INVISIBLE);
@@ -777,7 +764,9 @@ public class MainActivity extends AppCompatActivity {
                         longRestUpdateCountDownText();
                     }
 
-                } else if (current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest")){
+                } else if (current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest") || current_action.getText().toString().matches("长时间休息")
+                        || current_action.getText().toString().matches("Lange Pause") || current_action.getText().toString().matches("Дуг одмор") || current_action.getText().toString().matches("Довгий відпочинок")
+                        || current_action.getText().toString().matches("Long repos") || current_action.getText().toString().matches("長い休息") || current_action.getText().toString().matches("Largo descanso")){
                     if (mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
                         clickableAnimationChange();
                         mButtonStartPauseLongRest.setVisibility(View.INVISIBLE);
@@ -1117,15 +1106,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if (current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work")) {
+        if (current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work") || current_action.getText().toString().matches("工作")
+                || current_action.getText().toString().matches("Arbeit") || current_action.getText().toString().matches("Посао") || current_action.getText().toString().matches("Робота")
+                || current_action.getText().toString().matches("Travail") || current_action.getText().toString().matches("仕事") || current_action.getText().toString().matches("Trabajo")) {
             updateCountDownText();
         }
-        if (current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest")) {
+        if (current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest") || current_action.getText().toString().matches("休息")
+                || current_action.getText().toString().matches("Erholung") || current_action.getText().toString().matches("Одмор") || current_action.getText().toString().matches("Відпочинок")
+                || current_action.getText().toString().matches("Détente") || current_action.getText().toString().matches("休息") || current_action.getText().toString().matches("Descanso")) {
             restUpdateCountDownText();
             cat_sleep.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.VISIBLE);
         }
-        if (current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest")) {
+        if (current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest") || current_action.getText().toString().matches("长时间休息")
+                || current_action.getText().toString().matches("Lange Pause") || current_action.getText().toString().matches("Дуг одмор") || current_action.getText().toString().matches("Довгий відпочинок")
+                || current_action.getText().toString().matches("Long repos") || current_action.getText().toString().matches("長い休息") || current_action.getText().toString().matches("Largo descanso")) {
             longRestUpdateCountDownText();
             cat_sleep.setVisibility(View.INVISIBLE);
             cat_pause.setVisibility(View.VISIBLE);
@@ -1136,13 +1131,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        onStart();
+//        Toast.makeText(this, "ON RESTART", Toast.LENGTH_SHORT).show();
         done -= 1;
 
-        Intent intent = getIntent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        startActivity(intent);
+//        Intent intent = getIntent();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        finish();
+//        startActivity(intent);
 
     }
 
@@ -1850,21 +1845,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendValue(){
-        if ((current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work")) && mButtonReset.getVisibility() == View.INVISIBLE) {
+        if ((current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work") || current_action.getText().toString().matches("工作")
+                || current_action.getText().toString().matches("Arbeit") || current_action.getText().toString().matches("Посао") || current_action.getText().toString().matches("Робота")
+                || current_action.getText().toString().matches("Travail") || current_action.getText().toString().matches("仕事") || current_action.getText().toString().matches("Trabajo"))
+            && mButtonReset.getVisibility() == View.INVISIBLE) {
             checkAction = 1;
-        } else if ((current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work")) && mButtonReset.getVisibility() == View.VISIBLE) {
+        } else if ((current_action.getText().toString().matches("Работа") || current_action.getText().toString().matches("Work") || current_action.getText().toString().matches("工作")
+                || current_action.getText().toString().matches("Arbeit") || current_action.getText().toString().matches("Посао") || current_action.getText().toString().matches("Робота")
+                || current_action.getText().toString().matches("Travail") || current_action.getText().toString().matches("仕事") || current_action.getText().toString().matches("Trabajo")) && mButtonReset.getVisibility() == View.VISIBLE) {
             checkAction = 2;
         }
-        else if ((current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest")) && mRestButtonReset.getVisibility() == View.INVISIBLE) {
+        else if ((current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest") || current_action.getText().toString().matches("休息")
+                || current_action.getText().toString().matches("Erholung") || current_action.getText().toString().matches("Одмор") || current_action.getText().toString().matches("Відпочинок")
+                || current_action.getText().toString().matches("Détente") || current_action.getText().toString().matches("休息") || current_action.getText().toString().matches("Descanso")) && mRestButtonReset.getVisibility() == View.INVISIBLE) {
             checkAction = 3;
         }
-        else if ((current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest")) && mRestButtonReset.getVisibility() == View.VISIBLE) {
+        else if ((current_action.getText().toString().matches("Отдых") || current_action.getText().toString().matches("Rest") || current_action.getText().toString().matches("休息")
+                || current_action.getText().toString().matches("Erholung") || current_action.getText().toString().matches("Одмор") || current_action.getText().toString().matches("Відпочинок")
+                || current_action.getText().toString().matches("Détente") || current_action.getText().toString().matches("休息") || current_action.getText().toString().matches("Descanso")) && mRestButtonReset.getVisibility() == View.VISIBLE) {
             checkAction = 4;
         }
-        else if ((current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest")) && mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
+        else if ((current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest") || current_action.getText().toString().matches("长时间休息")
+                || current_action.getText().toString().matches("Lange Pause") || current_action.getText().toString().matches("Дуг одмор") || current_action.getText().toString().matches("Довгий відпочинок")
+                || current_action.getText().toString().matches("Long repos") || current_action.getText().toString().matches("長い休息") || current_action.getText().toString().matches("Largo descanso")) && mLongRestButtonReset.getVisibility() == View.INVISIBLE) {
             checkAction = 5;
         }
-        else if ((current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest")) && mLongRestButtonReset.getVisibility() == View.VISIBLE) {
+        else if ((current_action.getText().toString().matches("Долгий отдых") || current_action.getText().toString().matches("Long rest") || current_action.getText().toString().matches("长时间休息")
+                || current_action.getText().toString().matches("Lange Pause") || current_action.getText().toString().matches("Дуг одмор") || current_action.getText().toString().matches("Довгий відпочинок")
+                || current_action.getText().toString().matches("Long repos") || current_action.getText().toString().matches("長い休息") || current_action.getText().toString().matches("Largo descanso")) && mLongRestButtonReset.getVisibility() == View.VISIBLE) {
             checkAction = 6;
         }
 

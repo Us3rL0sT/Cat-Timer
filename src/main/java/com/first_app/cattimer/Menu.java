@@ -433,8 +433,12 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_whenstop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                button_whenstop_background.getBackground().setAlpha(1);
+
                 maximizedContainer.setVisibility(View.VISIBLE);
+                when_stop_invisible.startAnimation(fastAnimation);
+                plus_whenstop.startAnimation(fastAnimation);
+                minus_whenstop.startAnimation(fastAnimation);
+                whenstop_text.startAnimation(fastAnimation);
                 shade.setVisibility(View.VISIBLE);
                 when_stop_invisible.setVisibility(View.VISIBLE);
                 plus_whenstop.setVisibility(View.VISIBLE);
@@ -452,6 +456,8 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_vibration_notdone.setClickable(false);
                 button_autostart_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
+                button_autostartrest_done.setClickable(false);
+                button_autostartrest_notdone.setClickable(false);
                 isBlockedScrollView = true;
 
 
@@ -459,12 +465,14 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_color_value_drawable = (ColorDrawable) button_whenstop.getBackground();
                 button_color_value = button_color_value_drawable.getColor();
 
-                button_until_end.setBackgroundColor(0);
 
-                until_end_action_name.setAlpha(0.2f);
+
+
                 when_stop_action_name.setAlpha(0.2f);
-                when_stop.setAlpha(0.2f);
+                until_end_action_name.setAlpha(0.2f);
                 until_end.setAlpha(0.2f);
+                when_stop.setAlpha(0.2f);
+
                 SW.smoothScrollTo(0, 1400);
             }
         });
@@ -499,6 +507,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             @Override
             public void onClick(View view) {
                 maximizedContainer.setVisibility(View.VISIBLE);
+                until_end_invisible.startAnimation(fastAnimation);
+                plus_until_end.startAnimation(fastAnimation);
+                minus_until_end.startAnimation(fastAnimation);
+                untilend_text.startAnimation(fastAnimation);
                 shade.setVisibility(View.VISIBLE);
                 until_end_invisible.setVisibility(View.VISIBLE);
                 plus_until_end.setVisibility(View.VISIBLE);
@@ -515,14 +527,17 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_vibration_background.setClickable(false);
                 button_autostartrest_background.setClickable(false);
                 button_whenstop_background.setClickable(false);
+                button_autostartrest_done.setClickable(false);
+                button_autostartrest_notdone.setClickable(false);
                 isBlockedScrollView = true;
 
                 button_color_value_drawable = (ColorDrawable) button_whenstop.getBackground();
                 button_color_value = button_color_value_drawable.getColor();
-                button_whenstop.setBackgroundColor(0);
-                button_until_end.setBackgroundColor(0);
 
-                button_whenstop_background.getBackground().setAlpha(1);
+
+
+
+
                 until_end_action_name.setAlpha(0.2f);
                 when_stop_action_name.setAlpha(0.2f);
                 when_stop.setAlpha(0.2f);
@@ -745,7 +760,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 hideKeyboard(Menu.this);
 
 
-                button_whenstop_background.getBackground().setAlpha(255);
+
 
                 button_rest_time.getBackground().setAlpha(255);
                 button_long_rest_time.getBackground().setAlpha(255);
@@ -786,10 +801,15 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_rest_time.setClickable(true);
                 button_long_rest_time.setClickable(true);
                 button_color.setClickable(true);
+                button_autostartrest_done.setClickable(true);
+                button_autostartrest_notdone.setClickable(true);
 
 
-                button_whenstop_background.getBackground().setAlpha(255);
+
                 button_color.getBackground().setAlpha(255);
+
+
+
 
 
                 until_end_action_name.setAlpha(1.0f);

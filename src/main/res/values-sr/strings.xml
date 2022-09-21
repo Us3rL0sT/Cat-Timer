@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Cat Timer</string>
+    <string name="work">Посао</string>
+    <string name="rest">Одмор</string>
+    <string name="longrest">Дуги одмор</string>
+    <string name="duration">Трајање</string>
+    <string name="theme_color">Тема боја</string>
+    <string name="main_settings">Основна подешавања</string>
+    <string name="autostart_timer">Тајмер за аутоматско покретање</string>
+    <string name="autostart_rest">Одмор са аутоматским покретањем</string>
+    <string name="whenstop">Ради пре дуге паузе</string>
+    <string name="until_end">Дневни циљ</string>
+    <string name="vibration">Вибрација</string>
+    <string name="notification">Обавештење</string>
+    <string name="display">Не искључујте екран</string>
+    <string name="melody">Мелодија</string>
+    <string name="instruction">Упутство</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="contact_us">Контактирајте нас</string>
+    <string name="timer_end">Данас си добро обавио посао. Èestitam! Да ли бисте желели да почнете испочетка? </string>
+    <string name="yes">Da.</string>
+    <string name="no">Откажи</string>
+
+</resources>
