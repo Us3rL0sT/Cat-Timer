@@ -8,8 +8,8 @@
     <string name="main_settings">Основні налаштування</string>
     <string name="autostart_timer">Таймер автоматичного запуску</string>
     <string name="autostart_rest">Відпочинок з автоматичним запуском</string>
-    <string name="whenstop">Працює перед довгою перервою</string>
-    <string name="until_end">Щоденна мета</string>
+    <string name="until_end">Працює перед довгою перервою</string>
+    <string name="whenstop">Щоденна мета</string>
     <string name="vibration">Вібрація</string>
     <string name="notification">Повідомлення</string>
     <string name="display">Не вимикайте екран</string>

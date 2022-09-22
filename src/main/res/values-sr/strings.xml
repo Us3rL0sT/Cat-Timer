@@ -8,8 +8,8 @@
     <string name="main_settings">Основна подешавања</string>
     <string name="autostart_timer">Тајмер за аутоматско покретање</string>
     <string name="autostart_rest">Одмор са аутоматским покретањем</string>
-    <string name="whenstop">Ради пре дуге паузе</string>
-    <string name="until_end">Дневни циљ</string>
+    <string name="until_end">Ради пре дуге паузе</string>
+    <string name="whenstop">Дневни циљ</string>
     <string name="vibration">Вибрација</string>
     <string name="notification">Обавештење</string>
     <string name="display">Не искључујте екран</string>

@@ -8,8 +8,8 @@
     <string name="main_settings">Haupteinstellungen</string>
     <string name="autostart_timer">Zeitschaltuhr für automatischen Start</string>
     <string name="autostart_rest">Ruhe automatisch starten</string>
-    <string name="whenstop">Funktioniert vor einer langen Pause</string>
-    <string name="until_end">Tägliches Ziel</string>
+    <string name="until_end">Funktioniert vor einer langen Pause</string>
+    <string name="whenstop">Tägliches Ziel</string>
     <string name="vibration">Schwingung</string>
     <string name="notification">Benachrichtigung</string>
     <string name="display">Schalten Sie den Bildschirm nicht aus</string>

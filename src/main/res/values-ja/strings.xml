@@ -8,8 +8,8 @@
     <string name="main_settings">主な設定</string>
     <string name="autostart_timer">オートスタートタイマー</string>
     <string name="autostart_rest">自動開始の残り</string>
-    <string name="whenstop">長い休憩の前に動作します</string>
-    <string name="until_end">日々の目標</string>
+    <string name="until_end">長い休憩の前に動作します</string>
+    <string name="whenstop">日々の目標</string>
     <string name="vibration">振動</string>
     <string name="notification">お知らせ</string>
     <string name="display">画面をオフにしないでください</string>

@@ -8,8 +8,8 @@
     <string name="main_settings">Ajustes principales</string>
     <string name="autostart_timer">Temporizador de arranque automático</string>
     <string name="autostart_rest">Descanso de arranque automático</string>
-    <string name="whenstop">Funciona antes de un largo descanso</string>
-    <string name="until_end">Objetivo diario</string>
+    <string name="until_end">Funciona antes de un largo descanso</string>
+    <string name="whenstop">Objetivo diario</string>
     <string name="vibration">Vibración</string>
     <string name="notification">Notificación</string>
     <string name="display">No apagues la pantalla</string>

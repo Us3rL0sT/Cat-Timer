@@ -8,8 +8,8 @@
     <string name="main_settings">Paramètres principaux</string>
     <string name="autostart_timer">Minuterie de démarrage automatique</string>
     <string name="autostart_rest">Repos de démarrage automatique</string>
-    <string name="whenstop">Travaux avant une longue pause</string>
-    <string name="until_end">Objectif quotidien</string>
+    <string name="until_end">Travaux avant une longue pause</string>
+    <string name="whenstop">Objectif quotidien</string>
     <string name="vibration">Vibration</string>
     <string name="notification">Notification</string>
     <string name="display">N\'éteignez pas l\'écran</string>
