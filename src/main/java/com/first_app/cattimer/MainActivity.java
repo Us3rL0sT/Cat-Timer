@@ -25,6 +25,7 @@ import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -38,6 +39,8 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+import hotchemi.android.rate.AppRate;
+import hotchemi.android.rate.OnClickButtonListener;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mRestButtonReset;
     private Button mLongRestButtonReset;
     private Button edit_current_action;
+
 
 
 
@@ -168,6 +172,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        setContentView(R.layout.activity_main);
+
+        AppRate.with(this)
+                .setInstallDays(1) // default 10, 0 means install day.
+                .setLaunchTimes(3) // default 10
+                .setRemindInterval(1) // default 1
+                .setShowLaterButton(true) // default true
+                .setDebug(false) // default false
+                .setOnClickButtonListener(new OnClickButtonListener() { // callback listener.
+                    @Override
+                    public void onClickButton(int which) {
+                        Log.d(MainActivity.class.getName(), Integer.toString(which));
+                    }
+                })
+                .monitor();
+
+        // Show a dialog if meets conditions
+        AppRate.showRateDialogIfMeetsConditions(this);
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         height_phone = displayMetrics.heightPixels;
@@ -213,6 +236,8 @@ public class MainActivity extends AppCompatActivity {
 
         menu = findViewById(R.id.menu_icon);
 
+
+
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         deleteImage.setAlpha(0.6f);
@@ -252,6 +277,8 @@ public class MainActivity extends AppCompatActivity {
         );
 
         onStart();
+
+
 
 
         deleteImage.setOnClickListener(new View.OnClickListener() {
@@ -1008,6 +1035,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
 
         if (first_start == true) {
             if (collapse == false) {
@@ -3237,7 +3265,9 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
+    private void rateUs(){
 
+    }
 
 
 
