@@ -160,6 +160,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
     private Animation inAnimation;
     private Animation outAnimation;
+    private Animation fastExit;
     private Animation nullAnimation;
     private Animation fastAnimation;
 
@@ -187,6 +188,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
+        fastExit = AnimationUtils.loadAnimation(this, R.anim.alpha_fastexit);
         nullAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_null);
         fastAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_fast);
         final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.anim_translate);
@@ -465,8 +467,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 button_color_value = button_color_value_drawable.getColor();
 
 
-
-
+                button_whenstop.startAnimation(fastExit);
+                button_until_end.startAnimation(fastExit);
+                button_whenstop.setVisibility(View.INVISIBLE);
+                button_until_end.setVisibility(View.INVISIBLE);
                 when_stop_action_name.setAlpha(0.2f);
                 until_end_action_name.setAlpha(0.2f);
                 until_end.setAlpha(0.2f);
@@ -535,7 +539,10 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
 
 
 
-
+                button_whenstop.startAnimation(fastExit);
+                button_until_end.startAnimation(fastExit);
+                button_whenstop.setVisibility(View.INVISIBLE);
+                button_until_end.setVisibility(View.INVISIBLE);
 
                 until_end_action_name.setAlpha(0.2f);
                 when_stop_action_name.setAlpha(0.2f);
@@ -759,6 +766,9 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
                 hideKeyboard(Menu.this);
 
 
+
+                button_whenstop.setVisibility(View.VISIBLE);
+                button_until_end.setVisibility(View.VISIBLE);
 
 
                 button_rest_time.getBackground().setAlpha(255);
