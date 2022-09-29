@@ -1040,6 +1040,15 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
             }
         });
 
+        button_rate_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cat.drru.agconnect.link/nA4b"));
+                startActivity(browserIntent);
+
+            }
+        });
+
 
         String finalDebugInfo = debugInfo;
         button_contact_us.setOnClickListener(new View.OnClickListener() {
