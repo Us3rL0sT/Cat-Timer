@@ -20,5 +20,7 @@
     <string name="timer_end">Tu as fait du bon travail aujourd\'hui. Bravo! Voulez-vous recommencer?</string>
     <string name="yes">Oui</string>
     <string name="no">Annuler</string>
+    <string name="timer_ready_to_start">Minuterie prête à démarrer</string>
+    <string name="open">Ouvrir</string>
 
 </resources>

@@ -20,5 +20,7 @@
     <string name="timer_end">今日は良い仕事をした おめでとうございます！ 最初からやり直そうか?</string>
     <string name="yes">はい。</string>
     <string name="no">キャンセル</string>
+    <string name="timer_ready_to_start">タイマーを開始する準備ができています</string>
+    <string name="open">オープン</string>
 
 </resources>

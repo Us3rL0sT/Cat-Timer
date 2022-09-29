@@ -20,5 +20,7 @@
     <string name="timer_end">Du hast heute einen guten Job gemacht. Herzlichen Glückwunsch! Möchten Sie von vorne anfangen?</string>
     <string name="yes">Ja</string>
     <string name="no">Stornieren</string>
+    <string name="timer_ready_to_start">Der Timer ist startbereit</string>
+    <string name="open">Öffnen</string>
 
 </resources>

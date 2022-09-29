@@ -20,5 +20,7 @@
     <string name="timer_end">你今天做得很好。 祝贺你！ 你想重新开始吗？</string>
     <string name="yes">是的</string>
     <string name="no">取消</string>
+    <string name="timer_ready_to_start">定时器准备启动</string>
+    <string name="open">打开</string>
 
 </resources>

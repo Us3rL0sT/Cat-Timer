@@ -1,6 +1,7 @@
 package com.first_app.cattimer;
 
 
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -920,9 +921,9 @@ public class MainActivity extends AppCompatActivity {
 
             Notification notification = new Notification.Builder(getApplicationContext(), id)
                     .setSmallIcon(R.drawable.arrows)
-                    .setContentTitle("Таймер готов к старту!")
+                    .setContentTitle(getApplicationContext().getString(R.string.timer_ready_to_start))
                     .setContentText(String.valueOf((START_TIME_IN_MILLIS / 1000) / 60) + ":00")
-                    .addAction(R.drawable.arrows, "Открыть", pendingIntent)
+                    .addAction(R.drawable.arrows, getApplicationContext().getString(R.string.open), pendingIntent)
                     .build();
 
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

@@ -20,6 +20,8 @@
     <string name="timer_end">Вы хорошо поработали сегодня. Поздравляем! Желаете начать сначала?</string>
     <string name="yes">Да</string>
     <string name="no">Отмена</string>
+    <string name="open">Открыть</string>
+    <string name="timer_ready_to_start">Таймер готов к старту</string>
 
 
 </resources>

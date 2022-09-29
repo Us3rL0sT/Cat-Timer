@@ -20,5 +20,7 @@
     <string name="timer_end">Hiciste un buen trabajo hoy. ¡Felicitaciones! ¿Te gustaría empezar de nuevo?</string>
     <string name="yes">Sí</string>
     <string name="no">Cancelar</string>
+    <string name="timer_ready_to_start">Temporizador listo para comenzar</string>
+    <string name="open">Abrir</string>
 
 </resources>

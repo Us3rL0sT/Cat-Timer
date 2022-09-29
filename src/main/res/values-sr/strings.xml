@@ -20,5 +20,7 @@
     <string name="timer_end">Данас си добро обавио посао. Èestitam! Да ли бисте желели да почнете испочетка? </string>
     <string name="yes">Da.</string>
     <string name="no">Откажи</string>
+    <string name="timer_ready_to_start">Тајмер спреман за почетак</string>
+    <string name="open">Отвори</string>
 
 </resources>

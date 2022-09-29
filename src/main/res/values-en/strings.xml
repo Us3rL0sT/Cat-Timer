@@ -20,5 +20,7 @@
     <string name="timer_end">You did a good job today. Congratulations! Would you like to start over?</string>
     <string name="yes">Yes</string>
     <string name="no">Cancel</string>
+    <string name="timer_ready_to_start">The timer is ready to start</string>
+    <string name="open">Open</string>
 
 </resources>
