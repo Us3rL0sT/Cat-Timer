@@ -22,6 +22,8 @@
     <string name="no">Отмена</string>
     <string name="open">Открыть</string>
     <string name="timer_ready_to_start">Таймер готов к старту</string>
+    <string name="thank_you">Спасибо!</string>
+
 
 
 </resources>

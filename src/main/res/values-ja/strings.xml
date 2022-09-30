@@ -22,5 +22,6 @@
     <string name="no">キャンセル</string>
     <string name="timer_ready_to_start">タイマーを開始する準備ができています</string>
     <string name="open">オープン</string>
+    <string name="thank_you">ありがとう！</string>
 
 </resources>

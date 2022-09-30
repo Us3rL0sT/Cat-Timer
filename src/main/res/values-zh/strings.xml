@@ -22,5 +22,6 @@
     <string name="no">取消</string>
     <string name="timer_ready_to_start">定时器准备启动</string>
     <string name="open">打开</string>
+    <string name="thank_you">谢谢！</string>
 
 </resources>

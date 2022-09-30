@@ -22,5 +22,6 @@
     <string name="no">Cancelar</string>
     <string name="timer_ready_to_start">Temporizador listo para comenzar</string>
     <string name="open">Abrir</string>
+    <string name="thank_you">¡Gracias!</string>
 
 </resources>

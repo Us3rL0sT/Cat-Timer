@@ -22,5 +22,6 @@
     <string name="no">Stornieren</string>
     <string name="timer_ready_to_start">Der Timer ist startbereit</string>
     <string name="open">Öffnen</string>
+    <string name="thank_you">Danke!</string>
 
 </resources>

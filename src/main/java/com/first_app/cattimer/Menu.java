@@ -1052,7 +1052,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         button_rate_us.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Menu.this, "Thank you!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Menu.this, R.string.thank_you, Toast.LENGTH_SHORT).show();
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cat.drru.agconnect.link/nA4b"));
                 startActivity(browserIntent);
 
