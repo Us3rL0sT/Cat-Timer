@@ -1364,7 +1364,7 @@ public class Menu extends MainActivity implements ColorPickerDialogListener {
         Melody = savedTextMelody;
 
         if (Melody == "")
-            melody_text.setText("Выберите мелодию!");
+            melody_text.setText(R.string.choose_melody);
         else
             melody_text.setText(Melody);
 

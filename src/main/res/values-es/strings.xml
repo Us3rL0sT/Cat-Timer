@@ -23,5 +23,6 @@
     <string name="timer_ready_to_start">Temporizador listo para comenzar</string>
     <string name="open">Abrir</string>
     <string name="thank_you">¡Gracias!</string>
+    <string name="choose_melody">¡Elige un tono de llamada!</string>
 
 </resources>

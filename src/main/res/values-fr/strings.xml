@@ -23,5 +23,6 @@
     <string name="timer_ready_to_start">Minuterie prête à démarrer</string>
     <string name="open">Ouvrir</string>
     <string name="thank_you">Merci!</string>
+    <string name="choose_melody">Choisissez une mélodie!</string>
 
 </resources>

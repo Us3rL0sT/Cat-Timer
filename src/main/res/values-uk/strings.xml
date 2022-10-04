@@ -23,5 +23,6 @@
     <string name="timer_ready_to_start">Таймер готовий до старту</string>
     <string name="open">Відкривши</string>
     <string name="thank_you">Спасибі!</string>
+    <string name="choose_melody">Виберіть мелодію!</string>
 
 </resources>

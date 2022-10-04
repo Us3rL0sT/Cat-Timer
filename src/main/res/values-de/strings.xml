@@ -23,5 +23,6 @@
     <string name="timer_ready_to_start">Der Timer ist startbereit</string>
     <string name="open">Öffnen</string>
     <string name="thank_you">Danke!</string>
+    <string name="choose_melody">Wählen Sie einen Klingelton!</string>
 
 </resources>

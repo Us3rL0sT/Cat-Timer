@@ -23,5 +23,6 @@
     <string name="timer_ready_to_start">定时器准备启动</string>
     <string name="open">打开</string>
     <string name="thank_you">谢谢！</string>
+    <string name="choose_melody">选择一个旋律！</string>
 
 </resources>

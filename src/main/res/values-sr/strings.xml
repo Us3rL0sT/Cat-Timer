@@ -23,5 +23,6 @@
     <string name="timer_ready_to_start">Тајмер спреман за почетак</string>
     <string name="open">Отвори</string>
     <string name="thank_you">Hvala!</string>
+    <string name="choose_melody">Изаберите мелодију!</string>
 
 </resources>

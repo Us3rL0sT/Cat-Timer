@@ -23,5 +23,6 @@
     <string name="timer_ready_to_start">The timer is ready to start</string>
     <string name="open">Open</string>
     <string name="thank_you">Thank you!</string>
+    <string name="choose_melody">Choose a melody!</string>
 
 </resources>
